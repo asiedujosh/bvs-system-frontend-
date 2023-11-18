@@ -1,0 +1,14 @@
+### Admin Register Routes
+POST http://127.0.0.1:8000/api/companyAdd
+Content-Type: application/json
+
+{
+ "companyAddress": "Accra",
+ "companyEmail": "josheyes0@gmail.com",
+ "companyName": "Bayport Bank",
+ "companyTel": "0552897142",
+ "officerPosition": "Relation Officer",
+ "officerTel": "0266469846",
+ "relationOfficer": "John Doe"
+}
+
