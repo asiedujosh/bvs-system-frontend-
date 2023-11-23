@@ -10,9 +10,6 @@ const NavbarLink = ({ label, url }) => {
   const currentPath = `/${usePathname().split("/")[1]}`
   const isLinkActive = currentPath === linkToCheck
 
-  console.log(`the current path ${currentPath}`)
-  console.log(`Expected Routes ${linkToCheck}`)
-
   const NewNavLink = (
     <Link
       href={url}
