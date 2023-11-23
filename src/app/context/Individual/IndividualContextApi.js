@@ -1,8 +1,8 @@
 "use client"
 import React, { createContext, useState } from "react"
 import { notify } from "@/app/utils/responseUtils"
-import { SUCCESS_STATUS } from "../../constant/requestConstants"
-import { useRouter } from "next/navigation"
+import { SUCCESS_STATUS } from "@/app/constant/requestConstants"
+import { useRouter } from "next/router"
 import {
   addClient,
   addService,

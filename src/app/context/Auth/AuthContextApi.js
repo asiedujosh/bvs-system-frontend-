@@ -1,10 +1,10 @@
 "use client"
 
 import React, { createContext, useState } from "react"
-import { useRouter } from "next/navigation"
-import axios from "../../utils/axios.config"
+import { useRouter } from "next/router"
+import axios from "@/app/utils/axios.config"
 import { login, retrieve, getAllUsers } from "./Auth"
-import cookieMethods from "../../utils/cookieUtils"
+import cookieMethods from "@/app/utils/cookieUtils"
 
 export const AuthApiData = createContext()
 
