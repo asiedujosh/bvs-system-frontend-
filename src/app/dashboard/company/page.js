@@ -1,20 +1,33 @@
 "use client"
-import { AuthApiData } from "../../context/Auth/AuthContextApi.js"
+import { IndividualApiData } from "../../context/Individual/IndividualContextApi.js"
 import { useContext, useEffect } from "react"
 import Navbar from "../../components/navbar.js"
+import ComRecordTableContainer from "@/app/components/comRecordTableContainer.js"
+import { COMPANY_RECORDS_TABLE } from "@/app/constant/companyConstants"
+import { OtherApiData } from "@/app/context/Others/OtherContextApi.js"
 
-const Banks = () => {
-  const { processRetrieve, isAuthenticated } = useContext(AuthApiData)
-
+const Company = () => {
+  // useEffect(() => {
+  //   !isAuthenticated && processRetrieve()
+  // }, [])
+  const { processGetAllCompany } = useContext(OtherApiData)
+  const {
+    processGetCompRecordTable,
+    companyProductRec,
+    processGetRecordingTable,
+  } = useContext(IndividualApiData)
   useEffect(() => {
-    !isAuthenticated && processRetrieve()
+    processGetAllCompany()
+    processGetCompRecordTable(1)
+    processGetRecordingTable(1)
   }, [])
   return (
     <>
-      <div className="h-4/5 flex items-center justify-center mt-8 md:mt-0">
-        <h2 className="text-white">Company</h2>
-      </div>
+      <ComRecordTableContainer
+        tableHeader={COMPANY_RECORDS_TABLE}
+        tableInfo={companyProductRec}
+      />
     </>
   )
 }
-export default Banks
+export default Company

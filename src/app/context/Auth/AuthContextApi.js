@@ -3,12 +3,13 @@
 import React, { createContext, useState } from "react"
 import { useRouter } from "next/navigation"
 import axios from "../../utils/axios.config"
-import { login, retrieve } from "./Auth"
+import { login, retrieve, getAllUsers } from "./Auth"
 import cookieMethods from "../../utils/cookieUtils"
 
 export const AuthApiData = createContext()
 
 const AuthApiDataProvider = (props) => {
+  const [allUsers, setAllUsers] = useState([])
   const [userId, setUserId] = useState("")
   const [userProfile, setUserProfile] = useState()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -48,6 +49,20 @@ const AuthApiDataProvider = (props) => {
     }
   }
 
+  const processLogout = async () => {
+    cookieMethods.deleteCookies()
+    setIsAuthenticated(false)
+    router.push("/")
+  }
+
+  const processGetAllUsers = async () => {
+    let response = await getAllUsers(data)
+    if (response) {
+      setAllUsers(response.data.users)
+      //console.log(response)
+    }
+  }
+
   return (
     <AuthApiData.Provider
       value={{
@@ -57,6 +72,9 @@ const AuthApiDataProvider = (props) => {
         processLogin,
         isAuthenticated,
         processRetrieve,
+        processGetAllUsers,
+        allUsers,
+        processLogout,
       }}
     >
       {props.children}

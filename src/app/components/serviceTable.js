@@ -17,18 +17,14 @@ const ServiceTable = ({ serviceInfo }) => {
         {serviceInfo.map((item) => (
           <tr className="border-t border-gray-200">
             <td className="border border-gray-200 py-4 px-2">
-              {item.serviceType}
-            </td>
-            <td className="border border-gray-200 py-4 px-2">
               {item.startDate}
             </td>
             <td className="border border-gray-200 py-4 px-2">
-              {item.dueDate ? item.dueDate : "None"}
+              {item.expireDate ? item.expireDate : "None"}
             </td>
             <td className="border border-gray-200 py-4 px-2">
-              GH {item.amountPaid}
+              GH {item.amtPaid}
             </td>
-            <td className="border border-gray-200 py-4 px-2">view</td>
           </tr>
         ))}
       </tbody>

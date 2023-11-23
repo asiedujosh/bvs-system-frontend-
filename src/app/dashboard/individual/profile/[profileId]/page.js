@@ -169,8 +169,8 @@ const ProductSection = ({ productInfo }) => {
       value: productInfo.purchaseType,
     },
     {
-      label: "Payment Mode",
-      value: productInfo.paymentMode,
+      label: "Package",
+      value: productInfo.package,
     },
     {
       label: "Request Date",

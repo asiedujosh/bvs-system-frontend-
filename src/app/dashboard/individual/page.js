@@ -7,15 +7,19 @@ import { useEffect, useContext } from "react"
 import { IndividualApiData } from "@/app/context/Individual/IndividualContextApi"
 
 const Individual = () => {
-  const { processGetRecordingTable, recordTable, searchRecord } =
-    useContext(IndividualApiData)
+  const {
+    processGetRecordingTable,
+    recordTable,
+    individualTable,
+    searchRecord,
+  } = useContext(IndividualApiData)
   useEffect(() => {
     processGetRecordingTable(1)
   }, [])
 
   let dueRecords =
-    recordTable &&
-    recordTable.data.filter((item) => checkExpiryDate(item.expiryDate))
+    individualTable &&
+    individualTable.filter((item) => checkExpiryDate(item.expireDate))
   //checkExpiryDate(item.expiryDate)
   // console.log(dueRecords)
 

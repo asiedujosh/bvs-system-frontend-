@@ -120,6 +120,12 @@ export const ADDCLIENT = {
       type: "select",
       options: ["Kofi", "Joshua", "Eric"],
     },
+    {
+      name: "amtPaid",
+      label: "Amount Paid",
+      type: "number",
+      placeholder: "Total amount",
+    },
   ],
 }
 
@@ -136,11 +142,11 @@ export const DASHBOARDTABLE = [
   "Product Id",
   "Client Name",
   "Client Tel",
-  "Pay Mode",
-  "Current Service",
-  "Current Amt Paid",
-  "Payment Date",
-  "Expiry Date",
+  "Package",
+  "Start Date",
+  "Expire Date",
+  "Days Left",
   "Status",
+  "State",
   "Action",
 ]

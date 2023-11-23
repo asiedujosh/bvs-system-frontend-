@@ -21,7 +21,7 @@ import {
 export const OtherApiData = createContext()
 
 const OtherApiDataProvider = (props) => {
-  const [packageList, setPackageList] = useState(null)
+  const [packageList, setPackageList] = useState([])
   const [companyList, setCompanyList] = useState([])
   const [searchCompanyRecord, setSearchCompanyRecord] = useState(null)
   const [searchPackageRecord, setSearchPackageRecord] = useState(null)
@@ -42,6 +42,7 @@ const OtherApiDataProvider = (props) => {
   const processGetAllPackage = async () => {
     let response = await getAllPackage()
     if (response) {
+      // console.log(response)
       setPackageList(response.data.package)
     }
   }

@@ -14,6 +14,19 @@ export const login = async (data) => {
   }
 }
 
+export const getAllUsers = async () => {
+  try {
+    let response = await axios.get("/api/getAllUsers")
+    if (response.status === SUCCESS_STATUS) {
+      return response.data
+    } else {
+      return false
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 export const retrieve = async () => {
   try {
     let responseOnRetrieve = await axios.get("/api/retrieve")

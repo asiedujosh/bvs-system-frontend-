@@ -9,13 +9,13 @@ export const ADDSERVICE = {
       placeholder: "Enter start date",
     },
     {
-      name: "dueDate",
-      label: "Due Date",
+      name: "expireDate",
+      label: "Expire Date",
       type: "date",
       placeholder: "Enter due date",
     },
     {
-      name: "amountPaid",
+      name: "amtPaid",
       label: "Amount Paid",
       type: "number",
       placeholder: "Enter amount paid",
@@ -45,10 +45,4 @@ export const ADDSERVICE = {
   ],
 }
 
-export const SERVICETABLE = [
-  "Service",
-  "Start Date",
-  "Expiry Date",
-  "Amt Paid",
-  "Action",
-]
+export const SERVICETABLE = ["Start Date", "Expiry Date", "Amt Paid"]

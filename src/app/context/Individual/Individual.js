@@ -5,6 +5,7 @@ import { TABLECONSTANTS } from "@/app/constant/IndividualConstants"
 export const addClient = async (data) => {
   try {
     let responseOnAddClient = await axios.post("/api/clientAdd", data)
+    console.log(responseOnAddClient)
     if (responseOnAddClient.status === SUCCESS_STATUS) {
       return responseOnAddClient.data
     } else {
@@ -70,6 +71,21 @@ export const getRecordingTable = async (data) => {
     )
     if (responseOnGetRecordTable.status === SUCCESS_STATUS) {
       return responseOnGetRecordTable.data
+    } else {
+      return false
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const getCompanyTable = async (data) => {
+  try {
+    let responseOnCompTable = await axios.get(
+      `/api/getRecordsWithCompany?page=${data}&perPage=${TABLECONSTANTS.listOnPages}`
+    )
+    if (responseOnCompTable.status === SUCCESS_STATUS) {
+      return responseOnCompTable.data
     } else {
       return false
     }

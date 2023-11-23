@@ -1,6 +1,7 @@
 "use client"
 import React, { useContext, useEffect } from "react"
 import checkExpiryDate from "../utils/checkExpiryDate"
+import daysLeft from "../utils/daysLeft"
 import readableDate from "../utils/readableDate"
 import { IndividualApiData } from "@/app/context/Individual/IndividualContextApi"
 
@@ -40,33 +41,29 @@ const Table = ({ tableHeader, tableInfo }) => {
                 {item.clientTel}
               </td>
               <td className="border border-gray-200 py-4 px-2">
-                {item.paymentMode}
+                {item.package}
               </td>
               <td className="border border-gray-200 py-4 px-2">
-                {item.serviceOn}
-              </td>
-              <td className="border border-gray-200 py-4 px-2 font-bold">
-                GH,{`${item.amtLastPaid ? item.amtLastPaid : 0}`}
-              </td>
-              <td className="border border-gray-200 py-4 px-2">
-                {readableDate(item.lastPaid)}
+                {readableDate(item.startDate)}
               </td>
               <td
                 className={`border border-gray-200 py-4 px-2 
               ${
-                checkExpiryDate(item.expiryDate)
+                checkExpiryDate(item.expireDate)
                   ? "text-red-500"
                   : " text-green-500"
               }`}
               >
-                {`${item.expiryDate ? readableDate(item.expiryDate) : "None"}`}
+                {`${item.expireDate ? readableDate(item.expireDate) : "None"}`}
               </td>
-              <td
-                className={`border border-gray-200 py-4 px-2 text-lg ${
-                  item.status === "online" ? "text-green-500" : " text-red-500"
-                }`}
-              >
+              <td className="border border-gray-200 py-4 px-2">
+                {daysLeft(item.expireDate)}
+              </td>
+              <td className={`border border-gray-200 py-4 px-2`}>
                 {item.status}
+              </td>
+              <td className={`border border-gray-200 py-4 px-2`}>
+                {item.state}
               </td>
               <td className="border border-gray-200 py-4 px-2">
                 <span
@@ -94,37 +91,31 @@ const Table = ({ tableHeader, tableInfo }) => {
                   {item.clientTel}
                 </td>
                 <td className="border border-gray-200 py-4 px-2">
-                  {item.paymentMode}
+                  {item.package}
                 </td>
                 <td className="border border-gray-200 py-4 px-2">
-                  {item.serviceOn}
-                </td>
-                <td className="border border-gray-200 py-4 px-2 font-bold">
-                  GH,{`${item.amtLastPaid ? item.amtLastPaid : 0}`}
-                </td>
-                <td className="border border-gray-200 py-4 px-2">
-                  {readableDate(item.lastPaid)}
+                  {readableDate(item.startDate)}
                 </td>
                 <td
                   className={`border border-gray-200 py-4 px-2 
               ${
-                checkExpiryDate(item.expiryDate)
+                checkExpiryDate(item.expireDate)
                   ? "text-red-500"
                   : " text-green-500"
               }`}
                 >
                   {`${
-                    item.expiryDate ? readableDate(item.expiryDate) : "None"
+                    item.expireDate ? readableDate(item.expireDate) : "None"
                   }`}
                 </td>
-                <td
-                  className={`border border-gray-200 py-4 px-2 text-lg ${
-                    item.status === "online"
-                      ? "text-green-500"
-                      : " text-red-500"
-                  }`}
-                >
+                <td className="border border-gray-200 py-4 px-2">
+                  {daysLeft(item.expireDate)}
+                </td>
+                <td className={`border border-gray-200 py-4 px-2`}>
                   {item.status}
+                </td>
+                <td className={`border border-gray-200 py-4 px-2`}>
+                  {item.state}
                 </td>
                 <td className="border border-gray-200 py-4 px-2">
                   <span

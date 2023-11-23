@@ -1,14 +1,30 @@
 ### Admin Register Routes
-POST http://127.0.0.1:8000/api/companyAdd
+POST http://127.0.0.1:8000/api/register
 Content-Type: application/json
 
 {
- "companyAddress": "Accra",
- "companyEmail": "josheyes0@gmail.com",
- "companyName": "Bayport Bank",
- "companyTel": "0552897142",
- "officerPosition": "Relation Officer",
- "officerTel": "0266469846",
- "relationOfficer": "John Doe"
+ "personnel_id": "606099",
+ "name": "Abraham Attah",
+ "contact": "0248571022",
+ "location": "Kasoa",
+ "email": "annoyingAbraham@gmail.com",
+ "password": "0248571022",
+ "position": "Tech Officer",
+ "role": false
+}
+
+### Another Tech Officer
+POST http://127.0.0.1:8000/api/register
+Content-Type: application/json
+
+{
+ "personnel_id": "606077",
+ "name": "Agyeman Asare",
+ "contact": "0266469846",
+ "location": "Lapaz",
+ "email": "asare12@gmail.com",
+ "password": "0266469846",
+ "position": "Tech Officer",
+ "role": false
 }
 

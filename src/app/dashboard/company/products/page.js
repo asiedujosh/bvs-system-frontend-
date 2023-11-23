@@ -6,32 +6,25 @@ import { DASHBOARDTABLE } from "@/app/constant/IndividualConstants"
 import { useEffect, useContext } from "react"
 import { IndividualApiData } from "@/app/context/Individual/IndividualContextApi"
 
-const AllClients = () => {
-  const {
-    processGetRecordingTable,
-    recordTable,
-    individualTable,
-    companyRecordTable,
-  } = useContext(IndividualApiData)
+const CompanyProducts = () => {
+  const { proUnderCompany } = useContext(IndividualApiData)
   useEffect(() => {
-    processGetRecordingTable(1)
+    console.log("We are stopping")
   }, [])
 
-  console.log(companyRecordTable)
-
   // The correct one is to use individualTable, We use company for debug
-  let dueRecords =
-    individualTable &&
-    individualTable.filter((item) => !checkExpiryDate(item.expireDate))
+  //   let dueRecords =
+  //   proUnderCompany &&
+  //     proUnderCompany.filter((item) => !checkExpiryDate(item.expireDate))
 
   return (
     <>
-      <SubHeader />
-      {recordTable && (
-        <TableContainer tableHeader={DASHBOARDTABLE} tableInfo={dueRecords} />
-      )}
+      <TableContainer
+        tableHeader={DASHBOARDTABLE}
+        tableInfo={proUnderCompany}
+      />
     </>
   )
 }
 
-export default AllClients
+export default CompanyProducts

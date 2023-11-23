@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google"
 import "./globals.css"
 import AuthApiDataProvider from "./context/Auth/AuthContextApi"
+import StaffApiDataProvider from "./context/Staff/StaffContextApi"
 import IndividualApiDataProvider from "./context/Individual/IndividualContextApi"
 import OtherApiDataProvider from "./context/Others/OtherContextApi"
 
@@ -16,9 +17,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <AuthApiDataProvider>
-          <OtherApiDataProvider>
-            <IndividualApiDataProvider>{children}</IndividualApiDataProvider>
-          </OtherApiDataProvider>
+          <StaffApiDataProvider>
+            <OtherApiDataProvider>
+              <IndividualApiDataProvider>{children}</IndividualApiDataProvider>
+            </OtherApiDataProvider>
+          </StaffApiDataProvider>
         </AuthApiDataProvider>
       </body>
     </html>

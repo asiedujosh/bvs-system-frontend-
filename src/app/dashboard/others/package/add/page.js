@@ -53,21 +53,12 @@ const AddPackage = () => {
                 </h2>
                 <div className="space-y-4">
                   {ADD_PACKAGE_LABEL.map((item) => {
-                    return item.type === "text" || item.type === "date" ? (
+                    return (
                       <InputField
                         field={item}
                         value={formData}
                         defaultVal={item.defaultValue}
                         readOnly={item.readOnly}
-                        change={(data, field) => {
-                          handleInputChange(data, field)
-                        }}
-                      />
-                    ) : (
-                      <SelectField
-                        field={item}
-                        value={formData}
-                        options={item.options}
                         change={(data, field) => {
                           handleInputChange(data, field)
                         }}

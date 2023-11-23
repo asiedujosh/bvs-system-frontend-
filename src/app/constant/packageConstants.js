@@ -39,6 +39,12 @@ export const ADD_PACKAGE_LABEL = [
     placeholder: "Enter price",
   },
   {
+    name: "packageMonth",
+    label: "Month",
+    type: "number",
+    placeholder: "Enter month",
+  },
+  {
     name: "packageDetails",
     label: "Details",
     type: "text",

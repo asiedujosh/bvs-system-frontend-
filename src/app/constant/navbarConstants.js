@@ -7,11 +7,11 @@ const NAVBAR_DEFAULTS = {
     },
     {
       label: "Users",
-      url: "/dashboard/users",
+      url: "/users",
     },
     {
       label: "Settings",
-      url: "/dashboard/settings",
+      url: "/settings",
     },
     {
       label: "Logout",

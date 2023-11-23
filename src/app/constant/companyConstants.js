@@ -64,6 +64,12 @@ export const ADD_COMPANY_LABEL = [
 
 export const COMPANY_TABLE_HEADER = ["Company Name", "Action"]
 
+export const COMPANY_RECORDS_TABLE = [
+  "Company Name",
+  "No Of Products",
+  "Action",
+]
+
 export const DUMMY_COMPANY_TABLE_DATA = [
   {
     id: 1,
