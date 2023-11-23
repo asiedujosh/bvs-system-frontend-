@@ -2,7 +2,7 @@
 import React, { createContext, useState } from "react"
 import { notify } from "@/app/utils/responseUtils"
 import { SUCCESS_STATUS } from "@/app/constant/requestConstants"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import {
   addClient,
   addService,
