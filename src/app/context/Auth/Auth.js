@@ -16,7 +16,7 @@ export const login = async (data) => {
 
 export const getAllUsers = async () => {
   try {
-    let response = await axios.get("/api/getAllUsers")
+    let response = await axios.get("/api/staffGetAll")
     if (response.status === SUCCESS_STATUS) {
       return response.data
     } else {
