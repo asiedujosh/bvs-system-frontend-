@@ -1,4 +1,4 @@
-import { SERVICETABLE } from "../constant/servicingConstants"
+import { SERVICETABLE } from "@/app/constant/servicingConstants"
 
 const ServiceTable = ({ serviceInfo }) => {
   return (

@@ -1,4 +1,4 @@
-import PaginationButton from "./paginationButton"
+import PaginationButton from "@/app/components/paginationButton"
 
 const PaginationContainer = () => {
   return (

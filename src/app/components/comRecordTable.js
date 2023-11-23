@@ -2,7 +2,7 @@
 import React, { useContext, useEffect } from "react"
 import Link from "next/link"
 import { OtherApiData } from "@/app/context/Others/OtherContextApi"
-import { IndividualApiData } from "../context/Individual/IndividualContextApi"
+import { IndividualApiData } from "@/app/context/Individual/IndividualContextApi"
 
 const ComRecordTable = ({ tableHeader, tableInfo }) => {
   const { processViewProductsUnderCompany } = useContext(IndividualApiData)

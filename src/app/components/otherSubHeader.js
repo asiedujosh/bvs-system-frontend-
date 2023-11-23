@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link"
-import { LinkToBeUsed } from "../constant/otherSubHeadConst"
+import { LinkToBeUsed } from "@/app/constant/otherSubHeadConst"
 
 const OtherSubHeader = () => {
   let subHeaderData = LinkToBeUsed()

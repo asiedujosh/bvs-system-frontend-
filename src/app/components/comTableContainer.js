@@ -1,10 +1,10 @@
 "use client"
 import { useContext, useEffect, useState } from "react"
 import { IndividualApiData } from "@/app/context/Individual/IndividualContextApi"
-import SearchContainer from "./searchContainer"
-import CompanyTable from "./companyTable"
-import PaginationContainer from "./paginationContainer"
-import PrintButton from "./printButton"
+import SearchContainer from "@/app/components/searchContainer"
+import CompanyTable from "@/app/components/companyTable"
+import PaginationContainer from "@/app/components/paginationContainer"
+import PrintButton from "@/app/components/printButton"
 
 const ComTableContainer = ({ tableHeader, tableInfo }) => {
   const { processSearchRecord } = useContext(IndividualApiData)

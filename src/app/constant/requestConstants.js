@@ -1,5 +1,5 @@
 export const TIMEOUT = { timeout: 5000 }
-//export const URL = "http://localhost:8000"
+// export const URL = "http://localhost:8000"
 export const URL = "https://api.awesomehandsacademy.com/"
 
 //System Responses

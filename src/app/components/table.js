@@ -1,8 +1,8 @@
 "use client"
 import React, { useContext, useEffect } from "react"
-import checkExpiryDate from "../utils/checkExpiryDate"
-import daysLeft from "../utils/daysLeft"
-import readableDate from "../utils/readableDate"
+import checkExpiryDate from "@/app/utils/checkExpiryDate"
+import daysLeft from "@/app/utils/daysLeft"
+import readableDate from "@/app/utils/readableDate"
 import { IndividualApiData } from "@/app/context/Individual/IndividualContextApi"
 
 const Table = ({ tableHeader, tableInfo }) => {

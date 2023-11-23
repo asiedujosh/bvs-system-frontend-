@@ -1,7 +1,7 @@
 "use client"
-import { AuthApiData } from "../context/Auth/AuthContextApi.js"
-import InputField from "../components/inputField"
-import SubmitBtn from "../components/submitButton"
+import { AuthApiData } from "@/app/context/Auth/AuthContextApi.js"
+import InputField from "@/app/components/inputField"
+import SubmitBtn from "@/app/components/submitButton"
 import {
   USERNAME_FIELD,
   PASSWORD_FIELD,

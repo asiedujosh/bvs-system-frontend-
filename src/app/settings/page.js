@@ -1,6 +1,6 @@
 "use client"
-import DASHBOARD_DEFAULTS from "../constant/dashboardConstants.js"
-import Card from "../components/cards"
+import DASHBOARD_DEFAULTS from "@/app/constant/dashboardConstants.js"
+import Card from "@/app/components/cards"
 
 const Settings = () => {
   return <></>

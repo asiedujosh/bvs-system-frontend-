@@ -1,9 +1,9 @@
 import { Inter } from "next/font/google"
 import "./globals.css"
-import AuthApiDataProvider from "./context/Auth/AuthContextApi"
-import StaffApiDataProvider from "./context/Staff/StaffContextApi"
-import IndividualApiDataProvider from "./context/Individual/IndividualContextApi"
-import OtherApiDataProvider from "./context/Others/OtherContextApi"
+import AuthApiDataProvider from "@/app/context/Auth/AuthContextApi"
+import StaffApiDataProvider from "@/app/context/Staff/StaffContextApi"
+import IndividualApiDataProvider from "@/app/context/Individual/IndividualContextApi"
+import OtherApiDataProvider from "@/app/context/Others/OtherContextApi"
 
 const inter = Inter({ subsets: ["latin"] })
 

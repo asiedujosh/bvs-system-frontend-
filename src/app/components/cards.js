@@ -1,6 +1,6 @@
 import React from "react"
 
-import DASHBOARD_DEFAULTS from "../constant/dashboardConstants"
+import DASHBOARD_DEFAULTS from "@/app/constant/dashboardConstants"
 import Link from "next/link"
 
 const Card = ({ data }) => {

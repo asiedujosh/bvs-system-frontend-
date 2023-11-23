@@ -2,9 +2,9 @@
 // components/Navbar.js
 
 import React, { useState, useContext, useEffect } from "react"
-import { AuthApiData } from "../context/Auth/AuthContextApi.js"
+import { AuthApiData } from "@/app/context/Auth/AuthContextApi.js"
 import NavbarLink from "./navLink"
-import NAVBAR_DEFAULTS from "../constant/navbarConstants"
+import NAVBAR_DEFAULTS from "@/app/constant/navbarConstants"
 
 const Navbar = () => {
   const { userProfile, processRetrieve, isAuthenticated } =

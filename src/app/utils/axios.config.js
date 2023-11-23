@@ -1,6 +1,6 @@
-import { URL, TIMEOUT } from "../constant/requestConstants"
+import { URL, TIMEOUT } from "@/app/constant/requestConstants"
 import axios from "axios"
-import cookieMethods from "./cookieUtils"
+import cookieMethods from "@/app/utils/cookieUtils"
 
 const instance = axios.create({
   baseURL: URL,
