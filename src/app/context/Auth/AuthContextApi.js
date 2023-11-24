@@ -1,6 +1,6 @@
 "use client"
 import React, { createContext, useState } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/router"
 import axios from "@/app/utils/axios.config"
 import { login, retrieve, getAllUsers } from "./Auth"
 import cookieMethods from "@/app/utils/cookieUtils"
