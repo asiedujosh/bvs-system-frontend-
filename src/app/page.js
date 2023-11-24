@@ -1,6 +1,6 @@
 "use client"
 import { useRouter } from "next/navigation"
-import { useEffect, useContext } from "react"
+import { useEffect } from "react"
 
 export default function Home() {
   useEffect(() => {
