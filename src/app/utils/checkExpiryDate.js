@@ -1,3 +1,4 @@
+"use client"
 import currentDate from "@/app/utils/currentDate"
 const checkExpiryDate = (dateString2) => {
   // Convert the date strings to JavaScript Date objects

@@ -1,3 +1,5 @@
+"use client"
+
 export const subNavConst = {
   company: {
     label: "Add Company",

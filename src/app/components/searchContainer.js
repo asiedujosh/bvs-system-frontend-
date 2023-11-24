@@ -1,3 +1,5 @@
+"use client"
+
 const SearchContainer = ({ change, submitSearch, value }) => {
   const handleInputChange = (e) => {
     // console.log(e.target.value)

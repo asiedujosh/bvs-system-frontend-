@@ -1,3 +1,4 @@
+"use client"
 // components/TextInput.js
 const IdField = ({ field, value }) => {
   return (

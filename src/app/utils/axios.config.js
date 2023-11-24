@@ -1,3 +1,4 @@
+"use client"
 import { URL, TIMEOUT } from "@/app/constant/requestConstants"
 import axios from "axios"
 import cookieMethods from "@/app/utils/cookieUtils"

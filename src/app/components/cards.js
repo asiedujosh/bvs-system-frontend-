@@ -1,3 +1,4 @@
+"use client"
 import React from "react"
 
 import DASHBOARD_DEFAULTS from "@/app/constant/dashboardConstants"

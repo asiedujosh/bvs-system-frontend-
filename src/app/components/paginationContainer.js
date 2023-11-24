@@ -1,3 +1,4 @@
+"use client"
 import PaginationButton from "@/app/components/paginationButton"
 
 const PaginationContainer = () => {

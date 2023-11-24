@@ -1,3 +1,5 @@
+"use client"
+
 export const ADDSERVICE = {
   title: "Add Service",
   buttonText: "Submit",

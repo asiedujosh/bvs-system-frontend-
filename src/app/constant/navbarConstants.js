@@ -1,3 +1,5 @@
+"use client"
+
 const NAVBAR_DEFAULTS = {
   intro: "Welcome",
   links: [

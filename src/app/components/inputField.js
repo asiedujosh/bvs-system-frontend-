@@ -1,3 +1,4 @@
+"use client"
 // components/TextInput.js
 const InputField = ({ field, value, change }) => {
   const handleInputChange = (e) => {

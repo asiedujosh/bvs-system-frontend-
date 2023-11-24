@@ -1,3 +1,4 @@
+"use client"
 import currentDate from "@/app/utils/currentDate"
 const daysLeft = (expiryDate) => {
   // Convert the date strings to JavaScript Date objects

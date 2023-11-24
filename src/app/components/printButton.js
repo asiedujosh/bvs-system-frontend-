@@ -1,3 +1,4 @@
+"use client"
 import { PrinterIcon } from "@heroicons/react/24/solid"
 
 const PrintButton = () => {

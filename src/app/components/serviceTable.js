@@ -1,3 +1,4 @@
+"use client"
 import { SERVICETABLE } from "@/app/constant/servicingConstants"
 
 const ServiceTable = ({ serviceInfo }) => {

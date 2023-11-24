@@ -1,3 +1,4 @@
+"use client"
 import { SUCCESS_STATUS } from "../../constant/requestConstants"
 import axios from "../../utils/axios.config"
 // import { TABLECONSTANTS } from "@/app/constant/IndividualConstants"

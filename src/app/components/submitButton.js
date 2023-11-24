@@ -1,3 +1,4 @@
+"use client"
 const SubmitBtn = ({ text, submit, color }) => {
   const handleSubmit = (e) => {
     submit(e)

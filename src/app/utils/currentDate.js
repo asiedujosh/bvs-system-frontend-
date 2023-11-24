@@ -1,3 +1,4 @@
+"use client"
 const currentDate = () => {
   const today = new Date()
   const month = String(today.getMonth() + 1).padStart(2, "0")

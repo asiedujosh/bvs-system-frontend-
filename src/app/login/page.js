@@ -6,7 +6,7 @@ import {
   USERNAME_FIELD,
   PASSWORD_FIELD,
   LOGIN_PAGE_TEXT,
-} from "../constant/loginConstants"
+} from "@/app/constant/loginConstants"
 import { useState, useContext } from "react"
 
 export default function Login() {

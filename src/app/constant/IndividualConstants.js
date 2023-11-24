@@ -1,3 +1,5 @@
+"use client"
+
 // Define a constant for each form field
 export const TABLECONSTANTS = {
   listOnPages: 20,

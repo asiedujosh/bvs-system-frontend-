@@ -1,3 +1,5 @@
+"use client"
+
 export const PACKAGE_TITLE = {
   title: "ADD PACKAGE",
   btnText: "Submit",
