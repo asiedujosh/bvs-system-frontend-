@@ -41,12 +41,24 @@ export const ADDSTAFF = {
       placeholder: "Enter password",
     },
     {
+      name: "confirmPassword",
+      label: "Confirm Password",
+      type: "password",
+      placeholder: "Confirm password",
+    },
+    {
       name: "position",
       label: "Position",
-      type: "password",
-      placeholder: "Enter password",
+      type: "select",
+      options: ["Administrator", "Tech Officer", "Marketer", "Supervisor"],
     },
   ],
 }
 
-export const STAFFTABLE = ["", "Expiry Date", "Amt Paid"]
+export const STAFFTABLE = [
+  "Personnel Id",
+  "Name",
+  "Contact",
+  "Position",
+  "Action",
+]

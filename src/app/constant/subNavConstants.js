@@ -9,4 +9,8 @@ export const subNavConst = {
     label: "Add Package",
     link: "/dashboard/others/package/add",
   },
+  user: {
+    label: "Add User",
+    link: "/users/add",
+  },
 }

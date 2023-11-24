@@ -26,7 +26,7 @@ export default function Login() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between py-24">
+    <main className="flex min-h-screen flex-col items-center justify-between md:py-24">
       <div className="flex items-center justify-center h-1/2 mt-32">
         <div className="bg-white mx-4 sm:w-1/2 h-1/2 sm:h-1/2 md:w-5/6 md:h-5/6 lg:w-5/6 lg:h-4/5 px-6 py-8 rounded-lg shadow-lg">
           <div className="flex items-center justify-center">
