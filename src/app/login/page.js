@@ -1,4 +1,5 @@
 "use client"
+import { useState, useContext } from "react"
 import { AuthApiData } from "@/app/context/Auth/AuthContextApi.js"
 import InputField from "@/app/components/inputField"
 import SubmitBtn from "@/app/components/submitButton"
@@ -7,7 +8,6 @@ import {
   PASSWORD_FIELD,
   LOGIN_PAGE_TEXT,
 } from "@/app/constant/loginConstants"
-import { useState, useContext } from "react"
 
 export default function Login() {
   const { processLogin } = useContext(AuthApiData)
@@ -23,7 +23,6 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault()
     processLogin(formData)
-    // console.log(formData)
   }
 
   return (
