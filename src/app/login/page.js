@@ -1,8 +1,8 @@
 "use client"
 import { useState, useContext } from "react"
 import { AuthApiData } from "@/app/context/Auth/AuthContextApi.js"
-import InputField from "@/app/components/inputField"
-import SubmitBtn from "@/app/components/submitButton"
+import InputField from "@/app/components/inputField.js"
+import SubmitBtn from "@/app/components/submitButton.js"
 import {
   USERNAME_FIELD,
   PASSWORD_FIELD,
