@@ -8,4 +8,6 @@ export default function Home() {
 
     router.push("/login")
   }, [])
+
+  return <div className="text-white text-lg">Welcome to Bvs</div>
 }
