@@ -1,6 +1,6 @@
 "use client"
-import React, { createContext, useContext, useState } from "react"
-import { useRouter } from "next/router"
+import React, { createContext, useState } from "react"
+import { useRouter } from "next/navigation"
 import { notify } from "@/app/utils/responseUtils"
 import { SUCCESS_STATUS } from "../../constant/requestConstants"
 import {
