@@ -1,5 +1,3 @@
-"use client"
-
 export const COMPANY_TITLE = "ADD COMPANY"
 
 export const SUB_COMPANY_TITLE = "Company Details"

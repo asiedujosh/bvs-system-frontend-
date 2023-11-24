@@ -1,5 +1,3 @@
-"use client"
-
 import {
   UserIcon,
   PlusIcon,

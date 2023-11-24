@@ -1,5 +1,3 @@
-"use client"
-
 // Define a constant for each form field
 export const LOGIN_PAGE_TEXT = {
   title: "WELCOME TO BVS PORTAL",
