@@ -7,7 +7,7 @@ import NavbarLink from "./navLink"
 import NAVBAR_DEFAULTS from "@/app/constant/navbarConstants"
 
 const Navbar = () => {
-  const { userProfile, processRetrieve, isAuthenticated } =
+  const { userProfile, processRetrieve, isAuthenticated, processLogout } =
     useContext(AuthApiData)
   const [isOpen, setIsOpen] = useState(false)
 
@@ -49,9 +49,16 @@ const Navbar = () => {
 
           {/* Dropdown Card (on mobile) */}
           {isOpen && (
-            <div className="block sm:hidden bg-white w-1/4 absolute top-20 right-0 border border-gray-300 rounded-md shadow-lg p-4 transition-transform transform -translate-x-1/2">
+            <div className="z-10 block sm:hidden bg-white w-1/4 absolute top-20 right-0 border border-gray-300 rounded-md shadow-lg p-4 transition-transform transform -translate-x-1/2">
               {NAVBAR_DEFAULTS.links.map((link) => (
-                <NavbarLink label={link.label} url={link.url} />
+                <NavbarLink
+                  label={link.label}
+                  url={link.url}
+                  logout={
+                    link.label === NAVBAR_DEFAULTS.links[3].label &&
+                    processLogout
+                  }
+                />
               ))}
             </div>
           )}
@@ -59,7 +66,13 @@ const Navbar = () => {
           {/* Navigation Links (on larger screens) */}
           <div className="hidden sm:hidden md:flex space-x-4 mr-6">
             {NAVBAR_DEFAULTS.links.map((link) => (
-              <NavbarLink label={link.label} url={link.url} />
+              <NavbarLink
+                label={link.label}
+                url={link.url}
+                logout={
+                  link.label === NAVBAR_DEFAULTS.links[3].label && processLogout
+                }
+              />
             ))}
           </div>
         </div>

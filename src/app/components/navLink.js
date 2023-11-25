@@ -2,9 +2,9 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-const NavbarLink = ({ label, url }) => {
+const NavbarLink = ({ label, url, logout }) => {
   const handleLogout = () => {
-    console.log("Logout")
+    logout()
   }
 
   const linkToCheck = url
