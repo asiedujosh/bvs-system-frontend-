@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
 const AddUser = () => {
-  const { processGetAllStaff, staffList } = useContext(StaffApiData)
+  const { processAddStaff } = useContext(StaffApiData)
   const [formData, setFormData] = useState({})
 
   const handleInputChange = (data, field) => {
@@ -21,7 +21,7 @@ const AddUser = () => {
 
   const handleSubmit = () => {
     console.log(formData)
-    //processAddUser(formData)
+    processAddStaff(formData)
   }
 
   return (

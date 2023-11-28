@@ -22,10 +22,11 @@ const StaffApiDataProvider = (props) => {
   const router = useRouter()
 
   const processAddStaff = async (data) => {
+    console.log(data)
     let response = await addStaff(data)
     if (response) {
-      router.push(`/dashboard/others/package`)
       notify(SUCCESS_STATUS)
+      router.push(`/users`)
     }
   }
 

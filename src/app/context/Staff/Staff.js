@@ -5,9 +5,9 @@ import axios from "../../utils/axios.config"
 
 export const addStaff = async (data) => {
   try {
-    let responseOnAddStaff = await axios.post("/api/staffAdd", data)
+    let responseOnAddStaff = await axios.post("/api/register", data)
     if (responseOnAddStaff.status === SUCCESS_STATUS) {
-      return responseOnAddPackage.data
+      return responseOnAddStaff.data
     } else {
       return false
     }
