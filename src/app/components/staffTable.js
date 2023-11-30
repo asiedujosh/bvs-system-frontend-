@@ -1,7 +1,18 @@
 "use client"
+import React, { useContext, useEffect } from "react"
 import { STAFFTABLE } from "@/app/constant/staffConstants"
+import { StaffApiData } from "@/app/context/Staff/StaffContextApi"
 
 const StaffTable = ({ staffInfo }) => {
+  const {
+    processViewStaffProfile,
+    processViewStaffUpdateProfile,
+    processDeleteStaff,
+  } = useContext(StaffApiData)
+  // useEffect(() => {
+  //   console.log(searchPackageRecord)
+  // }, [searchPackageRecord])
+
   return (
     <table className="w-full table-auto rounded">
       <thead className="sticky top-0 z-10 bg-gray-100">
@@ -29,8 +40,7 @@ const StaffTable = ({ staffInfo }) => {
               <div className="flex space-x-2">
                 <span
                   onClick={() => {
-                    console.log("item.id")
-                    //processViewPackageProfile(item.id)
+                    processViewStaffProfile(item.id)
                   }}
                   className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
                 >
@@ -38,8 +48,7 @@ const StaffTable = ({ staffInfo }) => {
                 </span>
                 <span
                   onClick={() => {
-                    console.log("item.id")
-                    //processViewPackageUpdateProfile(item.id)
+                    processViewStaffUpdateProfile(item.id)
                   }}
                   className="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded"
                 >
@@ -47,8 +56,7 @@ const StaffTable = ({ staffInfo }) => {
                 </span>
                 <span
                   onClick={() => {
-                    console.log("item.id")
-                    //processDeletePackage(item.id)
+                    processDeleteStaff(item.id)
                   }}
                   className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded"
                 >

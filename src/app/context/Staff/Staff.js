@@ -58,6 +58,7 @@ export const getStaff = async (id) => {
 }
 
 export const updateStaff = async (id, data) => {
+  console.log(data)
   try {
     let responseOnUpdateStaff = await axios.put(`/api/staffUpdate/${id}`, data)
     if (responseOnUpdateStaff.status === SUCCESS_STATUS) {
@@ -70,11 +71,25 @@ export const updateStaff = async (id, data) => {
   }
 }
 
+export const changePassword = async (data) => {
+  console.log(data)
+  try {
+    let responseOnChangePass = await axios.post(`/api/changePassword`, data)
+    if (responseOnChangePass.status === SUCCESS_STATUS) {
+      return responseOnChangePass.data
+    } else {
+      return false
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 export const deleteStaff = async (id) => {
   try {
-    let responseOnDeletePackage = await axios.delete(`/api/packageDelete/${id}`)
-    if (responseOnDeletePackage.status === SUCCESS_STATUS) {
-      responseOnDeletePackage.data
+    let responseOnDeleteStaff = await axios.delete(`/api/staffDelete/${id}`)
+    if (responseOnDeleteStaff.status === SUCCESS_STATUS) {
+      return responseOnDeleteStaff.data
     } else {
       return false
     }

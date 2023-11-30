@@ -1,6 +1,7 @@
 "use client"
 import React, { createContext, useState } from "react"
 import { useRouter } from "next/navigation"
+import { ADDSTAFF } from "@/app/constant/staffConstants"
 import { notify } from "@/app/utils/responseUtils"
 import { SUCCESS_STATUS } from "../../constant/requestConstants"
 import {
@@ -10,6 +11,7 @@ import {
   getStaff,
   updateStaff,
   deleteStaff,
+  changePassword
 } from "./Staff"
 
 export const StaffApiData = createContext()
@@ -18,6 +20,7 @@ const StaffApiDataProvider = (props) => {
   const [staffList, setStaffList] = useState([])
   const [searchStaffRecord, setSearchStaffRecord] = useState(null)
   const [staffData, setStaffData] = useState(null)
+  const [customField, setCustomField] = useState()
 
   const router = useRouter()
 
@@ -51,11 +54,32 @@ const StaffApiDataProvider = (props) => {
     }
   }
 
+  const processViewStaffProfile = async (id) => {
+    processGetStaffProfile(id)
+    router.push(`/users/viewUser`)
+  }
+
+  const processViewStaffUpdateProfile = async (id) => {
+    processGetStaffProfile(id)
+    let customData = ADDSTAFF.fieldDetail.filter(
+      (item) => item.name !== "password" && item.name !== "confirmPassword"
+    )
+    setCustomField(customData)
+    router.push(`/users/update`)
+  }
+
   const processUpdateStaffProfile = async (id, data) => {
     let responseOnUpdateStaff = await updateStaff(id, data)
     if (responseOnUpdateStaff) {
       notify(SUCCESS_STATUS)
-      router.push(`/dashboard/others/package`)
+      router.push(`/users`)
+    }
+  }
+
+  const processChangePassword = async (data) => {
+    let responseOnChangePass = await changePassword(data)
+    if (responseOnChangePass) {
+      notify(SUCCESS_STATUS)
     }
   }
 
@@ -65,7 +89,7 @@ const StaffApiDataProvider = (props) => {
       let proStaffList = staffList.filter((item) => item.id !== id)
       setStaffList(proStaffList)
       notify(SUCCESS_STATUS)
-      router.push(`/dashboard/others/package`)
+      router.push(`/users`)
     }
   }
 
@@ -87,6 +111,10 @@ const StaffApiDataProvider = (props) => {
         processGetStaffProfile,
         processUpdateStaffProfile,
         processDeleteStaff,
+        processViewStaffProfile,
+        processViewStaffUpdateProfile,
+        customField,
+        processChangePassword,
       }}
     >
       {props.children}
