@@ -88,7 +88,6 @@ const AuthApiDataProvider = (props) => {
         processRetrieve,
         processGetAllUsers,
         allUsers,
-        loginErrors,
         processLogout,
       }}
     >

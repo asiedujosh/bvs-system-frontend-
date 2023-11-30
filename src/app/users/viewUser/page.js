@@ -1,5 +1,4 @@
 "use client"
-import OtherSubHeader from "@/app/components/otherSubHeader"
 import { StaffApiData } from "@/app/context/Staff/StaffContextApi"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
@@ -10,8 +9,6 @@ import { useState, useContext } from "react"
 
 const ViewUser = () => {
   const { staffData } = useContext(StaffApiData)
-
-  console.log(staffData)
 
   return (
     <>

@@ -1,4 +1,4 @@
-const InputField = ({ field, value, change, error }) => {
+const InputField = ({ field, value, change }) => {
   const handleInputChange = (e) => {
     change(e.target.value, field.name)
   }
