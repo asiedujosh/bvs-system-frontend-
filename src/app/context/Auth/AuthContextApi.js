@@ -12,24 +12,10 @@ const AuthApiDataProvider = (props) => {
   const [userId, setUserId] = useState("")
   const [userProfile, setUserProfile] = useState()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  //const [loginErrors, setLoginErrors] = useState([])
 
   const router = useRouter()
 
   const processLogin = async (data) => {
-    //Check username and password
-    // let err = []
-    // if (data.personnel_id === null || data.personnel_id === "") {
-    //   err.push("personnel_id")
-    // }
-
-    // if (data.password === null || data.password === "") {
-    //   err.push("password")
-    // }
-
-    // if (err.length > 0) {
-    //   setLoginErrors(err)
-    // } else {
     let response = await login(data)
     if (response) {
       setUserProfile(response.data.user)
@@ -44,7 +30,6 @@ const AuthApiDataProvider = (props) => {
       setIsAuthenticated(true)
       router.push("/dashboard")
     }
-    //}
   }
 
   const processRetrieve = async () => {

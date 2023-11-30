@@ -31,20 +31,19 @@ const ViewUser = () => {
                   {/* {SUB_COMPANY_TITLE} */}
                 </h2>
                 <div className="space-y-4">
-                  {ADDSTAFF &&
-                    ADDSTAFF.fieldDetail.map((item) => {
-                      if (
-                        item.name !== "password" ||
-                        item.name !== "confirmPassword"
-                      ) {
-                        return (
-                          <IdField
-                            field={item.label}
-                            value={staffData[item.name]}
-                          />
-                        )
-                      }
-                    })}
+                  {ADDSTAFF.fieldDetail.map((item) => {
+                    if (
+                      item.name !== "password" ||
+                      item.name !== "confirmPassword"
+                    ) {
+                      return (
+                        <IdField
+                          field={item.label}
+                          value={staffData && staffData[item.name]}
+                        />
+                      )
+                    }
+                  })}
                 </div>
               </div>
             </div>
