@@ -20,15 +20,15 @@ const AllClients = () => {
   console.log(companyRecordTable)
 
   // The correct one is to use individualTable, We use company for debug
-  let dueRecords =
-    individualTable &&
-    individualTable.filter((item) => !checkExpiryDate(item.expireDate))
 
   return (
     <>
       <SubHeader />
       {recordTable && (
-        <TableContainer tableHeader={DASHBOARDTABLE} tableInfo={dueRecords} />
+        <TableContainer
+          tableHeader={DASHBOARDTABLE}
+          tableInfo={individualTable}
+        />
       )}
     </>
   )

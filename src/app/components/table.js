@@ -50,8 +50,8 @@ const Table = ({ tableHeader, tableInfo }) => {
                 className={`border border-gray-200 py-4 px-2 
               ${
                 checkExpiryDate(item.expireDate)
-                  ? "text-red-500"
-                  : " text-green-500"
+                  ? "text-green-500"
+                  : "text-red-500"
               }`}
               >
                 {`${item.expireDate ? readableDate(item.expireDate) : "None"}`}
@@ -98,11 +98,11 @@ const Table = ({ tableHeader, tableInfo }) => {
                 </td>
                 <td
                   className={`border border-gray-200 py-4 px-2 
-              ${
-                checkExpiryDate(item.expireDate)
-                  ? "text-red-500"
-                  : " text-green-500"
-              }`}
+                ${
+                  checkExpiryDate(item.expireDate)
+                    ? "text-green-500"
+                    : "text-red-500"
+                }`}
                 >
                   {`${
                     item.expireDate ? readableDate(item.expireDate) : "None"

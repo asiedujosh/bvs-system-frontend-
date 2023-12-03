@@ -1,15 +1,31 @@
 "use client"
-import { IndividualApiData } from "@/app/context/Individual/IndividualContextApi.js"
-import { useContext, useEffect } from "react"
-import Navbar from "@/app/components/navbar.js"
-import ComRecordTableContainer from "@/app/components/comRecordTableContainer.js"
-import { COMPANY_RECORDS_TABLE } from "@/app/constant/companyConstants"
-import { OtherApiData } from "@/app/context/Others/OtherContextApi.js"
+import { useEffect, useContext } from "react"
+import checkExpiryDate from "@/app/utils/checkExpiryDate"
+import { IndividualApiData } from "@/app/context/Individual/IndividualContextApi"
+import SubHeader from "@/app/components/subHeader.js"
+import ReminderCard from "@/app/components/reminderCard"
+import { REMIND_TITLE } from "@/app/constant/remindConstants"
 
 const RemindPage = () => {
+  const { processGetRecordingTable, individualTable } =
+    useContext(IndividualApiData)
+  useEffect(() => {
+    processGetRecordingTable(1)
+  }, [])
+
+  let dueRecords =
+    individualTable &&
+    individualTable.filter((item) => checkExpiryDate(item.expireDate) === false)
+
   return (
     <>
-      <h2>Remind</h2>
+      <SubHeader />
+      <div>
+        <ReminderCard title={REMIND_TITLE[0]} clients={dueRecords} />
+      </div>
+      <div>
+        <ReminderCard title={REMIND_TITLE[1]} clients={individualTable} />
+      </div>
     </>
   )
 }

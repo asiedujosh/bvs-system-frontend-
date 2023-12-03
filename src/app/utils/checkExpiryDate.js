@@ -1,19 +1,16 @@
 "use client"
 import currentDate from "@/app/utils/currentDate"
+
 const checkExpiryDate = (dateString2) => {
-  // Convert the date strings to JavaScript Date objects
-  //Todays Date
-  let dateString1 = currentDate()
-  const date1 = new Date(dateString1)
-  const date2 = new Date(dateString2)
+  const currentDate = new Date() // Get the current date
+
+  const expiryDate = new Date(dateString2)
 
   // Compare the dates
-  if (date1.getTime() > date2.getTime()) {
-    return false // date1 is ahead of date2
-  } else if (date1.getTime() === date2.getTime()) {
-    return true // date1 is the same day as date2
+  if (currentDate.getTime() < expiryDate.getTime()) {
+    return true // Expiry date is in the future, date is still valid
   } else {
-    return false // date1 is behind date2
+    return false // Expiry date is in the past, date is expired
   }
 }
 

@@ -37,7 +37,7 @@ const IndividualApiDataProvider = (props) => {
     if (response) {
       setClientData(response.data.client)
       notify(SUCCESS_STATUS)
-      router.push(`/dashboard/individual/${response.data.product.productId}`)
+      router.push(`/dashboard/individual`)
     }
   }
 

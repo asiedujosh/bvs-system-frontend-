@@ -19,7 +19,7 @@ const Individual = () => {
 
   let dueRecords =
     individualTable &&
-    individualTable.filter((item) => checkExpiryDate(item.expireDate))
+    individualTable.filter((item) => checkExpiryDate(item.expireDate) === false)
   //checkExpiryDate(item.expiryDate)
   // console.log(dueRecords)
 
