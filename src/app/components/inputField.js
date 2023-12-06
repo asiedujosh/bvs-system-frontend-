@@ -5,7 +5,7 @@ const InputField = ({ field, value, change, errorData }) => {
     change(e.target.value, field.name)
   }
 
-  let err = errorData.filter((item) => item.id == field.name)
+  let err = errorData && errorData.filter((item) => item.id == field.name)
 
   return (
     <div className="mb-4">
@@ -19,9 +19,10 @@ const InputField = ({ field, value, change, errorData }) => {
         placeholder={field.placeholder}
         className="w-full p-2 border border-gray-300 rounded-md focus:outline-none"
       />
-      {err.length > 0 && (
+      {err && (
         <p className="text-red-500 text-sm">
-          {err[0].name} {ERROR_MSG.empty}
+          {err.length > 0 ? err[0].name : ""}{" "}
+          {err.length > 0 ? ERROR_MSG.empty : ""}
         </p>
       )}
     </div>

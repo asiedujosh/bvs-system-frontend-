@@ -119,7 +119,7 @@ const AddClients = () => {
       })
     formData.expireDate = getPackage(formData.package)
     // let expiryDate = getPackage(formData.package)
-    console.log(formData)
+    //console.log(formData)
     processAddClient(formData)
   }
 
