@@ -14,7 +14,6 @@ import ServiceTable from "@/app/components/serviceTable"
 const ProfileSection = () => {
   const { serviceList, clientData } = useContext(IndividualApiData)
   const router = useRouter()
-  console.log(clientData)
   // Sample profile data
   return (
     <div className="w-full h-full p-4 sm:p-6 md:p-8 bg-white rounded-md shadow-md">
@@ -26,7 +25,8 @@ const ProfileSection = () => {
           <div className="flex items-center mb-2 sm:flex-row sm:mb-0">
             <UsersIcon className="w-6 h-6 mr-2 text-black" />
             <p className="text-xl font-semibold">
-              {clientData.clientName || clientData.client.clientName}
+              {(clientData && clientData.clientName) ||
+                (clientData && clientData.client.clientName)}
             </p>
           </div>
           <div className="flex items-center mb-2 sm:flex-row sm:mb-0">
@@ -49,19 +49,22 @@ const ProfileSection = () => {
           <div className="flex items-center mb-2 sm:flex-row sm:mb-0">
             <IdentificationIcon className="w-6 h-6 mr-2 text-black" />
             <p className="text-lg">
-              {clientData.clientId || clientData.client.clientId}
+              {(clientData && clientData.clientId) ||
+                (clientData && clientData.client.clientId)}
             </p>
           </div>
           <div className="flex items-center mb-2 sm:flex-row sm:mb-0">
             <MapIcon className="w-6 h-6 mr-2 text-black" />
             <p className="text-lg">
-              {clientData.clientLocation || clientData.client.clientLocation}
+              {(clientData && clientData.clientLocation) ||
+                (clientData && clientData.client.clientLocation)}
             </p>
           </div>
           <div className="flex items-center mb-2 sm:flex-row sm:mb-0">
             <PhoneIcon className="w-6 h-6 mr-2 text-black" />
             <p className="text-lg">
-              {clientData.clientTel || clientData.client.clientTel}
+              {(clientData && clientData.clientTel) ||
+                (clientData && clientData.client.clientTel)}
             </p>
           </div>
         </div>
@@ -119,9 +122,11 @@ const ProductSection = ({ productInfo }) => {
   console.log(products)
   const [isTableVisible, setTableVisible] = useState(false)
   const router = useRouter()
-  let filteredService = serviceList.services.filter(
-    (item) => item.productId === productInfo.productId
-  )
+  let filteredService = serviceList.services
+    ? serviceList.services.filter(
+        (item) => item.productId === productInfo.productId
+      )
+    : null
 
   // Sample product data
   const carDetails = [

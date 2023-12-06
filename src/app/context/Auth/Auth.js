@@ -12,6 +12,7 @@ export const login = async (data) => {
     }
   } catch (err) {
     console.log(err)
+    return false
   }
 }
 

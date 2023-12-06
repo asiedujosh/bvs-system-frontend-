@@ -7,24 +7,25 @@ import ReminderCard from "@/app/components/reminderCard"
 import { REMIND_TITLE } from "@/app/constant/remindConstants"
 
 const RemindPage = () => {
-  const { processGetRecordingTable, individualTable } =
-    useContext(IndividualApiData)
+  const {
+    remindDueTable,
+    remindAllTable,
+    processRemindDueRecordingTable,
+    processRemindAllRecordingTable,
+  } = useContext(IndividualApiData)
   useEffect(() => {
-    processGetRecordingTable(1)
+    processRemindDueRecordingTable()
+    processRemindAllRecordingTable()
   }, [])
-
-  let dueRecords =
-    individualTable &&
-    individualTable.filter((item) => checkExpiryDate(item.expireDate) === false)
 
   return (
     <>
       <SubHeader />
       <div>
-        <ReminderCard title={REMIND_TITLE[0]} clients={dueRecords} />
+        <ReminderCard title={REMIND_TITLE[0]} clients={remindDueTable} />
       </div>
       <div>
-        <ReminderCard title={REMIND_TITLE[1]} clients={individualTable} />
+        <ReminderCard title={REMIND_TITLE[1]} clients={remindAllTable} />
       </div>
     </>
   )

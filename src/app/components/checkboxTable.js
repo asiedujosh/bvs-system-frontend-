@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 
 const CheckboxTable = ({ data }) => {
+  //console.log(data)
   const [selectedItems, setSelectedItems] = useState([])
   const [selectAll, setSelectAll] = useState(false)
 
@@ -40,19 +41,20 @@ const CheckboxTable = ({ data }) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) => (
-            <tr key={index}>
-              <td className="border p-2">
-                <input
-                  type="checkbox"
-                  checked={selectedItems.includes(item)}
-                  onChange={() => handleCheckboxChange(item)}
-                  className="form-checkbox h-5 w-5 text-blue-800"
-                />
-              </td>
-              <td className="border p-2">{item.clientName}</td>
-            </tr>
-          ))}
+          {data &&
+            data.map((item, index) => (
+              <tr key={index}>
+                <td className="border p-2">
+                  <input
+                    type="checkbox"
+                    checked={selectedItems.includes(item)}
+                    onChange={() => handleCheckboxChange(item)}
+                    className="form-checkbox h-5 w-5 text-blue-800"
+                  />
+                </td>
+                <td className="border p-2">{item.clientName}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

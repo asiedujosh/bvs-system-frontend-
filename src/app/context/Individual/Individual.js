@@ -80,6 +80,47 @@ export const getRecordingTable = async (data) => {
   }
 }
 
+export const getRemindAll = async () => {
+  try {
+    let responseOnRemindAll = await axios.get(`/api/remindAllRecord`)
+    if (responseOnRemindAll.status === SUCCESS_STATUS) {
+      return responseOnRemindAll.data
+    } else {
+      return false
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const getDueRemind = async () => {
+  try {
+    let responseOnDueRemind = await axios.get(`/api/remindDueRecord`)
+    if (responseOnDueRemind.status === SUCCESS_STATUS) {
+      return responseOnDueRemind.data
+    } else {
+      return false
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const dueRecordingTable = async (data) => {
+  try {
+    let responseOnDueTable = await axios.get(
+      `/api/dueRecords?page=${data}&perPage=${TABLECONSTANTS.listOnPages}`
+    )
+    if (responseOnDueTable.status === SUCCESS_STATUS) {
+      return responseOnDueTable.data
+    } else {
+      return false
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 export const getCompanyTable = async (data) => {
   try {
     let responseOnCompTable = await axios.get(

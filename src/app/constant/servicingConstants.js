@@ -5,44 +5,22 @@ export const ADDSERVICE = {
   buttonText: "Submit",
   fieldDetail1: [
     {
-      name: "startDate",
-      label: "Start Date",
-      type: "date",
-      placeholder: "Enter start date",
+      name: "package",
+      label: "Package",
+      type: "select",
+      options: ["3 Months", "5 Months", "1 Year"],
     },
     {
-      name: "expireDate",
-      label: "Expire Date",
+      name: "datePaid",
+      label: "Date Paid",
       type: "date",
-      placeholder: "Enter due date",
+      placeholder: "Enter date paid",
     },
     {
       name: "amtPaid",
       label: "Amount Paid",
       type: "number",
       placeholder: "Enter amount paid",
-    },
-  ],
-  fieldDetail2: [
-    {
-      name: "serviceType",
-      label: "Service Type",
-      type: "select",
-      options: ["Purchase", "Installation", "Roll Over", "Remove"],
-    },
-  ],
-  field2Base: [
-    {
-      name: "supervisor",
-      label: "Supervisor",
-      type: "select",
-      options: ["Purchase", "Installation", "Roll Over", "Others"],
-    },
-    {
-      name: "techOfficer",
-      label: "Technical Officer",
-      type: "select",
-      options: ["Purchase", "Installation", "Roll Over", "Others"],
     },
   ],
 }

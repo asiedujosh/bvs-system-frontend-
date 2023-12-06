@@ -14,6 +14,9 @@ import {
   getClient,
   getAllProducts,
   searchRecords,
+  dueRecordingTable,
+  getDueRemind,
+  getRemindAll,
 } from "./Individual"
 
 export const IndividualApiData = createContext()
@@ -25,10 +28,14 @@ const IndividualApiDataProvider = (props) => {
   const [products, setProducts] = useState(null)
   const [recordTable, setRecordTable] = useState([])
   const [individualTable, setIndividualTable] = useState([])
+  const [dueTable, setDueTable] = useState([])
   const [companyRecordTable, setCompanyRecordTable] = useState([])
   const [companyProductRec, setCompanyProductRec] = useState([])
   const [serviceList, setServiceList] = useState([])
   const [proUnderCompany, setProUnderCompany] = useState([])
+  const [paginationData, setPaginationData] = useState()
+  const [remindDueTable, setRemindDueTable] = useState()
+  const [remindAllTable, setRemindAllTable] = useState()
 
   const router = useRouter()
 
@@ -74,6 +81,7 @@ const IndividualApiDataProvider = (props) => {
       let indiTable = []
       let compTable = []
       setRecordTable(response.data.dashTable)
+      setPaginationData(response.data.pagination)
       response.data.dashTable.data.map((item) => {
         if (item.associate == "Company") {
           compTable.push(item)
@@ -84,6 +92,40 @@ const IndividualApiDataProvider = (props) => {
       setIndividualTable(indiTable)
       setCompanyRecordTable(compTable)
       processGetServices()
+    }
+  }
+
+  const processGetDueRecordingTable = async (data) => {
+    let response = await dueRecordingTable(data)
+    if (response) {
+      if (response.data.dueData) {
+        setRecordTable(response.data.dueData)
+        setPaginationData(response.data.pagination)
+        let iniTable = []
+        response.data.dueData.map((item) => {
+          if (item.associate !== "Company") iniTable.push(item)
+        })
+        setDueTable(iniTable)
+      }
+    }
+  }
+
+  const processRemindAllRecordingTable = async () => {
+    let response = await getRemindAll()
+    if (response) {
+      if (response.data.remindAllData) {
+        setRemindAllTable(response.data.remindAllData)
+      }
+    }
+  }
+
+  const processRemindDueRecordingTable = async () => {
+    let response = await getDueRemind()
+    if (response) {
+      if (response.data.remindDueData) {
+        //console.log(response.data.remindDueData)
+        setRemindDueTable(response.data.remindDueData)
+      }
     }
   }
 
@@ -109,7 +151,6 @@ const IndividualApiDataProvider = (props) => {
       setClientData(responseOnProfile)
     }
     if (responseOnProducts) {
-      console.log(responseOnProducts)
       setProducts(responseOnProducts)
     }
     router.push(`/dashboard/individual/profile/${id}`)
@@ -141,19 +182,26 @@ const IndividualApiDataProvider = (props) => {
         clientData,
         products,
         processViewProductsUnderCompany,
+        processRemindAllRecordingTable,
         processGetRecordingTable,
         processGetCompRecordTable,
+        processRemindDueRecordingTable,
+        processGetDueRecordingTable,
         processGetServices,
         processGetProfile,
         processAddProduct,
         processSearchRecord,
         recordTable,
+        dueTable,
         serviceList,
         searchRecord,
         individualTable,
         companyRecordTable,
+        remindDueTable,
+        remindAllTable,
         companyProductRec,
         proUnderCompany,
+        paginationData,
       }}
     >
       {props.children}

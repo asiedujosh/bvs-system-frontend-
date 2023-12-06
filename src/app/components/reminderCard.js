@@ -25,7 +25,9 @@ const ReminderCard = ({ title, clients }) => {
               <div className="w-full md:w-1/2 lg:w-1/2 p-6 bg-gray-100 rounded-lg shadow-md mt-2 md:mt-0 md:m-2">
                 <h2 className="text-lg font-semibold mb-2">Client List</h2>
                 <div className="space-y-4">
-                  <CheckboxTable data={clients} />
+                  <div className="h-48 overflow-y-scroll">
+                    <CheckboxTable data={clients} />
+                  </div>
                 </div>
               </div>
 

@@ -7,17 +7,11 @@ import { useEffect, useContext } from "react"
 import { IndividualApiData } from "@/app/context/Individual/IndividualContextApi"
 
 const AllClients = () => {
-  const {
-    processGetRecordingTable,
-    recordTable,
-    individualTable,
-    companyRecordTable,
-  } = useContext(IndividualApiData)
+  const { processGetRecordingTable, recordTable, individualTable } =
+    useContext(IndividualApiData)
   useEffect(() => {
     processGetRecordingTable(1)
   }, [])
-
-  console.log(companyRecordTable)
 
   // The correct one is to use individualTable, We use company for debug
 

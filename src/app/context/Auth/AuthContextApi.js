@@ -1,5 +1,7 @@
 "use client"
 import React, { createContext, useState } from "react"
+import { notify } from "@/app/utils/responseUtils"
+import { BAD_REQUEST_STATUS } from "@/app/constant/requestConstants"
 import { useRouter } from "next/navigation"
 import axios from "@/app/utils/axios.config"
 import { login, retrieve, getAllUsers } from "./Auth"
@@ -12,6 +14,7 @@ const AuthApiDataProvider = (props) => {
   const [userId, setUserId] = useState("")
   const [userProfile, setUserProfile] = useState()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const router = useRouter()
 
@@ -29,6 +32,10 @@ const AuthApiDataProvider = (props) => {
       ] = `Bearer ${response.data.accessToken}`
       setIsAuthenticated(true)
       router.push("/dashboard")
+      setIsLoading(false)
+    } else {
+      setIsLoading(false)
+      notify(BAD_REQUEST_STATUS, "Invalid Username/Password")
     }
   }
 
@@ -74,6 +81,8 @@ const AuthApiDataProvider = (props) => {
         processGetAllUsers,
         allUsers,
         processLogout,
+        isLoading,
+        setIsLoading,
       }}
     >
       {props.children}

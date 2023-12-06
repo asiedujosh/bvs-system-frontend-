@@ -28,3 +28,16 @@ Content-Type: application/json
  "role": false
 }
 
+
+### Add a service 
+POST http://127.0.0.1:8000/api/serviceAdd
+Content-Type: application/json
+
+{
+ "amtPaid": "30",
+ "datePaid": "2023-12-05",
+ "expireDate": "2023-11-30",
+ "package": "Basic",
+ "productId": "pro-423819879",
+ "startDate": "2023-10-30"
+}

@@ -3,6 +3,9 @@ import { useState, useContext } from "react"
 import { AuthApiData } from "@/app/context/Auth/AuthContextApi.js"
 import InputField from "@/app/components/inputField.js"
 import SubmitBtn from "@/app/components/submitButton.js"
+import LoadingBtn from "@/app/components/loadingButton"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 import {
   USERNAME_FIELD,
   PASSWORD_FIELD,
@@ -10,10 +13,12 @@ import {
 } from "@/app/constant/loginConstants"
 
 export default function Login() {
-  const { processLogin } = useContext(AuthApiData)
+  const { processLogin, isLoading, setIsLoading } = useContext(AuthApiData)
   const [formData, setFormData] = useState({})
+  const [error, setError] = useState([])
 
   const handleInputChange = (data, field) => {
+    setError([])
     setFormData({
       ...formData,
       [field]: data,
@@ -21,8 +26,29 @@ export default function Login() {
   }
 
   const handleSubmit = (e) => {
+    setIsLoading(!isLoading)
     e.preventDefault()
-    processLogin(formData)
+    let newErr = []
+    if (!formData.personnel_id)
+      newErr.push({
+        id: USERNAME_FIELD.name,
+        name: USERNAME_FIELD.label,
+        status: true,
+      })
+
+    if (!formData.password)
+      newErr.push({
+        id: PASSWORD_FIELD.name,
+        name: PASSWORD_FIELD.name,
+        status: true,
+      })
+
+    if (newErr.length > 0) {
+      setIsLoading(false)
+      setError(newErr)
+    } else {
+      processLogin(formData)
+    }
   }
 
   return (
@@ -40,6 +66,7 @@ export default function Login() {
             change={(data, field) => {
               handleInputChange(data, field)
             }}
+            errorData={error}
           />
           <InputField
             field={PASSWORD_FIELD}
@@ -47,10 +74,19 @@ export default function Login() {
             change={(data, field) => {
               handleInputChange(data, field)
             }}
+            errorData={error}
           />
-          <SubmitBtn text={LOGIN_PAGE_TEXT.buttonText} submit={handleSubmit} />
+          {isLoading ? (
+            <LoadingBtn />
+          ) : (
+            <SubmitBtn
+              text={LOGIN_PAGE_TEXT.buttonText}
+              submit={handleSubmit}
+            />
+          )}
         </div>
       </div>
+      <ToastContainer />
     </main>
   )
 }

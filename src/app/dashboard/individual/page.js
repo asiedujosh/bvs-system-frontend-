@@ -8,18 +8,19 @@ import { IndividualApiData } from "@/app/context/Individual/IndividualContextApi
 
 const Individual = () => {
   const {
-    processGetRecordingTable,
+    processGetDueRecordingTable,
     recordTable,
+    dueTable,
     individualTable,
     searchRecord,
   } = useContext(IndividualApiData)
   useEffect(() => {
-    processGetRecordingTable(1)
+    processGetDueRecordingTable(1)
   }, [])
 
-  let dueRecords =
-    individualTable &&
-    individualTable.filter((item) => checkExpiryDate(item.expireDate) === false)
+  // let dueRecords =
+  //   dueTable &&
+  //   dueTable.filter((item) => checkExpiryDate(item.expireDate) === false)
   //checkExpiryDate(item.expiryDate)
   // console.log(dueRecords)
 
@@ -27,7 +28,7 @@ const Individual = () => {
     <>
       <SubHeader />
       {recordTable && (
-        <TableContainer tableHeader={DASHBOARDTABLE} tableInfo={dueRecords} />
+        <TableContainer tableHeader={DASHBOARDTABLE} tableInfo={dueTable} />
       )}
     </>
   )

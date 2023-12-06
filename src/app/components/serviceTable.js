@@ -15,19 +15,20 @@ const ServiceTable = ({ serviceInfo }) => {
         className="w-full overflow-y-auto"
         style={{ maxHeight: "calc(80% - 3.5rem)" }}
       >
-        {serviceInfo.map((item) => (
-          <tr className="border-t border-gray-200">
-            <td className="border border-gray-200 py-4 px-2">
-              {item.startDate}
-            </td>
-            <td className="border border-gray-200 py-4 px-2">
-              {item.expireDate ? item.expireDate : "None"}
-            </td>
-            <td className="border border-gray-200 py-4 px-2">
-              GH {item.amtPaid}
-            </td>
-          </tr>
-        ))}
+        {serviceInfo &&
+          serviceInfo.map((item) => (
+            <tr className="border-t border-gray-200">
+              <td className="border border-gray-200 py-4 px-2">
+                {item.startDate}
+              </td>
+              <td className="border border-gray-200 py-4 px-2">
+                {item.expireDate ? item.expireDate : "None"}
+              </td>
+              <td className="border border-gray-200 py-4 px-2">
+                GH {item.amtPaid}
+              </td>
+            </tr>
+          ))}
       </tbody>
     </table>
   )
