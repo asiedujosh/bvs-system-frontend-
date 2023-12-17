@@ -1,27 +1,16 @@
-import React, { useState } from "react"
-
-const CheckboxTable = ({ data }) => {
-  //console.log(data)
-  const [selectedItems, setSelectedItems] = useState([])
-  const [selectAll, setSelectAll] = useState(false)
-
+const CheckboxTable = ({
+  data,
+  checkBox,
+  allCheckBox,
+  selectedItems,
+  selectAll,
+}) => {
   const handleCheckboxChange = (item) => {
-    if (selectedItems.includes(item)) {
-      setSelectedItems(
-        selectedItems.filter((selectedItem) => selectedItem !== item)
-      )
-    } else {
-      setSelectedItems([...selectedItems, item])
-    }
+    checkBox(item)
   }
 
   const handleSelectAllChange = () => {
-    if (selectAll) {
-      setSelectedItems([])
-    } else {
-      setSelectedItems([...data])
-    }
-    setSelectAll(!selectAll)
+    allCheckBox()
   }
 
   return (

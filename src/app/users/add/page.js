@@ -1,6 +1,7 @@
 "use client"
 import { useState, useContext, useEffect } from "react"
 import { StaffApiData } from "@/app/context/Staff/StaffContextApi"
+import { AccessControlData } from "@/app/context/AccessControl/AccessControlContextApi.js"
 import { ADDSTAFF } from "@/app/constant/staffConstants"
 import InputField from "@/app/components/inputField"
 import SelectField from "@/app/components/selectField"
@@ -9,8 +10,34 @@ import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
 const AddUser = () => {
+  const { allRole } = useContext(AccessControlData)
   const { processAddStaff } = useContext(StaffApiData)
   const [formData, setFormData] = useState({})
+  const [selectedRole, setSelectedRole] = useState()
+  const [roleOptions, setRoleOptions] = useState([])
+
+  // useEffect(() => {
+  //   processGetAllRole()
+  // }, [])
+
+  useEffect(() => {
+    let roleOp = []
+    allRole &&
+      allRole.allRole.map((item) => {
+        // roleOptions.push(item.role)
+        roleOp.push(item.role)
+      })
+    setRoleOptions(roleOp)
+    setSelectedRole(
+      allRole && allRole.allRole[0] ? allRole.allRole[0].role : "No role"
+    )
+    setFormData({
+      ...formData,
+      position:
+        allRole && allRole.allRole[0] ? allRole.allRole[0].role : "No role",
+    })
+    //console.log(roleOp[0])
+  }, [allRole])
 
   const handleInputChange = (data, field) => {
     setFormData({
@@ -19,8 +46,17 @@ const AddUser = () => {
     })
   }
 
+  const handleSelectChange = (data, field) => {
+    let roleData =
+      allRole && allRole.allRole.filter((item) => item.role === data)
+    setFormData({
+      ...formData,
+      [field]: roleData && roleData[0] && roleData[0].role,
+    })
+    setSelectedRole(data)
+  }
+
   const handleSubmit = () => {
-    console.log(formData)
     processAddStaff(formData)
   }
 
@@ -57,9 +93,9 @@ const AddUser = () => {
                       <SelectField
                         field={item}
                         value={formData}
-                        options={item.options}
+                        options={roleOptions}
                         change={(data, field) => {
-                          handleInputChange(data, field)
+                          handleSelectChange(data, field)
                         }}
                       />
                     )

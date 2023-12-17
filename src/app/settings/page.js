@@ -2,6 +2,7 @@
 import { useState, useContext, useEffect } from "react"
 import { StaffApiData } from "@/app/context/Staff/StaffContextApi"
 import { AuthApiData } from "@/app/context/Auth/AuthContextApi.js"
+import SettingSubHeader from "@/app/components/settingSubHeader"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { ADDSETTINGS } from "@/app/constant/settingConstants"
@@ -10,8 +11,16 @@ import SubmitBtn from "@/app/components/submitButton"
 
 const Settings = () => {
   const { userProfile } = useContext(AuthApiData)
-  const { processChangePassword } = useContext(StaffApiData)
+  const { processChangePassword, staffRole } = useContext(StaffApiData)
   const [formData, setFormData] = useState({})
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  useEffect(() => {
+    let confirmAdmin = staffRole.filter(
+      (item) => item.id == userProfile.position
+    )
+    confirmAdmin[0].role == "Administrator" && setIsAdmin(true)
+  }, [])
 
   const handleInputChange = (data, field) => {
     setFormData({
@@ -28,6 +37,8 @@ const Settings = () => {
 
   return (
     <>
+      {isAdmin && <SettingSubHeader />}
+
       <div className="checkPoint overflow-y-scroll">
         <div className="w-90 m-6 md:mt-4 p-4 bg-white rounded shadow-lg">
           <div className="flex justify-center align-items mt-4">
@@ -42,7 +53,7 @@ const Settings = () => {
               {/* Card 1 */}
               <div className="w-full md:w-1/2 lg:w-1/3 p-6 bg-gray-100 rounded-lg shadow-md mt-2 md:mt-0 md:m-2">
                 <h2 className="text-lg font-semibold mb-2">
-                  Password Details
+                  {ADDSETTINGS.subTitle}
                   {/* {SUB_COMPANY_TITLE} */}
                 </h2>
                 <div className="space-y-4">

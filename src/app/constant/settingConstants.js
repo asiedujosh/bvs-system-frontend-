@@ -1,5 +1,6 @@
 export const ADDSETTINGS = {
   title: "Change Password",
+  subTitle: "Password Details",
   buttonText: "Submit",
   fieldDetail: [
     {

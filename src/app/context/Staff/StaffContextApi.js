@@ -1,9 +1,10 @@
 "use client"
-import React, { createContext, useState } from "react"
+import React, { createContext, useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { ADDSTAFF } from "@/app/constant/staffConstants"
 import { notify } from "@/app/utils/responseUtils"
 import { SUCCESS_STATUS } from "../../constant/requestConstants"
+import { getAllRole } from "@/app/context/AccessControl/AccessControl"
 import {
   addStaff,
   getAllStaff,
@@ -11,7 +12,7 @@ import {
   getStaff,
   updateStaff,
   deleteStaff,
-  changePassword
+  changePassword,
 } from "./Staff"
 
 export const StaffApiData = createContext()
@@ -21,8 +22,21 @@ const StaffApiDataProvider = (props) => {
   const [searchStaffRecord, setSearchStaffRecord] = useState(null)
   const [staffData, setStaffData] = useState(null)
   const [customField, setCustomField] = useState()
+  const [staffRole, setStaffRole] = useState()
 
   const router = useRouter()
+
+  useEffect(() => {
+    let newQuest = async () => {
+      let data = await getAllRole()
+      if (data) {
+        setStaffRole(data.data.allRole)
+      } else {
+        console.log("Things did not work out")
+      }
+    }
+    newQuest()
+  }, [])
 
   const processAddStaff = async (data) => {
     console.log(data)
@@ -36,7 +50,14 @@ const StaffApiDataProvider = (props) => {
   const processGetAllStaff = async () => {
     let response = await getAllStaff()
     if (response) {
-      setStaffList(response.data.user)
+      let data = []
+      response.data.user.map((staff) => {
+        let newRole = staffRole.filter((item) => item.id == staff.position)
+        //console.log(staff)
+        staff.position = newRole[0].role
+        data.push(staff)
+      })
+      setStaffList(data)
     }
   }
 
@@ -102,6 +123,7 @@ const StaffApiDataProvider = (props) => {
         searchStaffRecord,
         staffData,
         staffList,
+        staffRole,
         getStaff,
         updateStaff,
         deleteStaff,

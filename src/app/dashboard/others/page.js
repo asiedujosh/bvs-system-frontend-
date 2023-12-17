@@ -7,13 +7,14 @@ import {
 import { subNavConst } from "@/app/constant/subNavConstants"
 import SubNavbar from "@/app/components/subNavbar"
 import ComTableContainer from "@/app/components/comTableContainer"
-import checkExpiryDate from "@/app/utils/checkExpiryDate"
+import { AccessControlData } from "@/app/context/AccessControl/AccessControlContextApi.js"
 import { DASHBOARDTABLE } from "@/app/constant/IndividualConstants"
 import { useEffect, useContext } from "react"
 import { OtherApiData } from "@/app/context/Others/OtherContextApi"
 
 const CompanySetting = () => {
   const { processGetAllCompany, companyList } = useContext(OtherApiData)
+  const { singleCompanyPermission } = useContext(AccessControlData)
   useEffect(() => {
     processGetAllCompany()
   }, [])
@@ -27,10 +28,13 @@ const CompanySetting = () => {
   return (
     <>
       <OtherSubHeader />
-      <SubNavbar
-        Label={subNavConst.company.label}
-        URL={subNavConst.company.link}
-      />
+      {singleCompanyPermission &&
+        singleCompanyPermission.singleCompanyPermission.create !== 0 && (
+          <SubNavbar
+            Label={subNavConst.company.label}
+            URL={subNavConst.company.link}
+          />
+        )}
       {/* {recordTable && ( */}
       <ComTableContainer
         tableHeader={COMPANY_TABLE_HEADER}

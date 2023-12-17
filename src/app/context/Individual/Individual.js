@@ -168,3 +168,16 @@ export const getService = async () => {
     console.log(err)
   }
 }
+
+export const sendMessage = async (tel, sms) => {
+  try {
+    let responseOnMessage = await axios.post(
+      `https://sms.arkesel.com/sms/api?action=send-sms&api_key=UVJKUnRwbXBqa3RjRHRqc0h2d0o=&to=${tel}&from=BVS&sms=${sms}`
+    )
+    if (responseOnMessage.code === "ok") {
+      return responseOnMessage.data
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}

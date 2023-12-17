@@ -1,13 +1,49 @@
 "use client"
+import React, { useState, useContext } from "react"
 import { ToastContainer, toast } from "react-toastify"
 import { ADDCLIENT, CLIENT_OPTIONS } from "@/app/constant/IndividualConstants"
+import { IndividualApiData } from "@/app/context/Individual/IndividualContextApi"
 import SubmitBtn from "@/app/components/submitButton"
 import CheckboxTable from "@/app/components/checkboxTable"
 import "react-toastify/dist/ReactToastify.css"
 
 const ReminderCard = ({ title, clients }) => {
+  const { processSendMessage } = useContext(IndividualApiData)
+  const [selectedItems, setSelectedItems] = useState([])
+  const [selectAll, setSelectAll] = useState(false)
+  const [textareaValue, setTextareaValue] = useState("")
+
+  const checkboxChange = (item) => {
+    if (selectedItems.includes(item)) {
+      setSelectedItems(
+        selectedItems.filter((selectedItem) => selectedItem !== item)
+      )
+    } else {
+      setSelectedItems([...selectedItems, item])
+    }
+  }
+
+  const selectAllChange = () => {
+    if (selectAll) {
+      setSelectedItems([])
+    } else {
+      setSelectedItems([...clients])
+    }
+    setSelectAll(!selectAll)
+  }
+
+  const handleTextareaChange = (e) => {
+    // Update the state with the new textarea value
+    setTextareaValue(e.target.value)
+  }
+
   const handleSubmit = () => {
-    console.log("Message sent")
+    let data = {
+      clients: selectedItems,
+      message: textareaValue,
+    }
+    processSendMessage(data)
+    //console.log(data)
   }
 
   return (
@@ -26,7 +62,13 @@ const ReminderCard = ({ title, clients }) => {
                 <h2 className="text-lg font-semibold mb-2">Client List</h2>
                 <div className="space-y-4">
                   <div className="h-48 overflow-y-scroll">
-                    <CheckboxTable data={clients} />
+                    <CheckboxTable
+                      data={clients}
+                      checkBox={checkboxChange}
+                      allCheckBox={selectAllChange}
+                      selectedItems={selectedItems}
+                      selectAll={selectAll}
+                    />
                   </div>
                 </div>
               </div>
@@ -41,6 +83,7 @@ const ReminderCard = ({ title, clients }) => {
                       rows="4"
                       class="mt-1 p-2 border rounded-md w-full focus:outline-none focus:border-transparent"
                       placeholder="Type your message here..."
+                      onChange={handleTextareaChange}
                     ></textarea>
                   </div>
                 </div>

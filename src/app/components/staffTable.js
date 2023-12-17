@@ -2,16 +2,15 @@
 import React, { useContext, useEffect } from "react"
 import { STAFFTABLE } from "@/app/constant/staffConstants"
 import { StaffApiData } from "@/app/context/Staff/StaffContextApi"
+import { AccessControlData } from "@/app/context/AccessControl/AccessControlContextApi.js"
 
 const StaffTable = ({ staffInfo }) => {
+  const { singleClientPermission } = useContext(AccessControlData)
   const {
     processViewStaffProfile,
     processViewStaffUpdateProfile,
     processDeleteStaff,
   } = useContext(StaffApiData)
-  // useEffect(() => {
-  //   console.log(searchPackageRecord)
-  // }, [searchPackageRecord])
 
   return (
     <table className="w-full table-auto rounded">
@@ -38,30 +37,44 @@ const StaffTable = ({ staffInfo }) => {
             </td>
             <td className="w-1/4 border border-gray-200 py-4 px-2">
               <div className="flex space-x-2">
-                <span
-                  onClick={() => {
-                    processViewStaffProfile(item.id)
-                  }}
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
-                >
-                  View
-                </span>
-                <span
-                  onClick={() => {
-                    processViewStaffUpdateProfile(item.id)
-                  }}
-                  className="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded"
-                >
-                  Edit
-                </span>
-                <span
-                  onClick={() => {
-                    processDeleteStaff(item.id)
-                  }}
-                  className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded"
-                >
-                  Delete
-                </span>
+                {singleClientPermission.singleClientPermission.view !== 0 ? (
+                  <span
+                    onClick={() => {
+                      processViewStaffProfile(item.id)
+                    }}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+                  >
+                    View
+                  </span>
+                ) : (
+                  <span className="text-gray-200"> View </span>
+                )}
+
+                {singleClientPermission.singleClientPermission.update !== 0 ? (
+                  <span
+                    onClick={() => {
+                      processViewStaffUpdateProfile(item.id)
+                    }}
+                    className="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded"
+                  >
+                    Edit
+                  </span>
+                ) : (
+                  <span className="text-gray-200">| Update |</span>
+                )}
+
+                {singleClientPermission.singleClientPermission.delete !== 0 ? (
+                  <span
+                    onClick={() => {
+                      processDeleteStaff(item.id)
+                    }}
+                    className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded"
+                  >
+                    Delete
+                  </span>
+                ) : (
+                  <span className="text-gray-200"> Delete </span>
+                )}
               </div>
             </td>
           </tr>

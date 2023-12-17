@@ -4,8 +4,10 @@ import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import Link from "next/link"
 import { OtherApiData } from "@/app/context/Others/OtherContextApi"
+import { AccessControlData } from "@/app/context/AccessControl/AccessControlContextApi.js"
 
 const CompanyTable = ({ tableHeader, tableInfo }) => {
+  const { singleCompanyPermission } = useContext(AccessControlData)
   const {
     searchCompanyRecord,
     processViewCompanyProfile,
@@ -39,30 +41,47 @@ const CompanyTable = ({ tableHeader, tableInfo }) => {
                 </td>
                 <td className="w-1/4 border border-gray-200 py-4 px-2">
                   <div className="flex space-x-2">
-                    <span
-                      onClick={() => {
-                        processViewCompanyProfile(item.id)
-                      }}
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
-                    >
-                      View
-                    </span>
-                    <span
-                      onClick={() => {
-                        processUpdateCompanyProfile(item.id)
-                      }}
-                      className="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded"
-                    >
-                      Edit
-                    </span>
-                    <span
-                      onClick={() => {
-                        processDeleteCompany(item.id)
-                      }}
-                      className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded"
-                    >
-                      Delete
-                    </span>
+                    {singleCompanyPermission.singleCompanyPermission.view !==
+                    0 ? (
+                      <span
+                        onClick={() => {
+                          processViewCompanyProfile(item.id)
+                        }}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+                      >
+                        View
+                      </span>
+                    ) : (
+                      <span className="text-gray-200"> View </span>
+                    )}
+
+                    {singleCompanyPermission.singleCompanyPermission.update !==
+                    0 ? (
+                      <span
+                        onClick={() => {
+                          processUpdateCompanyProfile(item.id)
+                        }}
+                        className="bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded"
+                      >
+                        Edit
+                      </span>
+                    ) : (
+                      <span className="text-gray-200"> View </span>
+                    )}
+
+                    {singleCompanyPermission.singleCompanyPermission.delete !==
+                    0 ? (
+                      <span
+                        onClick={() => {
+                          processDeleteCompany(item.id)
+                        }}
+                        className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded"
+                      >
+                        Delete
+                      </span>
+                    ) : (
+                      <span className="text-gray-200"> View </span>
+                    )}
                   </div>
                 </td>
               </tr>

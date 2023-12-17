@@ -17,6 +17,7 @@ import {
   dueRecordingTable,
   getDueRemind,
   getRemindAll,
+  sendMessage,
 } from "./Individual"
 
 export const IndividualApiData = createContext()
@@ -173,6 +174,23 @@ const IndividualApiDataProvider = (props) => {
     }
   }
 
+  const processSendMessage = async (data) => {
+    let newTelArray = []
+    if (data.clients.length > 0) {
+      data.clients.map((item) => {
+        newTelArray.push(item.clientTel)
+      })
+
+      let clientPhoneNo = newTelArray.join(",")
+      // console.log(clientPhoneNo)
+      let responseOnMessage = sendMessage(clientPhoneNo, data.message)
+      // console.log(responseOnMessage)
+      if (responseOnMessage) {
+        notify(SUCCESS_STATUS)
+      }
+    }
+  }
+
   return (
     <IndividualApiData.Provider
       value={{
@@ -191,6 +209,7 @@ const IndividualApiDataProvider = (props) => {
         processGetProfile,
         processAddProduct,
         processSearchRecord,
+        processSendMessage,
         recordTable,
         dueTable,
         serviceList,
