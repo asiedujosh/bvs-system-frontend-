@@ -17,8 +17,8 @@ import {
   dueRecordingTable,
   getDueRemind,
   getRemindAll,
-  sendMessage,
 } from "./Individual"
+import { sendMessage } from "./message"
 
 export const IndividualApiData = createContext()
 
@@ -183,7 +183,7 @@ const IndividualApiDataProvider = (props) => {
 
       let clientPhoneNo = newTelArray.join(",")
       // console.log(clientPhoneNo)
-      let responseOnMessage = sendMessage(clientPhoneNo, data.message)
+      let responseOnMessage = await sendMessage(clientPhoneNo, data.message)
       // console.log(responseOnMessage)
       if (responseOnMessage) {
         notify(SUCCESS_STATUS)
