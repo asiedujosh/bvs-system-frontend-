@@ -8,9 +8,9 @@ import { IndividualApiData } from "@/app/context/Individual/IndividualContextApi
 
 const Table = ({ tableHeader, tableInfo }) => {
   const { processGetProfile, searchRecord } = useContext(IndividualApiData)
-  useEffect(() => {
-    console.log(searchRecord)
-  }, [searchRecord])
+  // useEffect(() => {
+  //   // console.log(searchRecord)
+  // }, [searchRecord])
 
   const tableRef = useRef(null)
 

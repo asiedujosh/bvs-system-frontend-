@@ -25,4 +25,4 @@ export const ADDSERVICE = {
   ],
 }
 
-export const SERVICETABLE = ["Start Date", "Expiry Date", "Amt Paid"]
+export const SERVICETABLE = ["Start Date", "Expiry Date", "Amt Paid", "Action"]

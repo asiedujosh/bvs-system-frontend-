@@ -6,9 +6,24 @@ import { TABLECONSTANTS } from "@/app/constant/IndividualConstants"
 export const addClient = async (data) => {
   try {
     let responseOnAddClient = await axios.post("/api/clientAdd", data)
-    console.log(responseOnAddClient)
     if (responseOnAddClient.status === SUCCESS_STATUS) {
       return responseOnAddClient.data
+    } else {
+      return false
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const editClient = async (data) => {
+  try {
+    let responseOnEditClient = await axios.put(
+      `/api/clientEdit/${data.clientId}`,
+      data
+    )
+    if (responseOnEditClient.status === SUCCESS_STATUS) {
+      return responseOnEditClient.data
     } else {
       return false
     }
@@ -22,6 +37,20 @@ export const addProduct = async (data) => {
     let responseOnAddProduct = await axios.post("/api/addProducts", data)
     if (responseOnAddProduct.status === SUCCESS_STATUS) {
       return responseOnAddProduct
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const editProduct = async (data) => {
+  try {
+    let responseOnEditProduct = await axios.put(
+      `/api/productEdit/${data.productId}`,
+      data
+    )
+    if (responseOnEditProduct.status === SUCCESS_STATUS) {
+      return responseOnEditProduct
     }
   } catch (err) {
     console.log(err)
@@ -163,6 +192,18 @@ export const getService = async () => {
     let responseOnService = await axios.get("/api/allServices")
     if (responseOnService.status === SUCCESS_STATUS) {
       return responseOnService.data
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const sendSms = async (data) => {
+  //console.log(data)
+  try {
+    let responseOnSendSms = await axios.post("/api/sendSmsToClient", data)
+    if (responseOnSendSms.status === "ok") {
+      return responseOnSendSms.data
     }
   } catch (err) {
     console.log(err)

@@ -27,6 +27,16 @@ const ServiceTable = ({ serviceInfo }) => {
               <td className="border border-gray-200 py-4 px-2">
                 GH {item.amtPaid}
               </td>
+              <td className="border border-gray-200 py-4 px-2">
+                <button
+                  onClick={() => {
+                    console.log("client Delete")
+                  }}
+                  className="w-3/4 bg-red-600 text-white py-2 mx-2 rounded-md transition duration-300"
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
       </tbody>

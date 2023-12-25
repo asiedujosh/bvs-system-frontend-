@@ -17,8 +17,10 @@ import {
   dueRecordingTable,
   getDueRemind,
   getRemindAll,
+  sendSms,
+  editProduct,
+  editClient,
 } from "./Individual"
-import { sendMessage } from "./message"
 
 export const IndividualApiData = createContext()
 
@@ -49,6 +51,14 @@ const IndividualApiDataProvider = (props) => {
     }
   }
 
+  const processEditClient = async (data) => {
+    let response = await EditClient(data)
+    if (response) {
+      setClientData(response.data.client)
+      notify(SUCCESS_STATUS)
+    }
+  }
+
   const processAddService = async (data) => {
     let response = await addService(data)
     if (response) {
@@ -66,6 +76,15 @@ const IndividualApiDataProvider = (props) => {
       processGetServices()
       processGetProfile(clientId)
       router.push(`/dashboard/individual/profile/${clientId}`)
+    }
+  }
+
+  const processEditProduct = async (data) => {
+    let response = await editProduct(data)
+    if (response) {
+      let clientId = clientData.clientId || clientData.client.clientId
+      processGetServices()
+      processGetProfile(clientId)
     }
   }
 
@@ -183,7 +202,11 @@ const IndividualApiDataProvider = (props) => {
 
       let clientPhoneNo = newTelArray.join(",")
       // console.log(clientPhoneNo)
-      let responseOnMessage = await sendMessage(clientPhoneNo, data.message)
+      let smsInfo = {
+        tel: clientPhoneNo,
+        sms: data.message,
+      }
+      let responseOnMessage = await sendSms(smsInfo)
       // console.log(responseOnMessage)
       if (responseOnMessage) {
         notify(SUCCESS_STATUS)

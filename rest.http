@@ -41,3 +41,13 @@ Content-Type: application/json
  "productId": "pro-423819879",
  "startDate": "2023-10-30"
 }
+
+
+### Send sms
+POST https://apiv4.awesomehandsacademy.com/api/sendSmsToClient
+Content-Type: application/json
+
+{
+    "tel": "0552897142",
+    "sms": "hahaha"
+}

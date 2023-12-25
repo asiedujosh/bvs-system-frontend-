@@ -49,14 +49,18 @@ const StaffApiDataProvider = (props) => {
 
   const processGetAllStaff = async () => {
     let response = await getAllStaff()
+    // console.log(response)
     if (response) {
       let data = []
       response.data.user.map((staff) => {
-        let newRole = staffRole.filter((item) => item.id == staff.position)
-        //console.log(staff)
-        staff.position = newRole[0].role
+        let newRole =
+          staffRole && staffRole.filter((item) => item.id == staff.position)
+        //console.log(staffRole && staffRole)
+        staff.position = newRole && newRole[0].role
+        // console.log(staff)
         data.push(staff)
       })
+      // console.log(data)
       setStaffList(data)
     }
   }

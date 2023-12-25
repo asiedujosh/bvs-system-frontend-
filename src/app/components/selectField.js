@@ -3,7 +3,7 @@ import { useEffect } from "react"
 
 const SelectField = ({ field, value, change, options }) => {
   useEffect(() => {
-    change(options[0], field.name)
+    change(options && options[0], field.name)
   }, [])
 
   const handleInputChange = (e) => {
@@ -21,9 +21,10 @@ const SelectField = ({ field, value, change, options }) => {
         onChange={handleInputChange}
         className="w-full p-2 border border-gray-300 rounded-md focus:outline-none"
       >
-        {options.map((item) => {
-          return <option value={item}>{item}</option>
-        })}
+        {options &&
+          options.map((item) => {
+            return <option value={item}>{item}</option>
+          })}
       </select>
     </div>
   )

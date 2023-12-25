@@ -16,7 +16,7 @@ const ProfileSection = () => {
   const router = useRouter()
   // Sample profile data
   return (
-    <div className="w-full h-full p-4 sm:p-6 md:p-8 bg-white rounded-md shadow-md">
+    <div className="w-full p-4 sm:p-6 md:p-8 bg-white rounded-md shadow-md">
       <h2 className="text-2xl font-semibold text-center mb-4">
         Profile Section
       </h2>
@@ -41,6 +41,26 @@ const ProfileSection = () => {
               className="w-full md:w-1/4 bg-green-500 text-white py-2 rounded-md transition duration-300"
             >
               New Product
+            </button>
+            <button
+              onClick={() => {
+                router.push(
+                  `/dashboard/individual/clientEdit/${
+                    clientData.clientId || clientData.client.clientId
+                  }`
+                )
+              }}
+              className="w-full md:w-1/4 bg-yellow-600 text-white py-2 mx-2 rounded-md transition duration-300"
+            >
+              Edit
+            </button>
+            <button
+              onClick={() => {
+                console.log("client Delete")
+              }}
+              className="w-full md:w-1/4 bg-red-500 text-white py-2 rounded-md transition duration-300"
+            >
+              Delete
             </button>
           </div>
         </div>
@@ -119,7 +139,6 @@ const CarProductCard = ({ title, details }) => {
 
 const ProductSection = ({ productInfo }) => {
   const { serviceList, clientData, products } = useContext(IndividualApiData)
-  console.log(products)
   const [isTableVisible, setTableVisible] = useState(false)
   const router = useRouter()
   let filteredService = serviceList.services
@@ -196,7 +215,7 @@ const ProductSection = ({ productInfo }) => {
   }
 
   return (
-    <div className="w-full h-full p-4 sm:p-6 md:p-8 bg-white rounded-md shadow-md mt-6">
+    <div className="w-full p-4 sm:p-6 md:p-8 bg-white rounded-md shadow-md mt-6">
       <div className="flex flex-wrap">
         <ImagePreview imageSrc={productInfo.carImage} />
         <div className="w-full md:w-2/5 p-4">
@@ -232,17 +251,45 @@ const ProductSection = ({ productInfo }) => {
           <ServiceTable serviceInfo={filteredService} />
         </div>
       )}
+      <div className="flex flex-row">
+        <button
+          onClick={() => {
+            router.push(
+              `/dashboard/individual/productEdit/${productDetails[0].value}`
+            )
+          }}
+          className="w-full bg-yellow-600 text-white py-2 my-2 mx-2 rounded-md transition duration-300"
+        >
+          Edit Product
+        </button>
+        <button
+          onClick={() => {
+            console.log("Delete Product")
+          }}
+          className="w-full bg-red-500 text-white py-2 my-2 mx-2 rounded-md transition duration-300"
+        >
+          Deactivate
+        </button>
+        <button
+          onClick={() => {
+            console.log("Delete Product")
+          }}
+          className="w-full bg-red-800 text-white py-2 my-2 mx-2 rounded-md transition duration-300"
+        >
+          Deactivate & Delete
+        </button>
+      </div>
     </div>
   )
 }
 
 const ProfilePage = () => {
   const { serviceList, clientData, products } = useContext(IndividualApiData)
-  console.log(products)
+  // console.log(products)
 
   return (
-    <div className="container mx-auto w-11/12 h-full p-4 sm:p-6 md:p-8">
-      <div className="overflow-auto" style={{ height: "80%" }}>
+    <div className="checkPoint3">
+      <div className="container mx-auto w-11/12 h-full p-4 sm:p-6 md:p-8">
         <ProfileSection />
         {products ? (
           products.products.map((item) => <ProductSection productInfo={item} />)

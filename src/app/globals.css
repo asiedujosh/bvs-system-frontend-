@@ -38,3 +38,10 @@ body {
 .checkPoint2 {
   height: 80vh;
 }
+
+.checkPoint3 {
+  height: 95%;
+  overflow-y: scroll;
+  position: absolute;
+  width: 100%;
+}
