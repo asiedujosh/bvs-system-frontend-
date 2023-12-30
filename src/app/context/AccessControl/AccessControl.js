@@ -121,6 +121,21 @@ export const getSinglePackagePermission = async (id) => {
   }
 }
 
+export const getSingleUserPermission = async (id) => {
+  try {
+    let responseOnGetSingleUserPermission = await axios.get(
+      `/api/getSingleUserPermission/${id}`
+    )
+    if (responseOnGetSingleUserPermission.status === SUCCESS_STATUS) {
+      return responseOnGetSingleUserPermission.data
+    } else {
+      return false
+    }
+  } catch (err) {
+    return false
+  }
+}
+
 export const getAllUserPermission = async () => {
   try {
     let responseOnGetAllUserPermission = await axios.get(
@@ -136,13 +151,58 @@ export const getAllUserPermission = async () => {
   }
 }
 
-export const getSingleUserPermission = async (id) => {
+export const getSingleServicePermission = async (id) => {
   try {
-    let responseOnGetSingleUserPermission = await axios.get(
-      `/api/getSingleUserPermission/${id}`
+    let responseOnGetSingleServicePermission = await axios.get(
+      `/api/getSingleServicePermission/${id}`
     )
-    if (responseOnGetSingleUserPermission.status === SUCCESS_STATUS) {
-      return responseOnGetSingleUserPermission.data
+    if (responseOnGetSingleServicePermission.status === SUCCESS_STATUS) {
+      return responseOnGetSingleServicePermission.data
+    } else {
+      return false
+    }
+  } catch (err) {
+    return false
+  }
+}
+
+export const getAllServicePermission = async () => {
+  try {
+    let responseOnGetAllServicePermission = await axios.get(
+      "/api/getAllServicePermission"
+    )
+    if (responseOnGetAllServicePermission.status === SUCCESS_STATUS) {
+      return responseOnGetAllServicePermission.data
+    } else {
+      return false
+    }
+  } catch (err) {
+    return false
+  }
+}
+
+export const getSingleProductPermission = async (id) => {
+  try {
+    let responseOnGetSingleProductPermission = await axios.get(
+      `/api/getSingleProductPermission/${id}`
+    )
+    if (responseOnGetSingleProductPermission.status === SUCCESS_STATUS) {
+      return responseOnGetSingleProductPermission.data
+    } else {
+      return false
+    }
+  } catch (err) {
+    return false
+  }
+}
+
+export const getAllProductPermission = async () => {
+  try {
+    let responseOnGetAllProductPermission = await axios.get(
+      "/api/getAllProductPermission"
+    )
+    if (responseOnGetAllProductPermission.status === SUCCESS_STATUS) {
+      return responseOnGetAllProductPermission.data
     } else {
       return false
     }

@@ -64,17 +64,11 @@ const AddClients = () => {
   }, [packageList])
 
   useEffect(() => {
-    console.log(staffList)
     if (staffList.length > 0) {
       let data = []
       staffList.map((item) => {
         if (item.position.toLowerCase().includes("tech")) data.push(item.name)
       })
-
-      console.log(data)
-      // console.log(techOfficers)
-      // techOfficers.length > 0 &&
-      // techOfficers.map((item) => data.push(item.name))
       setTechOfficerOptions(data)
       setFormData({ ...formData, technicalOfficer: techOfficerOptions[0] })
     }

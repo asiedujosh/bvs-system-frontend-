@@ -14,6 +14,10 @@ import {
   getSinglePackagePermission,
   getAllUserPermission,
   getSingleUserPermission,
+  getSingleServicePermission,
+  getAllServicePermission,
+  getSingleProductPermission,
+  getAllProductPermission,
   updatePermissions,
   deleteRole,
 } from "./AccessControl"
@@ -31,6 +35,10 @@ const AccessControlDataProvider = (props) => {
   const [singleCompanyPermission, setSingleCompanyPermission] = useState()
   const [singlePackagePermission, setSinglePackagePermission] = useState()
   const [singleUserPermission, setSingleUserPermission] = useState()
+  const [servicePermission, setServicePermission] = useState()
+  const [singleServicePermission, setSingleServicePermission] = useState()
+  const [productPermission, setProductPermission] = useState()
+  const [singleProductPermission, setSingleProductPermission] = useState()
 
   const router = useRouter()
 
@@ -47,6 +55,8 @@ const AccessControlDataProvider = (props) => {
       processGetAllCompanyPermission()
       processGetAllPackagePermission()
       processGetAllUserPermission()
+      processGetAllProductPermission()
+      processGetAllServicePermission()
       notify(SUCCESS_STATUS)
       //router.push(`/dashboard/individual`)
     }
@@ -115,6 +125,34 @@ const AccessControlDataProvider = (props) => {
     }
   }
 
+  const processGetAllServicePermission = async () => {
+    let response = await getAllServicePermission()
+    if (response) {
+      setServicePermission(response.data)
+    }
+  }
+
+  const processGetSingleServicePermission = async () => {
+    let response = await getSingleServicePermission()
+    if (response) {
+      setSingleServicePermission(response.data)
+    }
+  }
+
+  const processGetAllProductPermission = async () => {
+    let response = await getAllProductPermission()
+    if (response) {
+      setProductPermission(response.data)
+    }
+  }
+
+  const processGetSingleProductPermission = async () => {
+    let response = await getSingleProductPermission()
+    if (response) {
+      setSingleProductPermission(response.data)
+    }
+  }
+
   const processUpdatePermission = async (data) => {
     let response = await updatePermissions(data)
     if (response) {
@@ -149,6 +187,8 @@ const AccessControlDataProvider = (props) => {
         companyPermission,
         packagePermission,
         userPermission,
+        servicePermission,
+        productPermission,
         processGetAllClientPermission,
         processGetAllCompanyPermission,
         processGetAllPackagePermission,
@@ -159,10 +199,16 @@ const AccessControlDataProvider = (props) => {
         processGetSingleCompanyPermission,
         processGetSinglePackagePermission,
         processGetSingleUserPermission,
+        processGetAllServicePermission,
+        processGetSingleServicePermission,
+        processGetAllProductPermission,
+        processGetSingleProductPermission,
         singleClientPermission,
         singleCompanyPermission,
         singlePackagePermission,
         singleUserPermission,
+        singleServicePermission,
+        singleProductPermission,
       }}
     >
       {props.children}

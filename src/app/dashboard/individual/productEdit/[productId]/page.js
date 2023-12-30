@@ -14,51 +14,50 @@ import { useState, useContext, useEffect } from "react"
 import currentDate from "@/app/utils/currentDate"
 
 const EditProduct = ({ params }) => {
-  const { clientData, processAddProduct, products } =
+  const { clientData, processEditProduct, editProductInfo } =
     useContext(IndividualApiData)
   const { staffList } = useContext(StaffApiData)
   const [packageOptions, setPackageOptions] = useState([])
   const [techOfficerOptions, setTechOfficerOptions] = useState([])
   const [newProducts, setNewProducts] = useState([])
   const [formData, setFormData] = useState({
-    productId: params.productId,
-    technicalOfficer: null,
-    carBrand: null,
-    carColor: null,
-    carImage: null,
-    carType: null,
-    chasisNo: null,
-    deviceNo: null,
-    plateNo: null,
-    simNo: null,
+    productId: editProductInfo && editProductInfo.productId,
+    technicalOfficer: editProductInfo && editProductInfo.technicalOfficer,
+    carBrand: editProductInfo && editProductInfo.carBrand,
+    carColor: editProductInfo && editProductInfo.carColor,
+    carImage: editProductInfo && editProductInfo.carImage,
+    carType: editProductInfo && editProductInfo.carType,
+    chasisNo: editProductInfo && editProductInfo.chasisNo,
+    deviceNo: editProductInfo && editProductInfo.deviceNo,
+    plateNo: editProductInfo && editProductInfo.plateNo,
+    simNo: editProductInfo && editProductInfo.simNo,
     plateform: ADDCLIENT.productDetails[5].options[0],
-    requestDate: currentDate(),
+    //requestDate: currentDate(),
   })
 
+  // console.log(editProductInfo && editProductInfo)
+
   useEffect(() => {
-    let editProduct =
-      products &&
-      products.products.filter((item) => item.productId === params.productId)
-
-    setFormData({
-      ...formData,
-      carBrand: editProduct[0].carBrand,
-      carColor: editProduct[0].carColor,
-      carImage: editProduct[0].carImage,
-      carType: editProduct[0].carType,
-      chasisNo: editProduct[0].chasisNo,
-      deviceNo: editProduct[0].deviceNo,
-      plateNo: editProduct[0].plateNo,
-      simNo: editProduct[0].simNo,
-      technicalOfficer: editProduct[0].technicalOfficer,
-    })
-
     let newPro = ADDCLIENT.productDetails.filter(
       (item) =>
         item.name !== "package" &&
         item.name !== "amtPaid" &&
         item.name !== "startDate"
     )
+
+    setFormData({
+      ...formData,
+      productId: editProductInfo && editProductInfo.productId,
+      technicalOfficer: editProductInfo && editProductInfo.technicalOfficer,
+      carBrand: editProductInfo && editProductInfo.carBrand,
+      carColor: editProductInfo && editProductInfo.carColor,
+      carImage: editProductInfo && editProductInfo.carImage,
+      carType: editProductInfo && editProductInfo.carType,
+      chasisNo: editProductInfo && editProductInfo.chasisNo,
+      deviceNo: editProductInfo && editProductInfo.deviceNo,
+      plateNo: editProductInfo && editProductInfo.plateNo,
+      simNo: editProductInfo && editProductInfo.simNo,
+    })
 
     setNewProducts(newPro)
   }, [])
@@ -82,26 +81,18 @@ const EditProduct = ({ params }) => {
   useEffect(() => {
     if (staffList.length > 0) {
       let data = []
-      let techOfficers = staffList.filter(
-        (item) => item.position === "Tech Officer"
-      )
-      if (techOfficers.length > 0) {
-        techOfficers.map((item) => data.push(item.name))
-        console.log(data)
-        setTechOfficerOptions(data)
-        setFormData({ ...formData, technicalOfficer: techOfficerOptions[0] })
-      } else {
-        //setTechOfficerOptions()
-        setFormData({ ...formData, technicalOfficer: null })
-      }
+      staffList.map((item) => {
+        if (item.position.toLowerCase().includes("tech")) data.push(item.name)
+      })
+      setTechOfficerOptions(data)
+      setFormData({ ...formData, technicalOfficer: techOfficerOptions[0] })
     }
   }, [staffList])
 
   const handleSubmit = (e) => {
     // e.preventDefault()
-    formData.expireDate = getPackage(formData.package)
-    console.log(formData)
-    processAddProduct(formData)
+    // console.log(formData)
+    processEditProduct(formData)
   }
 
   return (
@@ -128,7 +119,7 @@ const EditProduct = ({ params }) => {
                     <InputField
                       field={item}
                       value={formData}
-                      defaultVal={formData[item.name]}
+                      defaultVal={editProductInfo && editProductInfo[item.name]}
                       readOnly={item.readOnly}
                       change={(data, field) => {
                         handleInputChange(data, field)
@@ -165,7 +156,7 @@ const EditProduct = ({ params }) => {
                     <InputField
                       field={item}
                       value={formData}
-                      defaultVal={item.defaultValue}
+                      defaultVal={editProductInfo && editProductInfo[item.name]}
                       readOnly={item.readOnly}
                       change={(data, field) => {
                         handleInputChange(data, field)

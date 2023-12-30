@@ -10,86 +10,123 @@ import {
   CreditCardIcon,
 } from "@heroicons/react/24/solid"
 import ServiceTable from "@/app/components/serviceTable"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 const ProfileSection = () => {
-  const { serviceList, clientData } = useContext(IndividualApiData)
+  const {
+    products,
+    clientData,
+    individualTable,
+    setHoldAssociateData,
+    processDeleteClient,
+  } = useContext(IndividualApiData)
   const router = useRouter()
+
+  const goToAddProduct = (clientId) => {
+    let previousPro = individualTable.filter(
+      (item) => item.clientId === clientId
+    )
+    let associateCompanyData = {
+      associate: previousPro[0].associate,
+      companyName: previousPro[0].companyName,
+    }
+    setHoldAssociateData(associateCompanyData)
+
+    router.push(`/dashboard/individual/product/${clientId}`)
+  }
+
+  const handleDeleteClient = (clientId) => {
+    let productIds = []
+    products && products.products.map((item) => productIds.push(item.productId))
+    let data = {
+      clientId: clientId,
+      productIds: productIds,
+    }
+    // console.log(data)
+    processDeleteClient(data)
+  }
+
   // Sample profile data
   return (
-    <div className="w-full p-4 sm:p-6 md:p-8 bg-white rounded-md shadow-md">
-      <h2 className="text-2xl font-semibold text-center mb-4">
-        Profile Section
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
-        <div className="sm:grid sm:grid-cols-1 sm:gap-2">
-          <div className="flex items-center mb-2 sm:flex-row sm:mb-0">
-            <UsersIcon className="w-6 h-6 mr-2 text-black" />
-            <p className="text-xl font-semibold">
-              {(clientData && clientData.clientName) ||
-                (clientData && clientData.client.clientName)}
-            </p>
-          </div>
-          <div className="flex items-center mb-2 sm:flex-row sm:mb-0">
-            <button
-              onClick={() => {
-                router.push(
-                  `/dashboard/individual/product/${
+    <>
+      <div className="w-full p-4 sm:p-6 md:p-8 bg-white rounded-md shadow-md">
+        <h2 className="text-2xl font-semibold text-center mb-4">
+          Profile Section
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
+          <div className="sm:grid sm:grid-cols-1 sm:gap-2">
+            <div className="flex items-center mb-2 sm:flex-row sm:mb-0">
+              <UsersIcon className="w-6 h-6 mr-2 text-black" />
+              <p className="text-xl font-semibold">
+                {(clientData && clientData.clientName) ||
+                  (clientData && clientData.client.clientName)}
+              </p>
+            </div>
+            <div className="flex items-center mb-2 sm:flex-row sm:mb-0">
+              <button
+                onClick={() => {
+                  goToAddProduct(
                     clientData.clientId || clientData.client.clientId
-                  }`
-                )
-              }}
-              className="w-full md:w-1/4 bg-green-500 text-white py-2 rounded-md transition duration-300"
-            >
-              New Product
-            </button>
-            <button
-              onClick={() => {
-                router.push(
-                  `/dashboard/individual/clientEdit/${
+                  )
+                }}
+                className="w-full md:w-1/4 bg-green-500 text-white py-2 rounded-md transition duration-300"
+              >
+                New Product
+              </button>
+              <button
+                onClick={() => {
+                  router.push(
+                    `/dashboard/individual/clientEdit/${
+                      clientData.clientId || clientData.client.clientId
+                    }`
+                  )
+                }}
+                className="w-full md:w-1/4 bg-yellow-600 text-white py-2 mx-2 rounded-md transition duration-300"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => {
+                  handleDeleteClient(
                     clientData.clientId || clientData.client.clientId
-                  }`
-                )
-              }}
-              className="w-full md:w-1/4 bg-yellow-600 text-white py-2 mx-2 rounded-md transition duration-300"
-            >
-              Edit
-            </button>
-            <button
-              onClick={() => {
-                console.log("client Delete")
-              }}
-              className="w-full md:w-1/4 bg-red-500 text-white py-2 rounded-md transition duration-300"
-            >
-              Delete
-            </button>
+                  )
+                  // console.log("client Delete")
+                }}
+                className="w-full md:w-1/4 bg-red-500 text-white py-2 rounded-md transition duration-300"
+              >
+                Delete
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div className="sm:grid sm:grid-cols-2 sm:gap-2">
-          <div className="flex items-center mb-2 sm:flex-row sm:mb-0">
-            <IdentificationIcon className="w-6 h-6 mr-2 text-black" />
-            <p className="text-lg">
-              {(clientData && clientData.clientId) ||
-                (clientData && clientData.client.clientId)}
-            </p>
-          </div>
-          <div className="flex items-center mb-2 sm:flex-row sm:mb-0">
-            <MapIcon className="w-6 h-6 mr-2 text-black" />
-            <p className="text-lg">
-              {(clientData && clientData.clientLocation) ||
-                (clientData && clientData.client.clientLocation)}
-            </p>
-          </div>
-          <div className="flex items-center mb-2 sm:flex-row sm:mb-0">
-            <PhoneIcon className="w-6 h-6 mr-2 text-black" />
-            <p className="text-lg">
-              {(clientData && clientData.clientTel) ||
-                (clientData && clientData.client.clientTel)}
-            </p>
+          <div className="sm:grid sm:grid-cols-2 sm:gap-2">
+            <div className="flex items-center mb-2 sm:flex-row sm:mb-0">
+              <IdentificationIcon className="w-6 h-6 mr-2 text-black" />
+              <p className="text-lg">
+                {(clientData && clientData.clientId) ||
+                  (clientData && clientData.client.clientId)}
+              </p>
+            </div>
+            <div className="flex items-center mb-2 sm:flex-row sm:mb-0">
+              <MapIcon className="w-6 h-6 mr-2 text-black" />
+              <p className="text-lg">
+                {(clientData && clientData.clientLocation) ||
+                  (clientData && clientData.client.clientLocation)}
+              </p>
+            </div>
+            <div className="flex items-center mb-2 sm:flex-row sm:mb-0">
+              <PhoneIcon className="w-6 h-6 mr-2 text-black" />
+              <p className="text-lg">
+                {(clientData && clientData.clientTel) ||
+                  (clientData && clientData.client.clientTel)}
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <ToastContainer />
+    </>
   )
 }
 
@@ -138,7 +175,14 @@ const CarProductCard = ({ title, details }) => {
 }
 
 const ProductSection = ({ productInfo }) => {
-  const { serviceList, clientData, products } = useContext(IndividualApiData)
+  const {
+    serviceList,
+    clientData,
+    products,
+    setEditProductInfo,
+    processDeactivateProduct,
+    processDeleteProduct,
+  } = useContext(IndividualApiData)
   const [isTableVisible, setTableVisible] = useState(false)
   const router = useRouter()
   let filteredService = serviceList.services
@@ -214,6 +258,39 @@ const ProductSection = ({ productInfo }) => {
     router.push(`/dashboard/individual/${productDetails[0].value}`)
   }
 
+  const goToEditProduct = (productId) => {
+    // console.log(productId)
+    let editProduct =
+      products &&
+      products.products.filter((item) => item.productId === productId)
+
+    let editData = {
+      productId: productId,
+      technicalOfficer: editProduct[0].technicalOfficer,
+      carBrand: editProduct[0].carBrand,
+      carColor: editProduct[0].carColor,
+      carImage: editProduct[0].carImage,
+      carType: editProduct[0].carType,
+      chasisNo: editProduct[0].chasisNo,
+      deviceNo: editProduct[0].deviceNo,
+      plateNo: editProduct[0].plateNo,
+      simNo: editProduct[0].simNo,
+    }
+
+    // console.log(editData)
+    setEditProductInfo(editData)
+
+    router.push(`/dashboard/individual/productEdit/${productId}`)
+  }
+
+  const handleDeactivateProduct = (productId) => {
+    processDeactivateProduct(productId)
+  }
+
+  const handleDeleteProduct = (productId) => {
+    processDeleteProduct({ productId: productId })
+  }
+
   return (
     <div className="w-full p-4 sm:p-6 md:p-8 bg-white rounded-md shadow-md mt-6">
       <div className="flex flex-wrap">
@@ -254,9 +331,7 @@ const ProductSection = ({ productInfo }) => {
       <div className="flex flex-row">
         <button
           onClick={() => {
-            router.push(
-              `/dashboard/individual/productEdit/${productDetails[0].value}`
-            )
+            goToEditProduct(productDetails[0].value)
           }}
           className="w-full bg-yellow-600 text-white py-2 my-2 mx-2 rounded-md transition duration-300"
         >
@@ -264,7 +339,7 @@ const ProductSection = ({ productInfo }) => {
         </button>
         <button
           onClick={() => {
-            console.log("Delete Product")
+            handleDeactivateProduct(productDetails[0].value)
           }}
           className="w-full bg-red-500 text-white py-2 my-2 mx-2 rounded-md transition duration-300"
         >
@@ -272,11 +347,11 @@ const ProductSection = ({ productInfo }) => {
         </button>
         <button
           onClick={() => {
-            console.log("Delete Product")
+            handleDeleteProduct(productDetails[0].value)
           }}
           className="w-full bg-red-800 text-white py-2 my-2 mx-2 rounded-md transition duration-300"
         >
-          Deactivate & Delete
+          Delete
         </button>
       </div>
     </div>
@@ -284,7 +359,7 @@ const ProductSection = ({ productInfo }) => {
 }
 
 const ProfilePage = () => {
-  const { serviceList, clientData, products } = useContext(IndividualApiData)
+  const { products } = useContext(IndividualApiData)
   // console.log(products)
 
   return (

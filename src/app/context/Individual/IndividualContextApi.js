@@ -20,6 +20,10 @@ import {
   sendSms,
   editProduct,
   editClient,
+  deactivateProduct,
+  deleteClient,
+  deleteProduct,
+  deleteService,
 } from "./Individual"
 
 export const IndividualApiData = createContext()
@@ -29,6 +33,7 @@ const IndividualApiDataProvider = (props) => {
   const [clientData, setClientData] = useState(null)
   const [searchRecord, setSearchRecord] = useState(null)
   const [products, setProducts] = useState(null)
+  const [editProductInfo, setEditProductInfo] = useState(null)
   const [recordTable, setRecordTable] = useState([])
   const [individualTable, setIndividualTable] = useState([])
   const [dueTable, setDueTable] = useState([])
@@ -39,6 +44,7 @@ const IndividualApiDataProvider = (props) => {
   const [paginationData, setPaginationData] = useState()
   const [remindDueTable, setRemindDueTable] = useState()
   const [remindAllTable, setRemindAllTable] = useState()
+  const [holdAssociateData, setHoldAssociateData] = useState()
 
   const router = useRouter()
 
@@ -52,7 +58,7 @@ const IndividualApiDataProvider = (props) => {
   }
 
   const processEditClient = async (data) => {
-    let response = await EditClient(data)
+    let response = await editClient(data)
     if (response) {
       setClientData(response.data.client)
       notify(SUCCESS_STATUS)
@@ -92,6 +98,16 @@ const IndividualApiDataProvider = (props) => {
     let response = await getService()
     if (response) {
       setServiceList(response.data)
+    }
+  }
+
+  const processDeactivateProduct = async (data) => {
+    let response = await deactivateProduct(data)
+    if (response) {
+      let clientId = clientData.clientId || clientData.client.clientId
+      processGetServices()
+      processGetProfile(clientId)
+      notify(SUCCESS_STATUS)
     }
   }
 
@@ -214,14 +230,46 @@ const IndividualApiDataProvider = (props) => {
     }
   }
 
+  const processDeleteProduct = async (data) => {
+    // console.log(data)
+    let response = await deleteProduct(data)
+    if (response) {
+      let clientId = clientData.clientId || clientData.client.clientId
+      processGetServices()
+      processGetProfile(clientId)
+      notify(SUCCESS_STATUS)
+    }
+  }
+
+  const processDeleteClient = async (data) => {
+    let response = await deleteClient(data)
+    if (response) {
+      //processGetRecordingTable(1)
+      router.push(`/dashboard/individual/all`)
+    }
+  }
+
+  const processDeleteService = async (data) => {
+    let response = await deleteService(data)
+    if (response) {
+      let clientId = clientData.clientId || clientData.client.clientId
+      processGetServices()
+      processGetProfile(clientId)
+      notify(SUCCESS_STATUS)
+    }
+  }
+
   return (
     <IndividualApiData.Provider
       value={{
         processAddClient,
         processAddService,
         processAddCompany,
+        editProductInfo,
+        setEditProductInfo,
         clientData,
         products,
+        processDeactivateProduct,
         processViewProductsUnderCompany,
         processRemindAllRecordingTable,
         processGetRecordingTable,
@@ -233,6 +281,7 @@ const IndividualApiDataProvider = (props) => {
         processAddProduct,
         processSearchRecord,
         processSendMessage,
+        processEditProduct,
         recordTable,
         dueTable,
         serviceList,
@@ -244,6 +293,12 @@ const IndividualApiDataProvider = (props) => {
         companyProductRec,
         proUnderCompany,
         paginationData,
+        holdAssociateData,
+        setHoldAssociateData,
+        processEditClient,
+        processDeleteProduct,
+        processDeleteClient,
+        processDeleteService,
       }}
     >
       {props.children}

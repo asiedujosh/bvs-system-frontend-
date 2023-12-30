@@ -1,7 +1,20 @@
 "use client"
+import React, { useContext } from "react"
 import { SERVICETABLE } from "@/app/constant/servicingConstants"
+import { IndividualApiData } from "@/app/context/Individual/IndividualContextApi"
 
 const ServiceTable = ({ serviceInfo }) => {
+  const { processDeleteService } = useContext(IndividualApiData)
+
+  const handleDeleteService = (productId, serviceId) => {
+    let data = {
+      productId,
+      serviceId,
+    }
+    //console.log(data)
+    processDeleteService(data)
+  }
+
   return (
     <table className="w-full table-auto rounded">
       <thead className="sticky top-0 z-10 bg-gray-100">
@@ -30,7 +43,7 @@ const ServiceTable = ({ serviceInfo }) => {
               <td className="border border-gray-200 py-4 px-2">
                 <button
                   onClick={() => {
-                    console.log("client Delete")
+                    handleDeleteService(item.productId, item.id)
                   }}
                   className="w-3/4 bg-red-600 text-white py-2 mx-2 rounded-md transition duration-300"
                 >

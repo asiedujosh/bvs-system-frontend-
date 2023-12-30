@@ -6,6 +6,7 @@ import { OtherApiData } from "@/app/context/Others/OtherContextApi"
 import { StaffApiData } from "@/app/context/Staff/StaffContextApi"
 import InputField from "@/app/components/inputField"
 import IdField from "@/app/components/idField"
+import formatDate from "@/app/utils/formatDate"
 import SelectField from "@/app/components/selectField"
 import SubmitBtn from "@/app/components/submitButton"
 import UploadImage from "@/app/components/uploadImageField"
@@ -14,14 +15,20 @@ import { useState, useContext, useEffect } from "react"
 import currentDate from "@/app/utils/currentDate"
 
 const AddProduct = ({ params }) => {
-  const { clientData, processAddProduct, individualTable, products } =
-    useContext(IndividualApiData)
+  const {
+    clientData,
+    processAddProduct,
+    individualTable,
+    products,
+    holdAssociateData,
+  } = useContext(IndividualApiData)
   const { processGetAllPackage, packageList } = useContext(OtherApiData)
   const { processGetAllStaff, staffList } = useContext(StaffApiData)
   const [packageOptions, setPackageOptions] = useState([])
   const [techOfficerOptions, setTechOfficerOptions] = useState([])
   const [formData, setFormData] = useState({
     productId: generateUniqueID("pro"),
+    carType: ADDCLIENT.carDetails[0].options[0],
     clientId: params.clientId,
     clientName:
       (clientData && clientData.clientName) ||
@@ -29,8 +36,11 @@ const AddProduct = ({ params }) => {
     clientTel:
       (clientData && clientData.clientTel) ||
       (clientData && clientData.client.clientTel),
-    associate: null,
-    companyName: null,
+    clientLocation:
+      (clientData && clientData.clientLocation) ||
+      (clientData && clientData.client.clientLocation),
+    associate: holdAssociateData && holdAssociateData.associate,
+    companyName: holdAssociateData && holdAssociateData.companyName,
     technicalOfficer: null,
     purchaseType: ADDCLIENT.productDetails[2].options[0],
     package: null,
@@ -47,17 +57,6 @@ const AddProduct = ({ params }) => {
       setFormData({ ...formData, package: packageOptions[0] })
     }
   }, [packageList])
-
-  useEffect(() => {
-    let previousPro = individualTable.filter(
-      (item) => item.clientId === params.clientId
-    )
-    setFormData({
-      ...formData,
-      associate: previousPro[0].associate,
-      companyName: previousPro[0].companyName,
-    })
-  }, [])
 
   useEffect(() => {
     if (staffList.length > 0) {
@@ -82,6 +81,18 @@ const AddProduct = ({ params }) => {
     })
   }
 
+  //Add ExpiryDate
+  let expiryDate = (startDate, monthsToAdd) => {
+    const dateObject = new Date(startDate)
+    const newDate = new Date(
+      dateObject.getFullYear(),
+      dateObject.getMonth() + monthsToAdd,
+      dateObject.getDate()
+    )
+    return formatDate(newDate)
+    //console.log(formatDate(newDate))
+  }
+
   //Calculate the expiring Date
   let calculateMonth = (packPrice, packMonth) => {
     let noOfMonth = formData.amtPaid / packPrice / packMonth
@@ -100,7 +111,6 @@ const AddProduct = ({ params }) => {
   const handleSubmit = (e) => {
     // e.preventDefault()
     formData.expireDate = getPackage(formData.package)
-    // console.log(formData)
     processAddProduct(formData)
   }
 
@@ -165,7 +175,9 @@ const AddProduct = ({ params }) => {
                   value={clientData.clientId || clientData.client.clientId}
                 />
                 {ADDCLIENT.productDetails.map((item) => {
-                  return item.type === "text" || item.type === "date" ? (
+                  return item.type === "text" ||
+                    item.type === "date" ||
+                    item.type === "number" ? (
                     <InputField
                       field={item}
                       value={formData}

@@ -19,7 +19,7 @@ export const addClient = async (data) => {
 export const editClient = async (data) => {
   try {
     let responseOnEditClient = await axios.put(
-      `/api/clientEdit/${data.clientId}`,
+      `/api/clientUpdate/${data.clientId}`,
       data
     )
     if (responseOnEditClient.status === SUCCESS_STATUS) {
@@ -46,7 +46,7 @@ export const addProduct = async (data) => {
 export const editProduct = async (data) => {
   try {
     let responseOnEditProduct = await axios.put(
-      `/api/productEdit/${data.productId}`,
+      `/api/updateProduct/${data.productId}`,
       data
     )
     if (responseOnEditProduct.status === SUCCESS_STATUS) {
@@ -192,6 +192,72 @@ export const getService = async () => {
     let responseOnService = await axios.get("/api/allServices")
     if (responseOnService.status === SUCCESS_STATUS) {
       return responseOnService.data
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const deactivateProduct = async (id) => {
+  try {
+    let responseOnDeactiveProduct = await axios.put(
+      `/api/deactivateProduct/${id}`
+    )
+    if (responseOnDeactiveProduct.status === SUCCESS_STATUS) {
+      return responseOnDeactiveProduct.data
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const deleteProduct = async (data) => {
+  //console.log(data);
+
+  try {
+    let responseOnDeleteProduct = await axios.delete("/api/deleteProduct", {
+      data: data, // Pass the data in the config object
+      headers: {
+        "Content-Type": "application/json", // Set the Content-Type header if sending JSON data
+      },
+    })
+
+    if (responseOnDeleteProduct.status === SUCCESS_STATUS) {
+      return responseOnDeleteProduct.data
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const deleteClient = async (data) => {
+  try {
+    let responseOnClientDelete = await axios.delete("/api/deleteClient", {
+      data: data,
+      headers: {
+        "Content-Type": "application/json", // Set the Content-Type header if sending JSON data
+      },
+    })
+
+    if (responseOnClientDelete.status === SUCCESS_STATUS) {
+      return responseOnClientDelete.data
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const deleteService = async (data) => {
+  try {
+    let responseOnDeleteService = await axios.delete("/api/deleteService", {
+      data: data,
+      headers: {
+        "Content-Type": "application/json", // Set the Content-Type header if sending JSON data
+      },
+    })
+
+    if (responseOnDeleteService.status === SUCCESS_STATUS) {
+      return responseOnDeleteService.data
     }
   } catch (err) {
     console.log(err)

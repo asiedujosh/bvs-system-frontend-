@@ -15,7 +15,7 @@ import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
 const EditClient = ({ params }) => {
-  const { clientData, processAddClient } = useContext(IndividualApiData)
+  const { clientData, processEditClient } = useContext(IndividualApiData)
   const [formData, setFormData] = useState({
     clientId: params.clientId,
     clientName:
@@ -37,17 +37,8 @@ const EditClient = ({ params }) => {
   }
 
   const handleSubmit = (e) => {
-    // e.preventDefault()
-    // formData.associate === ADDCLIENT.personalDetails[3].options[1] &&
-    //   formData.companyName === null &&
-    //   setFormData({
-    //     ...formData,
-    //     companyName: companyOptions.length > 0 ? companyOptions[0] : null,
-    //   })
-    // formData.expireDate = getPackage(formData.package)
-    // let expiryDate = getPackage(formData.package)
     //console.log(formData)
-    // processAddClient(formData)
+    processEditClient(formData)
   }
 
   return (

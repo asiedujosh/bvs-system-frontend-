@@ -14,6 +14,8 @@ const AddPermission = () => {
     companyPermission,
     packagePermission,
     userPermission,
+    productPermission,
+    servicePermission,
     processUpdatePermission,
   } = useContext(AccessControlData)
 
@@ -44,6 +46,20 @@ const AddPermission = () => {
     },
     {
       label: "Clients",
+      create: false,
+      read: false,
+      update: false,
+      delete: false,
+    },
+    {
+      label: "Service",
+      create: false,
+      read: false,
+      update: false,
+      delete: false,
+    },
+    {
+      label: "Product",
       create: false,
       read: false,
       update: false,
@@ -247,6 +263,98 @@ const AddPermission = () => {
     })
   }, [userPermission])
 
+  useEffect(() => {
+    //console.log(userPermission)
+    let productPermData =
+      allRole &&
+      productPermission &&
+      productPermission.productPermission.filter(
+        (item) => item.role_id == allRole.allRole[0].id
+      )
+    //console.log(clientPermData)
+    setData((prevData) => {
+      return prevData.map((item) => {
+        if (item.label === "Product") {
+          // Update the properties as needed
+          return {
+            ...item,
+            create:
+              productPermData && productPermData[0]
+                ? productPermData[0].create === 0
+                  ? false
+                  : true
+                : false,
+            read:
+              productPermData && productPermData[0]
+                ? productPermData[0].view === 0
+                  ? false
+                  : true
+                : false,
+            update:
+              productPermData && productPermData[0]
+                ? productPermData[0].update === 0
+                  ? false
+                  : true
+                : false,
+            delete:
+              productPermData && productPermData[0]
+                ? productPermData[0].delete === 0
+                  ? false
+                  : true
+                : false,
+          }
+        }
+        return item
+      })
+    })
+  }, [productPermission])
+
+  useEffect(() => {
+    //console.log(userPermission)
+    let servicePermData =
+      allRole &&
+      servicePermission &&
+      servicePermission.servicePermission.filter(
+        (item) => item.role_id == allRole.allRole[0].id
+      )
+    //console.log(clientPermData)
+    setData((prevData) => {
+      return prevData.map((item) => {
+        if (item.label === "Service") {
+          // Update the properties as needed
+          return {
+            ...item,
+            create:
+              servicePermData && servicePermData[0]
+                ? servicePermData[0].create === 0
+                  ? false
+                  : true
+                : false,
+            read:
+              servicePermData && servicePermData[0]
+                ? servicePermData[0].view === 0
+                  ? false
+                  : true
+                : false,
+            update:
+              servicePermData && servicePermData[0]
+                ? servicePermData[0].update === 0
+                  ? false
+                  : true
+                : false,
+            delete:
+              servicePermData && servicePermData[0]
+                ? servicePermData[0].delete === 0
+                  ? false
+                  : true
+                : false,
+          }
+        }
+        return item
+      })
+    })
+  }, [servicePermission])
+
   const handleDataChange = (role) => {
     console.log(role)
     //get it from role
@@ -413,6 +521,93 @@ const AddPermission = () => {
             delete:
               userPermData && userPermData[0]
                 ? userPermData[0].delete === 0
+                  ? false
+                  : true
+                : false,
+          }
+        }
+        return item
+      })
+    })
+
+    let productPermData =
+      allRole &&
+      productPermission &&
+      productPermission.productPermission.filter(
+        (item) => item.role_id == roleId
+      )
+    //console.log(clientPermData)
+    setData((prevData) => {
+      return prevData.map((item) => {
+        if (item.label === "Product") {
+          // Update the properties as needed
+          return {
+            ...item,
+            create:
+              productPermData && productPermData[0]
+                ? productPermData[0].create === 0
+                  ? false
+                  : true
+                : false,
+            read:
+              productPermData && productPermData[0]
+                ? productPermData[0].view === 0
+                  ? false
+                  : true
+                : false,
+            update:
+              productPermData && productPermData[0]
+                ? productPermData[0].update === 0
+                  ? false
+                  : true
+                : false,
+            delete:
+              productPermData && productPermData[0]
+                ? productPermData[0].delete === 0
+                  ? false
+                  : true
+                : false,
+          }
+        }
+        return item
+      })
+    })
+
+    let servicePermData =
+      allRole &&
+      servicePermission &&
+      servicePermission.servicePermission.filter(
+        (item) => item.role_id == roleId
+      )
+
+    //console.log(clientPermData)
+    setData((prevData) => {
+      return prevData.map((item) => {
+        if (item.label === "Service") {
+          // Update the properties as needed
+          return {
+            ...item,
+            create:
+              servicePermData && servicePermData[0]
+                ? servicePermData[0].create === 0
+                  ? false
+                  : true
+                : false,
+            read:
+              servicePermData && servicePermData[0]
+                ? servicePermData[0].view === 0
+                  ? false
+                  : true
+                : false,
+            update:
+              servicePermData && servicePermData[0]
+                ? servicePermData[0].update === 0
+                  ? false
+                  : true
+                : false,
+            delete:
+              servicePermData && servicePermData[0]
+                ? servicePermData[0].delete === 0
                   ? false
                   : true
                 : false,
