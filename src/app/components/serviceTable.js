@@ -1,9 +1,11 @@
 "use client"
 import React, { useContext } from "react"
 import { SERVICETABLE } from "@/app/constant/servicingConstants"
+import { AccessControlData } from "@/app/context/AccessControl/AccessControlContextApi.js"
 import { IndividualApiData } from "@/app/context/Individual/IndividualContextApi"
 
 const ServiceTable = ({ serviceInfo }) => {
+  const {singleServicePermission} = useContext(AccessControlData)
   const { processDeleteService } = useContext(IndividualApiData)
 
   const handleDeleteService = (productId, serviceId) => {
@@ -41,14 +43,18 @@ const ServiceTable = ({ serviceInfo }) => {
                 GH {item.amtPaid}
               </td>
               <td className="border border-gray-200 py-4 px-2">
-                <button
-                  onClick={() => {
-                    handleDeleteService(item.productId, item.id)
-                  }}
-                  className="w-3/4 bg-red-600 text-white py-2 mx-2 rounded-md transition duration-300"
-                >
-                  Delete
-                </button>
+              {singleServicePermission &&
+            singleServicePermission.singleServicePermission.delete !== 0 && (
+              <button
+              onClick={() => {
+                handleDeleteService(item.productId, item.id)
+              }}
+              className="w-3/4 bg-red-600 text-white py-2 mx-2 rounded-md transition duration-300"
+            >
+              Delete
+            </button>
+        )}
+               
               </td>
             </tr>
           ))}

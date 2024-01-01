@@ -30,6 +30,7 @@ export const IndividualApiData = createContext()
 
 const IndividualApiDataProvider = (props) => {
   // const [userId, setUserId] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
   const [clientData, setClientData] = useState(null)
   const [searchRecord, setSearchRecord] = useState(null)
   const [products, setProducts] = useState(null)
@@ -52,6 +53,7 @@ const IndividualApiDataProvider = (props) => {
     let response = await addClient(data)
     if (response) {
       setClientData(response.data.client)
+      setIsLoading(false)
       notify(SUCCESS_STATUS)
       router.push(`/dashboard/individual`)
     }
@@ -262,6 +264,8 @@ const IndividualApiDataProvider = (props) => {
   return (
     <IndividualApiData.Provider
       value={{
+        isLoading, 
+        setIsLoading,
         processAddClient,
         processAddService,
         processAddCompany,

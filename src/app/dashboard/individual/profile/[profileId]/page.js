@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation"
 import React, { useState, useContext } from "react"
 import { IndividualApiData } from "@/app/context/Individual/IndividualContextApi"
+import { AccessControlData } from "@/app/context/AccessControl/AccessControlContextApi.js"
 import {
   UsersIcon,
   MapIcon,
@@ -15,6 +16,10 @@ import "react-toastify/dist/ReactToastify.css"
 
 const ProfileSection = () => {
   const {
+    singleClientPermission,
+    singleProductPermission
+  } = useContext(AccessControlData)
+  const {
     products,
     clientData,
     individualTable,
@@ -22,6 +27,8 @@ const ProfileSection = () => {
     processDeleteClient,
   } = useContext(IndividualApiData)
   const router = useRouter()
+
+  console.log(singleProductPermission)
 
   const goToAddProduct = (clientId) => {
     let previousPro = individualTable.filter(
@@ -64,6 +71,8 @@ const ProfileSection = () => {
               </p>
             </div>
             <div className="flex items-center mb-2 sm:flex-row sm:mb-0">
+        {singleProductPermission &&
+            singleProductPermission.singleProductPermission.create !== 0 && (
               <button
                 onClick={() => {
                   goToAddProduct(
@@ -74,29 +83,40 @@ const ProfileSection = () => {
               >
                 New Product
               </button>
+        )}
+
+        {singleClientPermission &&
+            singleClientPermission.singleClientPermission.update !== 0 && (
               <button
-                onClick={() => {
-                  router.push(
-                    `/dashboard/individual/clientEdit/${
-                      clientData.clientId || clientData.client.clientId
-                    }`
-                  )
-                }}
-                className="w-full md:w-1/4 bg-yellow-600 text-white py-2 mx-2 rounded-md transition duration-300"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => {
-                  handleDeleteClient(
+              onClick={() => {
+                router.push(
+                  `/dashboard/individual/clientEdit/${
                     clientData.clientId || clientData.client.clientId
-                  )
-                  // console.log("client Delete")
-                }}
-                className="w-full md:w-1/4 bg-red-500 text-white py-2 rounded-md transition duration-300"
-              >
-                Delete
-              </button>
+                  }`
+                )
+              }}
+              className="w-full md:w-1/4 bg-yellow-600 text-white py-2 mx-2 rounded-md transition duration-300"
+            >
+              Edit
+            </button>
+        )}
+              
+
+        {singleClientPermission &&
+            singleClientPermission.singleClientPermission.delete !== 0 && (
+              <button
+              onClick={() => {
+                handleDeleteClient(
+                  clientData.clientId || clientData.client.clientId
+                )
+                // console.log("client Delete")
+              }}
+              className="w-full md:w-1/4 bg-red-500 text-white py-2 rounded-md transition duration-300"
+            >
+              Delete
+            </button>
+          )}
+  
             </div>
           </div>
 
@@ -175,6 +195,7 @@ const CarProductCard = ({ title, details }) => {
 }
 
 const ProductSection = ({ productInfo }) => {
+  const {singleProductPermission, singleServicePermission} = useContext(AccessControlData)
   const {
     serviceList,
     clientData,
@@ -298,7 +319,9 @@ const ProductSection = ({ productInfo }) => {
         <div className="w-full md:w-2/5 p-4">
           <CarProductCard title="Car Information" details={carDetails} />
           <div className="mt-4">
-            <button
+          {singleServicePermission &&
+            singleServicePermission.singleServicePermission.create !== 0 && (
+              <button
               onClick={() => {
                 addServiceRoute()
               }}
@@ -306,6 +329,8 @@ const ProductSection = ({ productInfo }) => {
             >
               Add Service
             </button>
+      )}
+         
           </div>
         </div>
         <div className="w-full md:w-2/5 p-4">
@@ -329,30 +354,42 @@ const ProductSection = ({ productInfo }) => {
         </div>
       )}
       <div className="flex flex-row">
-        <button
-          onClick={() => {
-            goToEditProduct(productDetails[0].value)
-          }}
-          className="w-full bg-yellow-600 text-white py-2 my-2 mx-2 rounded-md transition duration-300"
-        >
-          Edit Product
-        </button>
-        <button
-          onClick={() => {
-            handleDeactivateProduct(productDetails[0].value)
-          }}
-          className="w-full bg-red-500 text-white py-2 my-2 mx-2 rounded-md transition duration-300"
-        >
-          Deactivate
-        </button>
-        <button
-          onClick={() => {
-            handleDeleteProduct(productDetails[0].value)
-          }}
-          className="w-full bg-red-800 text-white py-2 my-2 mx-2 rounded-md transition duration-300"
-        >
-          Delete
-        </button>
+      {singleProductPermission &&
+            singleProductPermission.singleProductPermission.update !== 0 && (
+              <button
+              onClick={() => {
+                goToEditProduct(productDetails[0].value)
+              }}
+              className="w-full bg-yellow-600 text-white py-2 my-2 mx-2 rounded-md transition duration-300"
+            >
+              Edit Product
+            </button>
+          )}
+
+      {singleProductPermission &&
+            singleProductPermission.singleProductPermission.delete !== 0 && (
+            <button
+              onClick={() => {
+                handleDeactivateProduct(productDetails[0].value)
+              }}
+              className="w-full bg-red-500 text-white py-2 my-2 mx-2 rounded-md transition duration-300"
+            >
+              Deactivate
+            </button>
+      )}
+
+      {singleProductPermission &&
+            singleProductPermission.singleProductPermission.delete !== 0 && (
+              <button
+              onClick={() => {
+                handleDeleteProduct(productDetails[0].value)
+              }}
+              className="w-full bg-red-800 text-white py-2 my-2 mx-2 rounded-md transition duration-300"
+            >
+              Delete
+            </button>
+      )}
+       
       </div>
     </div>
   )

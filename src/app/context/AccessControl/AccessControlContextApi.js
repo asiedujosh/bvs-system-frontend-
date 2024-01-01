@@ -118,8 +118,8 @@ const AccessControlDataProvider = (props) => {
     }
   }
 
-  const processGetSingleUserPermission = async () => {
-    let response = await getSingleUserPermission()
+  const processGetSingleUserPermission = async (id) => {
+    let response = await getSingleUserPermission(id)
     if (response) {
       setSingleUserPermission(response.data)
     }
@@ -132,8 +132,8 @@ const AccessControlDataProvider = (props) => {
     }
   }
 
-  const processGetSingleServicePermission = async () => {
-    let response = await getSingleServicePermission()
+  const processGetSingleServicePermission = async (id) => {
+    let response = await getSingleServicePermission(id)
     if (response) {
       setSingleServicePermission(response.data)
     }
@@ -146,8 +146,8 @@ const AccessControlDataProvider = (props) => {
     }
   }
 
-  const processGetSingleProductPermission = async () => {
-    let response = await getSingleProductPermission()
+  const processGetSingleProductPermission = async (id) => {
+    let response = await getSingleProductPermission(id)
     if (response) {
       setSingleProductPermission(response.data)
     }
@@ -160,6 +160,8 @@ const AccessControlDataProvider = (props) => {
       processGetAllCompanyPermission()
       processGetAllPackagePermission()
       processGetAllUserPermission()
+      processGetAllProductPermission()
+      processGetAllServicePermission()
       notify(SUCCESS_STATUS)
     }
   }
@@ -172,6 +174,8 @@ const AccessControlDataProvider = (props) => {
       processGetAllCompanyPermission()
       processGetAllPackagePermission()
       processGetAllUserPermission()
+      processGetAllServicePermission()
+      processGetAllProductPermission()
       notify(SUCCESS_STATUS)
     }
   }

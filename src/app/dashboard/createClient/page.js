@@ -4,6 +4,7 @@ import { OtherApiData } from "@/app/context/Others/OtherContextApi"
 import { StaffApiData } from "@/app/context/Staff/StaffContextApi"
 import { ADDCLIENT, CLIENT_OPTIONS } from "@/app/constant/IndividualConstants"
 import InputField from "@/app/components/inputField"
+import LoadingBtn from "@/app/components/loadingButton"
 import IdField from "@/app/components/idField"
 import SelectField from "@/app/components/selectField"
 import SubmitBtn from "@/app/components/submitButton"
@@ -16,7 +17,7 @@ import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
 const AddClients = () => {
-  const { processAddClient } = useContext(IndividualApiData)
+  const { processAddClient, isLoading, setIsLoading } = useContext(IndividualApiData)
   const { processGetAllStaff, staffList } = useContext(StaffApiData)
   const {
     processGetAllCompany,
@@ -26,6 +27,7 @@ const AddClients = () => {
   } = useContext(OtherApiData)
   const [companyOptions, setCompanyOptions] = useState([])
   const [packageOptions, setPackageOptions] = useState([])
+  const [error, setError] = useState([])
   const [techOfficerOptions, setTechOfficerOptions] = useState([])
   const [formData, setFormData] = useState({
     clientId: generateUniqueID("bvs"),
@@ -118,9 +120,48 @@ const AddClients = () => {
       })
     formData.expireDate = getPackage(formData.package)
     // let expiryDate = getPackage(formData.package)
-    //console.log(formData)
+    setIsLoading(!isLoading)
+    let newErr = []
+
+    ADDCLIENT.personalDetails.map((item) => {
+      if(!formData[item.name]){
+        newErr.push({
+          id: item.name,
+          name: item.label,
+          status: true,
+        })
+      }
+    })
+
+    ADDCLIENT.carDetails.map((item) => {
+      if(!formData[item.name]){
+        newErr.push({
+          id: item.name,
+          name: item.label,
+          status: true,
+        })
+      }
+    })
+
+    ADDCLIENT.productDetails.map((item) => {
+      if(!formData[item.name]){
+        newErr.push({
+          id: item.name,
+          name: item.label,
+          status: true,
+        })
+      }
+    })
+
+    if (newErr.length > 0) {
+      setIsLoading(false)
+      setError(newErr)
+    } else {
+       //console.log(formData)
     processAddClient(formData)
+    }
   }
+   
 
   return (
     <>
@@ -156,6 +197,7 @@ const AddClients = () => {
                         change={(data, field) => {
                           handleInputChange(data, field)
                         }}
+                        errorData={error}
                       />
                     ) : (
                       <SelectField
@@ -197,6 +239,7 @@ const AddClients = () => {
                         change={(data, field) => {
                           handleInputChange(data, field)
                         }}
+                        errorData={error}
                       />
                     ) : (
                       <SelectField
@@ -236,6 +279,7 @@ const AddClients = () => {
                         change={(data, field) => {
                           handleInputChange(data, field)
                         }}
+                        errorData={error}
                       />
                     ) : (
                       <SelectField
@@ -259,7 +303,11 @@ const AddClients = () => {
             </div>
 
             <div className="mt-2 min-w-full flex items-center justify-center">
-              <SubmitBtn text={ADDCLIENT.buttonText} submit={handleSubmit} />
+            {isLoading ? (
+            <LoadingBtn />
+          ) : (
+            <SubmitBtn text={ADDCLIENT.buttonText} submit={handleSubmit} />
+          )}
             </div>
           </div>
         </div>
