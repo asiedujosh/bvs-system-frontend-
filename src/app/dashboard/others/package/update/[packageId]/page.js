@@ -17,6 +17,7 @@ const UpdatePackage = () => {
   const [formData, setFormData] = useState({
     packageName: packageData.packageName,
     packagePrice: packageData.packagePrice,
+    packageMonth: packageData.packageMonth,
     packageDetails: packageData.packageDetails,
   })
 
@@ -54,7 +55,9 @@ const UpdatePackage = () => {
                 </h2>
                 <div className="space-y-4">
                   {ADD_PACKAGE_LABEL.map((item) => {
-                    return item.type === "text" || item.type === "date" ? (
+                    return item.type === "text" ||
+                      item.type === "date" ||
+                      item.type === "number" ? (
                       <InputField
                         field={item}
                         value={formData}
