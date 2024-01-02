@@ -267,7 +267,12 @@ export const deleteService = async (data) => {
 export const sendSms = async (data) => {
   //console.log(data)
   try {
-    let responseOnSendSms = await axios.post("/api/sendSmsToClient", data)
+    let responseOnSendSms = await axios.post("/api/sendSmsToClient", {
+      data: data,
+      headers: {
+        "Content-Type": "application/json", // Set the Content-Type header if sending JSON data
+      },
+    })
     if (responseOnSendSms.status === "ok") {
       return responseOnSendSms.data
     }
