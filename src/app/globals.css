@@ -45,3 +45,9 @@ body {
   position: absolute;
   width: 100%;
 }
+
+.checkPoint4 {
+  height: 73%;
+  overflow-y: scroll;
+  width: 100%;
+}

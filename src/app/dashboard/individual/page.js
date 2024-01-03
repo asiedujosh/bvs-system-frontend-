@@ -25,12 +25,14 @@ const Individual = () => {
   // console.log(dueRecords)
 
   return (
-    <>
+    <div>
       <SubHeader />
-      {recordTable && (
-        <TableContainer tableHeader={DASHBOARDTABLE} tableInfo={dueTable} />
-      )}
-    </>
+      <div style={{ maxHeight: "80vh", overflow: "auto" }}>
+        {recordTable && (
+          <TableContainer tableHeader={DASHBOARDTABLE} tableInfo={dueTable} />
+        )}
+      </div>
+    </div>
   )
 }
 

@@ -21,11 +21,13 @@ const RemindPage = () => {
   return (
     <>
       <SubHeader />
-      <div>
-        <ReminderCard title={REMIND_TITLE[0]} clients={remindDueTable} />
-      </div>
-      <div>
-        <ReminderCard title={REMIND_TITLE[1]} clients={remindAllTable} />
+      <div style={{ maxHeight: "80vh", overflow: "auto" }}>
+        <div>
+          <ReminderCard title={REMIND_TITLE[0]} clients={remindDueTable} />
+        </div>
+        <div>
+          <ReminderCard title={REMIND_TITLE[1]} clients={remindAllTable} />
+        </div>
       </div>
     </>
   )

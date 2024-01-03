@@ -18,12 +18,14 @@ const AllClients = () => {
   return (
     <>
       <SubHeader />
-      {recordTable && (
-        <TableContainer
-          tableHeader={DASHBOARDTABLE}
-          tableInfo={individualTable}
-        />
-      )}
+      <div style={{ maxHeight: "80vh", overflow: "auto" }}>
+        {recordTable && (
+          <TableContainer
+            tableHeader={DASHBOARDTABLE}
+            tableInfo={individualTable}
+          />
+        )}
+      </div>
     </>
   )
 }
