@@ -1,7 +1,7 @@
 "use client"
 import { useState, useContext, useEffect } from "react"
-import OtherSubHeader from "@/app/components/otherSubHeader"
 import { StaffApiData } from "@/app/context/Staff/StaffContextApi"
+import { AccessControlData } from "@/app/context/AccessControl/AccessControlContextApi.js"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { ADDSTAFF } from "@/app/constant/staffConstants"
@@ -10,8 +10,11 @@ import SelectField from "@/app/components/selectField"
 import SubmitBtn from "@/app/components/submitButton"
 
 const UpdateUser = () => {
+  const { allRole } = useContext(AccessControlData)
   const { staffData, processUpdateStaffProfile, customField } =
     useContext(StaffApiData)
+  const [selectedRole, setSelectedRole] = useState()
+  const [roleOptions, setRoleOptions] = useState([])
   const [formData, setFormData] = useState({})
   useEffect(() => {
     setFormData({
@@ -24,6 +27,17 @@ const UpdateUser = () => {
     })
   }, [staffData])
 
+  useEffect(() => {
+    let roleOp = []
+    console.log(allRole)
+    allRole &&
+      allRole.allRole.map((item) => {
+        // roleOptions.push(item.role)
+        roleOp.push(item.role)
+      })
+    setRoleOptions(roleOp)
+  }, [allRole])
+
   const handleInputChange = (data, field) => {
     setFormData({
       ...formData,
@@ -31,9 +45,20 @@ const UpdateUser = () => {
     })
   }
 
+  const handleSelectChange = (data, field) => {
+    let roleData =
+      allRole && allRole.allRole.filter((item) => item.role === data)
+    setFormData({
+      ...formData,
+      [field]: roleData && roleData[0] && roleData[0].role,
+    })
+    setSelectedRole(data)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     processUpdateStaffProfile(staffData.id, formData)
+    //console.log(formData)
     setFormData({})
   }
 
@@ -59,13 +84,22 @@ const UpdateUser = () => {
                 <div className="space-y-4">
                   {staffData &&
                     customField.map((item) => {
-                      return (
+                      return item.type === "text" ? (
                         <InputField
                           field={item}
                           value={formData}
                           defaultVal={formData[item.name]}
                           change={(data, field) => {
                             handleInputChange(data, field)
+                          }}
+                        />
+                      ) : (
+                        <SelectField
+                          field={item}
+                          value={formData}
+                          options={roleOptions}
+                          change={(data, field) => {
+                            handleSelectChange(data, field)
                           }}
                         />
                       )

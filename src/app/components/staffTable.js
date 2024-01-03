@@ -5,7 +5,7 @@ import { StaffApiData } from "@/app/context/Staff/StaffContextApi"
 import { AccessControlData } from "@/app/context/AccessControl/AccessControlContextApi.js"
 
 const StaffTable = ({ staffInfo }) => {
-  const { singleClientPermission } = useContext(AccessControlData)
+  const { singleUserPermission } = useContext(AccessControlData)
   const {
     processViewStaffProfile,
     processViewStaffUpdateProfile,
@@ -37,7 +37,7 @@ const StaffTable = ({ staffInfo }) => {
             </td>
             <td className="w-1/4 border border-gray-200 py-4 px-2">
               <div className="flex space-x-2">
-                {singleClientPermission.singleClientPermission.view !== 0 ? (
+                {singleUserPermission.singleUserPermission.view !== 0 ? (
                   <span
                     onClick={() => {
                       processViewStaffProfile(item.id)
@@ -50,7 +50,7 @@ const StaffTable = ({ staffInfo }) => {
                   <span className="text-gray-200"> View </span>
                 )}
 
-                {singleClientPermission.singleClientPermission.update !== 0 ? (
+                {singleUserPermission.singleUserPermission.update !== 0 ? (
                   <span
                     onClick={() => {
                       processViewStaffUpdateProfile(item.id)
@@ -63,7 +63,7 @@ const StaffTable = ({ staffInfo }) => {
                   <span className="text-gray-200">| Update |</span>
                 )}
 
-                {singleClientPermission.singleClientPermission.delete !== 0 ? (
+                {singleUserPermission.singleUserPermission.delete !== 0 ? (
                   <span
                     onClick={() => {
                       processDeleteStaff(item.id)

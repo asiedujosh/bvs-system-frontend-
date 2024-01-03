@@ -75,6 +75,12 @@ const StaffApiDataProvider = (props) => {
   const processGetStaffProfile = async (id) => {
     let responseOnStaffProfile = await getStaff(id)
     if (responseOnStaffProfile) {
+      let data =
+        staffRole &&
+        staffRole.filter(
+          (item) => item.id == responseOnStaffProfile.data.staffProfile.position
+        )
+      responseOnStaffProfile.data.staffProfile.position = data[0].role
       setStaffData(responseOnStaffProfile.data.staffProfile)
     }
   }
@@ -90,6 +96,7 @@ const StaffApiDataProvider = (props) => {
       (item) => item.name !== "password" && item.name !== "confirmPassword"
     )
     setCustomField(customData)
+
     router.push(`/users/update`)
   }
 

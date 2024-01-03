@@ -10,7 +10,7 @@ import StaffTableContainer from "../components/staffTableContainer"
 
 const Users = () => {
   const { processGetAllStaff, staffList } = useContext(StaffApiData)
-  const { singleClientPermission } = useContext(AccessControlData)
+  const { singleUserPermission } = useContext(AccessControlData)
 
   useEffect(() => {
     processGetAllStaff()
@@ -18,8 +18,8 @@ const Users = () => {
 
   return (
     <>
-      {singleClientPermission &&
-        singleClientPermission.singleClientPermission.create !== 0 && (
+      {singleUserPermission &&
+        singleUserPermission.singleUserPermission.create !== 0 && (
           <SubNavbar
             Label={subNavConst.user.label}
             URL={subNavConst.user.link}
