@@ -20,25 +20,28 @@ const Dashboard = () => {
     userPermission,
     clientPermission,
     productPermission,
-    servicePermission
+    servicePermission,
   } = useContext(AccessControlData)
-  const { userProfile } = useContext(AuthApiData)
+  const { userProfile, processRetrieve } = useContext(AuthApiData)
   useEffect(() => {
-    processGetSingleClientPermission(userProfile.position),
-      processGetSingleCompanyPermission(userProfile.position),
-      processGetSinglePackagePermission(userProfile.position),
-      processGetSingleUserPermission(userProfile.position),
-      processGetSingleProductPermission(userProfile.position),
-      processGetSingleServicePermission(userProfile.position)
-
+    if (userProfile) {
+      processGetSingleClientPermission(userProfile.position)
+    } else {
+      processRetrieve()
+    }
+    // processGetSingleCompanyPermission(userProfile.position),
+    // processGetSinglePackagePermission(userProfile.position),
+    // processGetSingleUserPermission(userProfile.position),
+    // processGetSingleProductPermission(userProfile.position),
+    // processGetSingleServicePermission(userProfile.position)
   }, [
     userProfile,
     clientPermission,
-    companyPermission,
-    packagePermission,
-    userPermission,
-    productPermission,
-    servicePermission
+    // companyPermission,
+    // packagePermission,
+    // userPermission,
+    // productPermission,
+    // servicePermission
   ])
 
   return (

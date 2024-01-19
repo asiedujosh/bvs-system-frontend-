@@ -1,7 +1,14 @@
 "use client"
 import React, { createContext, useState, useEffect } from "react"
 import { notify } from "@/app/utils/responseUtils"
-import { SUCCESS_STATUS } from "@/app/constant/requestConstants"
+import {
+  SUCCESS_STATUS,
+  URL,
+  TIMEOUT,
+  NOTFOUND,
+  TIMEEXCEED,
+  UNHANDLEERR,
+} from "../../constant/requestConstants"
 import { useRouter } from "next/navigation"
 import {
   addRole,
@@ -27,6 +34,9 @@ export const AccessControlData = createContext()
 const AccessControlDataProvider = (props) => {
   const [isLoading, setIsLoading] = useState(false)
   const [allRole, setAllRole] = useState()
+  const [roleLoad, setRoleLoad] = useState(true)
+  const [errorStatus, setErrorStatus] = useState(false)
+  const [errorInfo, setErrorInfo] = useState()
   const [clientPermission, setClientPermission] = useState()
   const [companyPermission, setCompanyPermission] = useState()
   const [packagePermission, setPackagePermission] = useState()
@@ -40,7 +50,7 @@ const AccessControlDataProvider = (props) => {
   const [productPermission, setProductPermission] = useState()
   const [singleProductPermission, setSingleProductPermission] = useState()
 
-  const router = useRouter()
+  // const router = useRouter()
 
   useEffect(() => {
     processGetAllRole()
@@ -64,8 +74,24 @@ const AccessControlDataProvider = (props) => {
 
   const processGetAllRole = async () => {
     let response = await getAllRole()
-    if (response) {
+    if (response === TIMEEXCEED) {
+      setRoleLoad(false)
+      setErrorStatus(true)
+      setErrorInfo("Network Error")
+    }
+    if (response === NOTFOUND) {
+      setRoleLoad(false)
+      setErrorStatus(true)
+      setErrorInfo("There was problem")
+    }
+    if (response === UNHANDLEERR) {
+      setRoleLoad(false)
+      setErrorStatus(true)
+      setErrorInfo("Unexpected Error")
+    }
+    if (response.data) {
       setAllRole(response.data)
+      setRoleLoad(false)
     }
   }
 
@@ -213,6 +239,13 @@ const AccessControlDataProvider = (props) => {
         singleUserPermission,
         singleServicePermission,
         singleProductPermission,
+        setIsLoading,
+        roleLoad,
+        setRoleLoad,
+        errorStatus,
+        setErrorStatus,
+        errorInfo,
+        setErrorInfo,
       }}
     >
       {props.children}

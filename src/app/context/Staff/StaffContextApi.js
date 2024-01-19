@@ -3,7 +3,14 @@ import React, { createContext, useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { ADDSTAFF } from "@/app/constant/staffConstants"
 import { notify } from "@/app/utils/responseUtils"
-import { SUCCESS_STATUS } from "../../constant/requestConstants"
+import {
+  SUCCESS_STATUS,
+  URL,
+  TIMEOUT,
+  NOTFOUND,
+  TIMEEXCEED,
+  UNHANDLEERR,
+} from "../../constant/requestConstants"
 import { getAllRole } from "@/app/context/AccessControl/AccessControl"
 import {
   addStaff,
@@ -19,6 +26,7 @@ export const StaffApiData = createContext()
 
 const StaffApiDataProvider = (props) => {
   const [staffList, setStaffList] = useState([])
+  const [networkError, setNetworkError] = useState(false)
   const [searchStaffRecord, setSearchStaffRecord] = useState(null)
   const [staffData, setStaffData] = useState(null)
   const [customField, setCustomField] = useState()
@@ -28,11 +36,30 @@ const StaffApiDataProvider = (props) => {
 
   useEffect(() => {
     let newQuest = async () => {
-      let data = await getAllRole()
-      if (data) {
-        setStaffRole(data.data.allRole)
-      } else {
-        console.log("Things did not work out")
+      let response = await getAllRole()
+      if (response === TIMEEXCEED) {
+        console.log("There was a timeout error")
+        // setRoleLoad(false)
+        // setErrorStatus(true)
+        // setErrorInfo("Network Error")
+      }
+      if (response === NOTFOUND) {
+        console.log("Resource was not found")
+        // setRoleLoad(false)
+        // setErrorStatus(true)
+        // setErrorInfo("There was problem")
+      }
+      if (response === UNHANDLEERR) {
+        console.log("Unexpected error")
+        // setRoleLoad(false)
+        // setErrorStatus(true)
+        // setErrorInfo("Unexpected Error")
+      }
+      if (response) {
+        if (response.data) {
+          setStaffRole(response.data.allRole)
+        }
+        // setRoleLoad(false)
       }
     }
     newQuest()
@@ -51,17 +78,23 @@ const StaffApiDataProvider = (props) => {
     let response = await getAllStaff()
     // console.log(response)
     if (response) {
-      let data = []
-      response.data.user.map((staff) => {
-        let newRole =
-          staffRole && staffRole.filter((item) => item.id == staff.position)
-        //console.log(staffRole && staffRole)
-        staff.position = newRole && newRole[0].role
-        // console.log(staff)
-        data.push(staff)
-      })
-      // console.log(data)
-      setStaffList(data)
+      if (response !== NOTFOUND) {
+        let data = []
+        response.data.user.map((staff) => {
+          let newRole =
+            staffRole && staffRole.filter((item) => item.id == staff.position)
+          //console.log(staffRole && staffRole)
+          staff.position = newRole && newRole[0].role
+          // console.log(staff)
+          data.push(staff)
+        })
+        // console.log(data)
+        setStaffList(data)
+      } else {
+        setNetworkError((prev) => !prev)
+      }
+    } else {
+      console.log("We are having an issue")
     }
   }
 

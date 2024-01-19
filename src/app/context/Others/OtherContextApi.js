@@ -2,7 +2,14 @@
 import React, { createContext, useState } from "react"
 import { useRouter } from "next/navigation"
 import { notify } from "@/app/utils/responseUtils"
-import { SUCCESS_STATUS } from "@/app/constant/requestConstants"
+import {
+  SUCCESS_STATUS,
+  URL,
+  TIMEOUT,
+  NOTFOUND,
+  TIMEEXCEED,
+  UNHANDLEERR,
+} from "../../constant/requestConstants"
 import {
   addPackage,
   getAllPackage,
@@ -105,7 +112,29 @@ const OtherApiDataProvider = (props) => {
   const processGetAllCompany = async () => {
     let response = await getAllCompany()
     if (response) {
-      setCompanyList(response.data.company)
+      if (response === TIMEEXCEED) {
+        // setRoleLoad(false)
+        // setErrorStatus(true)
+        // setErrorInfo("Network Error")
+        console.log("Network Error")
+      }
+      if (response === NOTFOUND) {
+        // setRoleLoad(false)
+        // setErrorStatus(true)
+        // setErrorInfo("There was problem")
+        console.log("Unexpected Error")
+      }
+      if (response === UNHANDLEERR) {
+        // setRoleLoad(false)
+        // setErrorStatus(true)
+        // setErrorInfo("Unexpected Error")
+        console.log("Unexpected Error")
+      }
+      if (response.data) {
+        //setAllRole(response.data)
+        console.log(response)
+        setCompanyList(response.data.company)
+      }
     }
   }
 

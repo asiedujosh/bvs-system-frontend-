@@ -1,39 +1,87 @@
 "use client"
-import { SUCCESS_STATUS } from "../../constant/requestConstants"
-import axios from "../../utils/axios.config"
+import {
+  SUCCESS_STATUS,
+  URL,
+  TIMEOUT,
+  NOTFOUND,
+  TIMEEXCEED,
+  UNHANDLEERR,
+} from "../../constant/requestConstants"
+// import axios from "../../utils/axios.config"
+import axios from "axios"
+import axiosRetry from "axios-retry"
+// import { TABLECONSTANTS } from "@/app/constant/IndividualConstants"
+axiosRetry(axios, { retries: 3, retryDelay: axiosRetry.exponentialDelay })
 
 export const addRole = async (data) => {
   try {
-    let responseOnRole = await axios.post("/api/addRole", data)
+    let responseOnRole = await axios.post(`${URL}api/addRole`, data, TIMEOUT)
     if (responseOnRole.status === SUCCESS_STATUS) {
       return responseOnRole.data
     } else {
       return false
     }
   } catch (err) {
-    //console.log(err)
-    return false
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
 export const getAllRole = async () => {
   try {
-    let responseOnGetAllRole = await axios.get("/api/getAllRole")
+    let responseOnGetAllRole = await axios.get(`${URL}api/getAllRole`, TIMEOUT)
     if (responseOnGetAllRole.status === SUCCESS_STATUS) {
+      console.log("roles in")
       return responseOnGetAllRole.data
     } else {
+      console.log("not success status but return was false")
       return false
     }
   } catch (err) {
-    //console.log(err)
-    return false
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
 export const getAllClientPermission = async () => {
   try {
     let responseOnGetClientPermission = await axios.get(
-      "/api/getAllClientPermission"
+      `${URL}api/getAllClientPermission`,
+      TIMEOUT
     )
     if (responseOnGetClientPermission.status === SUCCESS_STATUS) {
       return responseOnGetClientPermission.data
@@ -41,15 +89,33 @@ export const getAllClientPermission = async () => {
       return false
     }
   } catch (err) {
-    //console.log(err)
-    return false
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
 export const getSingleClientPermission = async (id) => {
   try {
     let responseOnGetSingleClientPermission = await axios.get(
-      `/api/getSingleClientPermission/${id}`
+      `${URL}api/getSingleClientPermission/${id}`,
+      TIMEOUT
     )
     if (responseOnGetSingleClientPermission.status === SUCCESS_STATUS) {
       return responseOnGetSingleClientPermission.data
@@ -57,14 +123,33 @@ export const getSingleClientPermission = async (id) => {
       return false
     }
   } catch (err) {
-    return false
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
 export const getAllCompanyPermission = async () => {
   try {
     let responseOnGetAllCompanyPermission = await axios.get(
-      "/api/getAllCompanyPermission"
+      `${URL}api/getAllCompanyPermission`,
+      TIMEOUT
     )
     if (responseOnGetAllCompanyPermission.status === SUCCESS_STATUS) {
       return responseOnGetAllCompanyPermission.data
@@ -72,14 +157,33 @@ export const getAllCompanyPermission = async () => {
       return false
     }
   } catch (err) {
-    return false
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
 export const getSingleCompanyPermission = async (id) => {
   try {
     let responseOnGetSingleCompanyPermission = await axios.get(
-      `/api/getSingleCompanyPermission/${id}`
+      `${URL}api/getSingleCompanyPermission/${id}`,
+      TIMEOUT
     )
     if (responseOnGetSingleCompanyPermission.status === SUCCESS_STATUS) {
       return responseOnGetSingleCompanyPermission.data
@@ -87,14 +191,33 @@ export const getSingleCompanyPermission = async (id) => {
       return false
     }
   } catch (err) {
-    return false
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
 export const getAllPackagePermission = async () => {
   try {
     let responseOnGetAllPackagePermission = await axios.get(
-      "/api/getAllPackagePermission"
+      `${URL}api/getAllPackagePermission`,
+      TIMEOUT
     )
     if (responseOnGetAllPackagePermission.status === SUCCESS_STATUS) {
       return responseOnGetAllPackagePermission.data
@@ -102,14 +225,33 @@ export const getAllPackagePermission = async () => {
       return false
     }
   } catch (err) {
-    return false
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
 export const getSinglePackagePermission = async (id) => {
   try {
     let responseOnGetSinglePackagePermission = await axios.get(
-      `/api/getSinglePackagePermission/${id}`
+      `${URL}api/getSinglePackagePermission/${id}`,
+      TIMEOUT
     )
     if (responseOnGetSinglePackagePermission.status === SUCCESS_STATUS) {
       return responseOnGetSinglePackagePermission.data
@@ -117,14 +259,33 @@ export const getSinglePackagePermission = async (id) => {
       return false
     }
   } catch (err) {
-    return false
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
 export const getSingleUserPermission = async (id) => {
   try {
     let responseOnGetSingleUserPermission = await axios.get(
-      `/api/getSingleUserPermission/${id}`
+      `${URL}api/getSingleUserPermission/${id}`,
+      TIMEOUT
     )
     if (responseOnGetSingleUserPermission.status === SUCCESS_STATUS) {
       return responseOnGetSingleUserPermission.data
@@ -132,14 +293,33 @@ export const getSingleUserPermission = async (id) => {
       return false
     }
   } catch (err) {
-    return false
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
 export const getAllUserPermission = async () => {
   try {
     let responseOnGetAllUserPermission = await axios.get(
-      "/api/getAllUserPermission"
+      `${URL}api/getAllUserPermission`,
+      TIMEOUT
     )
     if (responseOnGetAllUserPermission.status === SUCCESS_STATUS) {
       return responseOnGetAllUserPermission.data
@@ -154,7 +334,8 @@ export const getAllUserPermission = async () => {
 export const getSingleServicePermission = async (id) => {
   try {
     let responseOnGetSingleServicePermission = await axios.get(
-      `/api/getSingleServicePermission/${id}`
+      `${URL}api/getSingleServicePermission/${id}`,
+      TIMEOUT
     )
     if (responseOnGetSingleServicePermission.status === SUCCESS_STATUS) {
       return responseOnGetSingleServicePermission.data
@@ -169,7 +350,8 @@ export const getSingleServicePermission = async (id) => {
 export const getAllServicePermission = async () => {
   try {
     let responseOnGetAllServicePermission = await axios.get(
-      "/api/getAllServicePermission"
+      `${URL}api/getAllServicePermission`,
+      TIMEOUT
     )
     if (responseOnGetAllServicePermission.status === SUCCESS_STATUS) {
       return responseOnGetAllServicePermission.data
@@ -184,7 +366,8 @@ export const getAllServicePermission = async () => {
 export const getSingleProductPermission = async (id) => {
   try {
     let responseOnGetSingleProductPermission = await axios.get(
-      `/api/getSingleProductPermission/${id}`
+      `${URL}api/getSingleProductPermission/${id}`,
+      TIMEOUT
     )
     if (responseOnGetSingleProductPermission.status === SUCCESS_STATUS) {
       return responseOnGetSingleProductPermission.data
@@ -199,7 +382,8 @@ export const getSingleProductPermission = async (id) => {
 export const getAllProductPermission = async () => {
   try {
     let responseOnGetAllProductPermission = await axios.get(
-      "/api/getAllProductPermission"
+      `${URL}api/getAllProductPermission`,
+      TIMEOUT
     )
     if (responseOnGetAllProductPermission.status === SUCCESS_STATUS) {
       return responseOnGetAllProductPermission.data
@@ -214,8 +398,9 @@ export const getAllProductPermission = async () => {
 export const updatePermissions = async (data) => {
   try {
     let responseOnUpdatePermission = await axios.put(
-      "/api/updatePermission",
-      data
+      `${URL}api/updatePermission`,
+      data,
+      TIMEOUT
     )
     if (responseOnUpdatePermission.status === SUCCESS_STATUS) {
       return responseOnUpdatePermission.data
@@ -229,7 +414,10 @@ export const updatePermissions = async (data) => {
 
 export const deleteRole = async (id) => {
   try {
-    let responseOnDeleteRole = await axios.delete(`/api/deleteRole/${id}`)
+    let responseOnDeleteRole = await axios.delete(
+      `${URL}api/deleteRole/${id}`,
+      TIMEOUT
+    )
     if (responseOnDeleteRole.status === SUCCESS_STATUS) {
       return responseOnDeleteRole.data
     }
