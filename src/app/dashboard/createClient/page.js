@@ -17,7 +17,8 @@ import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
 const AddClients = () => {
-  const { processAddClient, isLoading, setIsLoading } = useContext(IndividualApiData)
+  const { processAddClient, isLoading, setIsLoading } =
+    useContext(IndividualApiData)
   const { processGetAllStaff, staffList } = useContext(StaffApiData)
   const {
     processGetAllCompany,
@@ -124,7 +125,7 @@ const AddClients = () => {
     let newErr = []
 
     ADDCLIENT.personalDetails.map((item) => {
-      if(!formData[item.name]){
+      if (!formData[item.name]) {
         newErr.push({
           id: item.name,
           name: item.label,
@@ -134,7 +135,7 @@ const AddClients = () => {
     })
 
     ADDCLIENT.carDetails.map((item) => {
-      if(!formData[item.name]){
+      if (!formData[item.name]) {
         newErr.push({
           id: item.name,
           name: item.label,
@@ -144,7 +145,7 @@ const AddClients = () => {
     })
 
     ADDCLIENT.productDetails.map((item) => {
-      if(!formData[item.name]){
+      if (!formData[item.name]) {
         newErr.push({
           id: item.name,
           name: item.label,
@@ -157,164 +158,186 @@ const AddClients = () => {
       setIsLoading(false)
       setError(newErr)
     } else {
-       //console.log(formData)
-    processAddClient(formData)
+      //console.log(formData)
+      processAddClient(formData)
     }
   }
-   
 
-  return (
-    <>
-      <div className="checkPoint overflow-y-scroll">
-        <div className="w-90 m-6 md:mt-4 p-4 bg-white rounded shadow-lg">
-          <div className="flex justify-center align-items mt-4">
-            <h2 className="text-gray-600 text-xl font-semibold">
-              {ADDCLIENT.title}
-            </h2>
-          </div>
-          <hr class="border-t border-gray-300 w-1/2 mx-auto my-2" />
-
-          <div className="flex flex-col mt-6">
-            <div className="flex flex-col md:flex-row justify-center">
-              {/* Card 1 */}
-              <div className="w-full md:w-1/2 lg:w-1/3 p-6 bg-gray-100 rounded-lg shadow-md mt-2 md:mt-0 md:m-2">
-                <h2 className="text-lg font-semibold mb-2">
-                  {ADDCLIENT.headers[0]}
+  const displayInfo = () => {
+    if (staffList.length > 0 && packageList.length > 0) {
+      // All permissions are not empty, render your component
+      return (
+        <>
+          <div className="checkPoint overflow-y-scroll">
+            <div className="w-90 m-6 md:mt-4 p-4 bg-white rounded shadow-lg">
+              <div className="flex justify-center align-items mt-4">
+                <h2 className="text-gray-600 text-xl font-semibold">
+                  {ADDCLIENT.title}
                 </h2>
+              </div>
+              <hr class="border-t border-gray-300 w-1/2 mx-auto my-2" />
 
-                <div className="space-y-4">
-                  <IdField
-                    field={ADDCLIENT.constantFields[0]}
-                    value={formData.clientId}
-                  />
-                  {ADDCLIENT.personalDetails.map((item) => {
-                    return item.type === "text" || item.type === "date" ? (
-                      <InputField
-                        field={item}
-                        value={formData}
-                        defaultVal={item.defaultValue}
-                        readOnly={item.readOnly}
-                        change={(data, field) => {
-                          handleInputChange(data, field)
-                        }}
-                        errorData={error}
+              <div className="flex flex-col mt-6">
+                <div className="flex flex-col md:flex-row justify-center">
+                  {/* Card 1 */}
+                  <div className="w-full md:w-1/2 lg:w-1/3 p-6 bg-gray-100 rounded-lg shadow-md mt-2 md:mt-0 md:m-2">
+                    <h2 className="text-lg font-semibold mb-2">
+                      {ADDCLIENT.headers[0]}
+                    </h2>
+
+                    <div className="space-y-4">
+                      <IdField
+                        field={ADDCLIENT.constantFields[0]}
+                        value={formData.clientId}
                       />
-                    ) : (
-                      <SelectField
-                        field={item}
-                        value={formData}
-                        options={item.options}
-                        change={(data, field) => {
-                          handleInputChange(data, field)
-                        }}
-                      />
-                    )
-                  })}
-                  {formData.associate !==
-                    ADDCLIENT.personalDetails[3].options[0] && (
-                    <SelectField
-                      field={CLIENT_OPTIONS[0]}
-                      value={formData}
-                      options={companyOptions}
-                      change={(data, field) => {
-                        handleInputChange(data, field)
-                      }}
+                      {ADDCLIENT.personalDetails.map((item) => {
+                        return item.type === "text" || item.type === "date" ? (
+                          <InputField
+                            field={item}
+                            value={formData}
+                            defaultVal={item.defaultValue}
+                            readOnly={item.readOnly}
+                            change={(data, field) => {
+                              handleInputChange(data, field)
+                            }}
+                            errorData={error}
+                          />
+                        ) : (
+                          <SelectField
+                            field={item}
+                            value={formData}
+                            options={item.options}
+                            change={(data, field) => {
+                              handleInputChange(data, field)
+                            }}
+                          />
+                        )
+                      })}
+                      {formData.associate !==
+                        ADDCLIENT.personalDetails[3].options[0] && (
+                        <SelectField
+                          field={CLIENT_OPTIONS[0]}
+                          value={formData}
+                          options={companyOptions}
+                          change={(data, field) => {
+                            handleInputChange(data, field)
+                          }}
+                        />
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="w-full md:w-1/2 lg:w-1/3 p-6 bg-gray-100 rounded-lg shadow-md mt-2 md:mt-0 md:m-2">
+                    <h2 className="text-lg font-semibold mb-2">
+                      {ADDCLIENT.headers[1]}
+                    </h2>
+                    <div className="space-y-4">
+                      {ADDCLIENT.carDetails.map((item) => {
+                        return item.type === "text" || item.type === "date" ? (
+                          <InputField
+                            field={item}
+                            value={formData}
+                            defaultVal={item.defaultValue}
+                            readOnly={item.readOnly}
+                            change={(data, field) => {
+                              handleInputChange(data, field)
+                            }}
+                            errorData={error}
+                          />
+                        ) : (
+                          <SelectField
+                            field={item}
+                            value={formData}
+                            options={item.options}
+                            change={(data, field) => {
+                              handleInputChange(data, field)
+                            }}
+                          />
+                        )
+                      })}
+                      <div>
+                        <UploadImage
+                          change={(data, field) => {
+                            handleInputChange(data, field)
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="w-full md:w-1/2 lg:w-1/3 p-6 bg-gray-100 rounded-lg shadow-md mt-2 md:mt-0 md:m-2">
+                    <h2 className="text-lg font-semibold mb-2">
+                      {ADDCLIENT.headers[2]}
+                    </h2>
+                    <div className="space-y-4">
+                      {ADDCLIENT.productDetails.map((item) => {
+                        return item.type === "text" ||
+                          item.type === "date" ||
+                          item.type === "number" ? (
+                          <InputField
+                            field={item}
+                            value={formData}
+                            defaultVal={item.defaultValue}
+                            readOnly={item.readOnly}
+                            change={(data, field) => {
+                              handleInputChange(data, field)
+                            }}
+                            errorData={error}
+                          />
+                        ) : (
+                          <SelectField
+                            field={item}
+                            value={formData}
+                            options={
+                              item.name === "package"
+                                ? packageOptions
+                                : item.name === "technicalOfficer"
+                                ? techOfficerOptions
+                                : item.options
+                            }
+                            change={(data, field) => {
+                              handleInputChange(data, field)
+                            }}
+                          />
+                        )
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-2 min-w-full flex items-center justify-center">
+                  {isLoading ? (
+                    <LoadingBtn />
+                  ) : (
+                    <SubmitBtn
+                      text={ADDCLIENT.buttonText}
+                      submit={handleSubmit}
                     />
                   )}
                 </div>
               </div>
-
-              <div className="w-full md:w-1/2 lg:w-1/3 p-6 bg-gray-100 rounded-lg shadow-md mt-2 md:mt-0 md:m-2">
-                <h2 className="text-lg font-semibold mb-2">
-                  {ADDCLIENT.headers[1]}
-                </h2>
-                <div className="space-y-4">
-                  {ADDCLIENT.carDetails.map((item) => {
-                    return item.type === "text" || item.type === "date" ? (
-                      <InputField
-                        field={item}
-                        value={formData}
-                        defaultVal={item.defaultValue}
-                        readOnly={item.readOnly}
-                        change={(data, field) => {
-                          handleInputChange(data, field)
-                        }}
-                        errorData={error}
-                      />
-                    ) : (
-                      <SelectField
-                        field={item}
-                        value={formData}
-                        options={item.options}
-                        change={(data, field) => {
-                          handleInputChange(data, field)
-                        }}
-                      />
-                    )
-                  })}
-                  <div>
-                    <UploadImage
-                      change={(data, field) => {
-                        handleInputChange(data, field)
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="w-full md:w-1/2 lg:w-1/3 p-6 bg-gray-100 rounded-lg shadow-md mt-2 md:mt-0 md:m-2">
-                <h2 className="text-lg font-semibold mb-2">
-                  {ADDCLIENT.headers[2]}
-                </h2>
-                <div className="space-y-4">
-                  {ADDCLIENT.productDetails.map((item) => {
-                    return item.type === "text" ||
-                      item.type === "date" ||
-                      item.type === "number" ? (
-                      <InputField
-                        field={item}
-                        value={formData}
-                        defaultVal={item.defaultValue}
-                        readOnly={item.readOnly}
-                        change={(data, field) => {
-                          handleInputChange(data, field)
-                        }}
-                        errorData={error}
-                      />
-                    ) : (
-                      <SelectField
-                        field={item}
-                        value={formData}
-                        options={
-                          item.name === "package"
-                            ? packageOptions
-                            : item.name === "technicalOfficer"
-                            ? techOfficerOptions
-                            : item.options
-                        }
-                        change={(data, field) => {
-                          handleInputChange(data, field)
-                        }}
-                      />
-                    )
-                  })}
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-2 min-w-full flex items-center justify-center">
-            {isLoading ? (
-            <LoadingBtn />
-          ) : (
-            <SubmitBtn text={ADDCLIENT.buttonText} submit={handleSubmit} />
-          )}
             </div>
           </div>
-        </div>
-      </div>
-      <ToastContainer />
-    </>
-  )
+          <ToastContainer />
+        </>
+      )
+    } else {
+      // At least one permission is empty, show loading message
+      return (
+        <main className="flex min-h-screen flex-col items-center justify-between md:py-24">
+          <div className="flex items-center justify-center h-1/2 mt-32">
+            <div className="animate-pulse bg-gray-200 p-6 rounded-md shadow-md">
+              <div className="h-8 bg-gray-300 w-full mb-4">
+                <h6>Bvs System is Loading..................</h6>
+              </div>
+            </div>
+          </div>
+        </main>
+      )
+    }
+  }
+
+  return displayInfo()
 }
 
 export default AddClients

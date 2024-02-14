@@ -29,11 +29,13 @@ const Dashboard = () => {
     } else {
       processRetrieve()
     }
-    processGetSingleCompanyPermission(userProfile.position)
-    processGetSinglePackagePermission(userProfile.position)
-    processGetSingleUserPermission(userProfile.position)
-    processGetSingleProductPermission(userProfile.position)
-    processGetSingleServicePermission(userProfile.position)
+    if (userProfile) {
+      processGetSingleCompanyPermission(userProfile.position)
+      processGetSinglePackagePermission(userProfile.position)
+      processGetSingleUserPermission(userProfile.position)
+      processGetSingleProductPermission(userProfile.position)
+      processGetSingleServicePermission(userProfile.position)
+    }
   }, [
     userProfile,
     clientPermission,
@@ -79,7 +81,17 @@ const Dashboard = () => {
       )
     } else {
       // At least one permission is empty, show loading message
-      return <div>Loading...</div>
+      return (
+        <main className="flex min-h-screen flex-col items-center justify-between md:py-24">
+          <div className="flex items-center justify-center h-1/2 mt-32">
+            <div className="animate-pulse bg-gray-200 p-6 rounded-md shadow-md">
+              <div className="h-8 bg-gray-300 w-full mb-4">
+                <h6>Bvs System is Loading..................</h6>
+              </div>
+            </div>
+          </div>
+        </main>
+      )
     }
   }
 
