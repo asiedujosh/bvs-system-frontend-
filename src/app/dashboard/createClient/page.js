@@ -105,8 +105,8 @@ const AddClients = () => {
   //get package to calculate expiring Date
   let getPackage = (pack) => {
     let packageObject = packageList.filter((item) => item.packageName === pack)
-    let packPrice = packageObject[0].packagePrice
-    let packMonth = packageObject[0].packageMonth
+    let packPrice = packageObject[0] && packageObject[0].packagePrice
+    let packMonth = packageObject[0] && packageObject[0].packageMonth
     return calculateMonth(packPrice, packMonth)
     //console.log(packageObject)
   }
