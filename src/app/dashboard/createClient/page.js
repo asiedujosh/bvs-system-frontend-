@@ -113,6 +113,10 @@ const AddClients = () => {
 
   const handleSubmit = (e) => {
     // e.preventDefault()
+    formData.package = formData.package || packageOptions[0]
+    formData.technicalOfficer =
+      formData.technicalOfficer || techOfficerOptions[0]
+
     formData.associate === ADDCLIENT.personalDetails[3].options[1] &&
       formData.companyName === null &&
       setFormData({
