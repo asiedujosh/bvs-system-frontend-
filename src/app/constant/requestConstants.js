@@ -1,6 +1,6 @@
 "use client"
 
-export const TIMEOUT = { timeout: 20000 }
+export const TIMEOUT = { timeout: 50000 }
 //export const URL = "http://127.0.0.1:8000"
 export const URL = "https://apiv4.awesomehandsacademy.com/"
 

@@ -15,6 +15,11 @@ const Dashboard = () => {
     processGetSingleProductPermission,
     processGetSingleServicePermission,
     singleClientPermission,
+    singleCompanyPermission,
+    singlePackagePermission,
+    singleUserPermission,
+    singleProductPermission,
+    singleServicePermission,
     companyPermission,
     packagePermission,
     userPermission,
@@ -23,39 +28,55 @@ const Dashboard = () => {
     servicePermission,
   } = useContext(AccessControlData)
   const { userProfile, processRetrieve } = useContext(AuthApiData)
+
   useEffect(() => {
     if (userProfile) {
       processGetSingleClientPermission(userProfile.position)
     } else {
       processRetrieve()
     }
+  }, [userProfile])
+
+  useEffect(() => {
     if (userProfile) {
       processGetSingleCompanyPermission(userProfile.position)
+    }
+  }, [singleClientPermission])
+
+  useEffect(() => {
+    if (userProfile) {
       processGetSinglePackagePermission(userProfile.position)
+    }
+  }, [singleCompanyPermission])
+
+  useEffect(() => {
+    if (userProfile) {
       processGetSingleUserPermission(userProfile.position)
+    }
+  }, [singlePackagePermission])
+
+  useEffect(() => {
+    if (userProfile) {
       processGetSingleProductPermission(userProfile.position)
+    }
+  }, [singleUserPermission])
+
+  useEffect(() => {
+    if (userProfile) {
       processGetSingleServicePermission(userProfile.position)
     }
-  }, [
-    userProfile,
-    clientPermission,
-    companyPermission,
-    packagePermission,
-    userPermission,
-    productPermission,
-    servicePermission,
-  ])
+  }, [singleProductPermission])
 
   const displayInfo = () => {
-    if (
-      clientPermission !== null &&
-      companyPermission !== null &&
-      packagePermission !== null &&
-      userPermission !== null &&
-      productPermission !== null &&
-      servicePermission !== null
-    ) {
-      // All permissions are not empty, render your component
+    const allPermissionsLoaded =
+      singleClientPermission !== null &&
+      singleCompanyPermission !== null &&
+      singlePackagePermission !== null &&
+      singleUserPermission !== null &&
+      singleProductPermission !== null &&
+      singleServicePermission !== null
+
+    if (allPermissionsLoaded) {
       return (
         <div className="checkPoint">
           <div className="min-h-screen flex flex-col items-center justify-center">
@@ -80,13 +101,13 @@ const Dashboard = () => {
         </div>
       )
     } else {
-      // At least one permission is empty, show loading message
+      // Show loading message
       return (
         <main className="flex min-h-screen flex-col items-center justify-between md:py-24">
           <div className="flex items-center justify-center h-1/2 mt-32">
             <div className="animate-pulse bg-gray-200 p-6 rounded-md shadow-md">
               <div className="h-8 bg-gray-300 w-full mb-4">
-                <h6>Bvs System is Loading..................</h6>
+                <h6>Bvs System is Loading...</h6>
               </div>
             </div>
           </div>

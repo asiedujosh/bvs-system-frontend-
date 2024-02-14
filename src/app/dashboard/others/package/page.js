@@ -20,7 +20,6 @@ const PackSetting = () => {
   const { userProfile } = useContext(AuthApiData)
   useEffect(() => {
     processGetAllPackage()
-    processGetSinglePackagePermission(userProfile.position)
   }, [])
   // console.log(packageList)
 

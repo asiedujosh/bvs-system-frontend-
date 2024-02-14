@@ -327,7 +327,25 @@ export const getAllUserPermission = async () => {
       return false
     }
   } catch (err) {
-    return false
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -343,7 +361,25 @@ export const getSingleServicePermission = async (id) => {
       return false
     }
   } catch (err) {
-    return false
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -359,7 +395,25 @@ export const getAllServicePermission = async () => {
       return false
     }
   } catch (err) {
-    return false
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -375,7 +429,25 @@ export const getSingleProductPermission = async (id) => {
       return false
     }
   } catch (err) {
-    return false
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -391,7 +463,25 @@ export const getAllProductPermission = async () => {
       return false
     }
   } catch (err) {
-    return false
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -408,7 +498,25 @@ export const updatePermissions = async (data) => {
       return false
     }
   } catch (err) {
-    return false
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -422,6 +530,24 @@ export const deleteRole = async (id) => {
       return responseOnDeleteRole.data
     }
   } catch (err) {
-    return false
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }

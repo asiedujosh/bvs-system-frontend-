@@ -49,7 +49,7 @@ const OtherApiDataProvider = (props) => {
   const processGetAllPackage = async () => {
     let response = await getAllPackage()
     if (response) {
-      // console.log(response)
+      console.log(response)
       setPackageList(response.data.package)
     }
   }
