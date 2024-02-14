@@ -164,10 +164,8 @@ const AddClients = () => {
       setError(newErr)
     } else {
       //console.log(formData)
-      // processAddClient(formData)
+      processAddClient(formData)
     }
-
-    console.log(formData)
   }
 
   const displayInfo = () => {
