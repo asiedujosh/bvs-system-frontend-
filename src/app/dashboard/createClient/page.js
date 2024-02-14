@@ -120,7 +120,8 @@ const AddClients = () => {
         companyName: companyOptions.length > 0 ? companyOptions[0] : null,
       })
     formData.expireDate = getPackage(formData.package)
-    // let expiryDate = getPackage(formData.package)
+    let expiryDate = getPackage(formData.package)
+    console.log(expiryDate)
     setIsLoading(!isLoading)
     let newErr = []
 
@@ -159,8 +160,10 @@ const AddClients = () => {
       setError(newErr)
     } else {
       //console.log(formData)
-      processAddClient(formData)
+      // processAddClient(formData)
     }
+
+    console.log(formData)
   }
 
   const displayInfo = () => {
