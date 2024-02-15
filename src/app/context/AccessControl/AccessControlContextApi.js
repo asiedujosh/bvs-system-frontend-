@@ -168,6 +168,7 @@ const AccessControlDataProvider = (props) => {
   const processGetAllProductPermission = async () => {
     let response = await getAllProductPermission()
     if (response) {
+      console.log(response)
       setProductPermission(response.data)
     }
   }
@@ -180,6 +181,7 @@ const AccessControlDataProvider = (props) => {
   }
 
   const processUpdatePermission = async (data) => {
+    console.log(data)
     let response = await updatePermissions(data)
     if (response) {
       processGetAllClientPermission()

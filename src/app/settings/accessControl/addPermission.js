@@ -356,7 +356,7 @@ const AddPermission = () => {
   }, [servicePermission])
 
   const handleDataChange = (role) => {
-    console.log(role)
+    // console.log(role)
     //get it from role
     let roleData =
       allRole && allRole.allRole.filter((item) => item.role === role)
@@ -651,7 +651,7 @@ const AddPermission = () => {
       permissionData: data,
     }
 
-    //console.log(permissions)
+    console.log(permissions)
     processUpdatePermission(permissions)
   }
 

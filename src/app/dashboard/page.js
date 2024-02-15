@@ -20,12 +20,6 @@ const Dashboard = () => {
     singleUserPermission,
     singleProductPermission,
     singleServicePermission,
-    companyPermission,
-    packagePermission,
-    userPermission,
-    clientPermission,
-    productPermission,
-    servicePermission,
   } = useContext(AccessControlData)
   const { userProfile, processRetrieve } = useContext(AuthApiData)
 
