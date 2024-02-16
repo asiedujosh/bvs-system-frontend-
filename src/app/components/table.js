@@ -83,6 +83,7 @@ const Table = ({ tableHeader, tableInfo }) => {
                     onClick={() => {
                       viewProfile(item.clientId)
                     }}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded cursor-pointer"
                   >
                     View
                   </span>
@@ -135,6 +136,7 @@ const Table = ({ tableHeader, tableInfo }) => {
                       onClick={() => {
                         viewProfile(item.clientId)
                       }}
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded cursor-pointer"
                     >
                       View
                     </span>

@@ -6,6 +6,7 @@ import {
   NOTFOUND,
   TIMEEXCEED,
   UNHANDLEERR,
+  TOOMANYREQUEST,
 } from "../../constant/requestConstants"
 // import axios from "../../utils/axios.config"
 import axios from "axios"
@@ -28,6 +29,8 @@ export const addRole = async (data) => {
     } else if (axiosRetry.isRetryableError(err)) {
       console.log("Retrying due to timeout...")
       throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(addRole(data), 1000)
     } else if (err.response && err.response.status === 404) {
       console.warn("Resource not found (404)")
       // Handle 404 response as needed
@@ -61,6 +64,8 @@ export const getAllRole = async () => {
     } else if (axiosRetry.isRetryableError(err)) {
       console.log("Retrying due to timeout...")
       throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(getAllRole(), 1000)
     } else if (err.response && err.response.status === 404) {
       console.warn("Resource not found (404)")
       // Handle 404 response as needed
@@ -95,6 +100,8 @@ export const getAllClientPermission = async () => {
     } else if (axiosRetry.isRetryableError(err)) {
       console.log("Retrying due to timeout...")
       throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(getAllClientPermission(), 1000)
     } else if (err.response && err.response.status === 404) {
       console.warn("Resource not found (404)")
       // Handle 404 response as needed
@@ -129,6 +136,8 @@ export const getSingleClientPermission = async (id) => {
     } else if (axiosRetry.isRetryableError(err)) {
       console.log("Retrying due to timeout...")
       throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(getSingleClientPermission(id), 1000)
     } else if (err.response && err.response.status === 404) {
       console.warn("Resource not found (404)")
       // Handle 404 response as needed
@@ -163,6 +172,8 @@ export const getAllCompanyPermission = async () => {
     } else if (axiosRetry.isRetryableError(err)) {
       console.log("Retrying due to timeout...")
       throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(getAllCompanyPermission(), 1000)
     } else if (err.response && err.response.status === 404) {
       console.warn("Resource not found (404)")
       // Handle 404 response as needed
@@ -197,6 +208,8 @@ export const getSingleCompanyPermission = async (id) => {
     } else if (axiosRetry.isRetryableError(err)) {
       console.log("Retrying due to timeout...")
       throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(getSingleCompanyPermission(id), 1000)
     } else if (err.response && err.response.status === 404) {
       console.warn("Resource not found (404)")
       // Handle 404 response as needed
@@ -231,6 +244,8 @@ export const getAllPackagePermission = async () => {
     } else if (axiosRetry.isRetryableError(err)) {
       console.log("Retrying due to timeout...")
       throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(getAllPackagePermission(), 1000)
     } else if (err.response && err.response.status === 404) {
       console.warn("Resource not found (404)")
       // Handle 404 response as needed
@@ -265,6 +280,8 @@ export const getSinglePackagePermission = async (id) => {
     } else if (axiosRetry.isRetryableError(err)) {
       console.log("Retrying due to timeout...")
       throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(getSinglePackagePermission(id), 1000)
     } else if (err.response && err.response.status === 404) {
       console.warn("Resource not found (404)")
       // Handle 404 response as needed
@@ -299,6 +316,8 @@ export const getSingleUserPermission = async (id) => {
     } else if (axiosRetry.isRetryableError(err)) {
       console.log("Retrying due to timeout...")
       throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(getSingleUserPermission(id), 1000)
     } else if (err.response && err.response.status === 404) {
       console.warn("Resource not found (404)")
       // Handle 404 response as needed
@@ -333,6 +352,8 @@ export const getAllUserPermission = async () => {
     } else if (axiosRetry.isRetryableError(err)) {
       console.log("Retrying due to timeout...")
       throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(getAllUserPermission(), 1000)
     } else if (err.response && err.response.status === 404) {
       console.warn("Resource not found (404)")
       // Handle 404 response as needed
@@ -367,6 +388,8 @@ export const getSingleServicePermission = async (id) => {
     } else if (axiosRetry.isRetryableError(err)) {
       console.log("Retrying due to timeout...")
       throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(getSingleServicePermission(id), 1000)
     } else if (err.response && err.response.status === 404) {
       console.warn("Resource not found (404)")
       // Handle 404 response as needed
@@ -401,6 +424,8 @@ export const getAllServicePermission = async () => {
     } else if (axiosRetry.isRetryableError(err)) {
       console.log("Retrying due to timeout...")
       throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(getAllServicePermission(), 1000)
     } else if (err.response && err.response.status === 404) {
       console.warn("Resource not found (404)")
       // Handle 404 response as needed
@@ -435,6 +460,8 @@ export const getSingleProductPermission = async (id) => {
     } else if (axiosRetry.isRetryableError(err)) {
       console.log("Retrying due to timeout...")
       throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(getSingleProductPermission(id), 1000)
     } else if (err.response && err.response.status === 404) {
       console.warn("Resource not found (404)")
       // Handle 404 response as needed
@@ -469,6 +496,8 @@ export const getAllProductPermission = async () => {
     } else if (axiosRetry.isRetryableError(err)) {
       console.log("Retrying due to timeout...")
       throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(getAllProductPermission(), 1000)
     } else if (err.response && err.response.status === 404) {
       console.warn("Resource not found (404)")
       // Handle 404 response as needed
@@ -504,6 +533,8 @@ export const updatePermissions = async (data) => {
     } else if (axiosRetry.isRetryableError(err)) {
       console.log("Retrying due to timeout...")
       throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(updatePermissions(data), 1000)
     } else if (err.response && err.response.status === 404) {
       console.warn("Resource not found (404)")
       // Handle 404 response as needed
@@ -536,6 +567,8 @@ export const deleteRole = async (id) => {
     } else if (axiosRetry.isRetryableError(err)) {
       console.log("Retrying due to timeout...")
       throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(deleteRole(id), 1000)
     } else if (err.response && err.response.status === 404) {
       console.warn("Resource not found (404)")
       // Handle 404 response as needed

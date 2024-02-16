@@ -32,6 +32,8 @@ export const addPackage = async (data) => {
     } else if (axiosRetry.isRetryableError(err)) {
       console.log("Retrying due to timeout...")
       throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(addPackage(data), 1000)
     } else if (err.response && err.response.status === 404) {
       console.warn("Resource not found (404)")
       // Handle 404 response as needed
@@ -66,6 +68,8 @@ export const getAllPackage = async () => {
     } else if (axiosRetry.isRetryableError(err)) {
       console.log("Retrying due to timeout...")
       throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(getAllPackage(), 1000)
     } else if (err.response && err.response.status === 404) {
       console.warn("Resource not found (404)")
       // Handle 404 response as needed
@@ -94,7 +98,27 @@ export const searchPackageRecords = async (data) => {
       return false
     }
   } catch (err) {
-    console.log(err)
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(searchPackageRecords(data), 1000)
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -116,6 +140,8 @@ export const getPackage = async (id) => {
     } else if (axiosRetry.isRetryableError(err)) {
       console.log("Retrying due to timeout...")
       throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(getPackage(id), 1000)
     } else if (err.response && err.response.status === 404) {
       console.warn("Resource not found (404)")
       // Handle 404 response as needed

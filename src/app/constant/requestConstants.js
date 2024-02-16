@@ -17,3 +17,4 @@ export const RETRYERR = 303
 export const NOTFOUND = 404
 export const TIMEEXCEED = 405
 export const UNHANDLEERR = 406
+export const TOOMANYREQUEST = 429

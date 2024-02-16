@@ -1,7 +1,17 @@
 "use client"
-import { SUCCESS_STATUS } from "../../constant/requestConstants"
+import {
+  SUCCESS_STATUS,
+  TIMEOUT,
+  NOTFOUND,
+  TIMEEXCEED,
+  UNHANDLEERR,
+  TOOMANYREQUEST,
+} from "../../constant/requestConstants"
 import axios from "../../utils/axios.config"
 import { TABLECONSTANTS } from "@/app/constant/IndividualConstants"
+import axiosRetry from "axios-retry"
+// import { TABLECONSTANTS } from "@/app/constant/IndividualConstants"
+axiosRetry(axios, { retries: 3, retryDelay: axiosRetry.exponentialDelay })
 
 export const addClient = async (data) => {
   try {
@@ -12,7 +22,27 @@ export const addClient = async (data) => {
       return false
     }
   } catch (err) {
-    console.log(err)
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(addClient(data), 1000)
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -28,7 +58,27 @@ export const editClient = async (data) => {
       return false
     }
   } catch (err) {
-    console.log(err)
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(editClient(data), 1000)
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -39,7 +89,27 @@ export const addProduct = async (data) => {
       return responseOnAddProduct
     }
   } catch (err) {
-    console.log(err)
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(addProduct(data), 1000)
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -53,7 +123,27 @@ export const editProduct = async (data) => {
       return responseOnEditProduct
     }
   } catch (err) {
-    console.log(err)
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(editProduct(data), 1000)
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -66,7 +156,27 @@ export const addService = async (data) => {
       return false
     }
   } catch (err) {
-    console.log(err)
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(addService(data), 1000)
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -77,7 +187,27 @@ export const addCompany = async (data) => {
       return responseOnAddCompany
     }
   } catch (err) {
-    return false
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(addCompany(data), 1000)
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -90,7 +220,27 @@ export const searchRecords = async (data) => {
       return false
     }
   } catch (err) {
-    console.log(err)
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(searchRecords(data), 1000)
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -105,7 +255,27 @@ export const getRecordingTable = async (data) => {
       return false
     }
   } catch (err) {
-    console.log(err)
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(getRecordingTable(data), 1000)
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -118,7 +288,27 @@ export const getRemindAll = async () => {
       return false
     }
   } catch (err) {
-    console.log(err)
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(getRemindAll(), 1000)
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -131,7 +321,27 @@ export const getDueRemind = async () => {
       return false
     }
   } catch (err) {
-    console.log(err)
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(getDueRemind(), 1000)
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -146,7 +356,27 @@ export const dueRecordingTable = async (data) => {
       return false
     }
   } catch (err) {
-    console.log(err)
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(dueRecordingTable(data), 1000)
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -161,7 +391,27 @@ export const getCompanyTable = async (data) => {
       return false
     }
   } catch (err) {
-    console.log(err)
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(getCompanyTable(data), 1000)
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -172,7 +422,27 @@ export const getClient = async (id) => {
       return responseOnClient.data
     }
   } catch (err) {
-    console.log(err)
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(getClient(id), 1000)
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -183,7 +453,27 @@ export const getAllProducts = async (id) => {
       return responseAllProducts.data
     }
   } catch (err) {
-    console.log(err)
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(getAllProducts(id), 1000)
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -194,7 +484,27 @@ export const getService = async () => {
       return responseOnService.data
     }
   } catch (err) {
-    console.log(err)
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(getService(), 1000)
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -207,7 +517,27 @@ export const deactivateProduct = async (id) => {
       return responseOnDeactiveProduct.data
     }
   } catch (err) {
-    console.log(err)
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(deactivateProduct(id), 1000)
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -226,7 +556,27 @@ export const deleteProduct = async (data) => {
       return responseOnDeleteProduct.data
     }
   } catch (err) {
-    console.error(err)
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(deleteProduct(data), 1000)
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -243,7 +593,27 @@ export const deleteClient = async (data) => {
       return responseOnClientDelete.data
     }
   } catch (err) {
-    console.log(err)
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(deleteClient(data), 1000)
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -260,7 +630,27 @@ export const deleteService = async (data) => {
       return responseOnDeleteService.data
     }
   } catch (err) {
-    console.log(err)
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(deleteService(data), 1000)
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }
 
@@ -273,6 +663,26 @@ export const sendSms = async (data) => {
       return responseOnSendSms.data
     }
   } catch (err) {
-    console.log(err)
+    if (axiosRetry.isNetworkError(err)) {
+      console.log("Network error occurred. Retrying...")
+      throw err
+    } else if (axiosRetry.isRetryableError(err)) {
+      console.log("Retrying due to timeout...")
+      throw err
+    } else if (err.response && err.response.status === TOOMANYREQUEST) {
+      setTimeout(sendSms(data), 1000)
+    } else if (err.response && err.response.status === 404) {
+      console.warn("Resource not found (404)")
+      // Handle 404 response as needed
+      return NOTFOUND
+    } else if (err.code.code === "ECONNABORTED") {
+      // Handle timeout error as needed
+      console.error("Request timed out.")
+      return TIMEEXCEED
+    } else {
+      // Handle other errors
+      console.error("Unhandled error:", err)
+      return UNHANDLEERR
+    }
   }
 }

@@ -37,7 +37,7 @@ const IndividualApiDataProvider = (props) => {
   const [editProductInfo, setEditProductInfo] = useState(null)
   const [recordTable, setRecordTable] = useState([])
   const [individualTable, setIndividualTable] = useState([])
-  const [dueTable, setDueTable] = useState([])
+  const [dueTable, setDueTable] = useState(null)
   const [companyRecordTable, setCompanyRecordTable] = useState([])
   const [companyProductRec, setCompanyProductRec] = useState([])
   const [serviceList, setServiceList] = useState([])
@@ -264,7 +264,7 @@ const IndividualApiDataProvider = (props) => {
   return (
     <IndividualApiData.Provider
       value={{
-        isLoading, 
+        isLoading,
         setIsLoading,
         processAddClient,
         processAddService,
