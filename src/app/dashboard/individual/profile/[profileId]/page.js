@@ -15,10 +15,8 @@ import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
 const ProfileSection = () => {
-  const {
-    singleClientPermission,
-    singleProductPermission
-  } = useContext(AccessControlData)
+  const { singleClientPermission, singleProductPermission } =
+    useContext(AccessControlData)
   const {
     products,
     clientData,
@@ -65,72 +63,71 @@ const ProfileSection = () => {
           <div className="sm:grid sm:grid-cols-1 sm:gap-2">
             <div className="flex items-center mb-2 sm:flex-row sm:mb-0">
               <UsersIcon className="w-6 h-6 mr-2 text-black" />
-              <p className="text-xl font-semibold">
+              <p className="text-xl font-semibold text-black">
                 {(clientData && clientData.clientName) ||
                   (clientData && clientData.client.clientName)}
               </p>
             </div>
             <div className="flex items-center mb-2 sm:flex-row sm:mb-0">
-        {singleProductPermission &&
-            singleProductPermission.singleProductPermission.create !== 0 && (
-              <button
-                onClick={() => {
-                  goToAddProduct(
-                    clientData.clientId || clientData.client.clientId
-                  )
-                }}
-                className="w-full md:w-1/4 bg-green-500 text-white py-2 rounded-md transition duration-300"
-              >
-                New Product
-              </button>
-        )}
+              {singleProductPermission &&
+                singleProductPermission.singleProductPermission.create !==
+                  0 && (
+                  <button
+                    onClick={() => {
+                      goToAddProduct(
+                        clientData.clientId || clientData.client.clientId
+                      )
+                    }}
+                    className="w-full md:w-1/4 bg-green-500 text-white py-2 rounded-md transition duration-300"
+                  >
+                    New Product
+                  </button>
+                )}
 
-        {singleClientPermission &&
-            singleClientPermission.singleClientPermission.update !== 0 && (
-              <button
-              onClick={() => {
-                router.push(
-                  `/dashboard/individual/clientEdit/${
-                    clientData.clientId || clientData.client.clientId
-                  }`
-                )
-              }}
-              className="w-full md:w-1/4 bg-yellow-600 text-white py-2 mx-2 rounded-md transition duration-300"
-            >
-              Edit
-            </button>
-        )}
-              
+              {singleClientPermission &&
+                singleClientPermission.singleClientPermission.update !== 0 && (
+                  <button
+                    onClick={() => {
+                      router.push(
+                        `/dashboard/individual/clientEdit/${
+                          clientData.clientId || clientData.client.clientId
+                        }`
+                      )
+                    }}
+                    className="w-full md:w-1/4 bg-yellow-600 text-white py-2 mx-2 rounded-md transition duration-300"
+                  >
+                    Edit
+                  </button>
+                )}
 
-        {singleClientPermission &&
-            singleClientPermission.singleClientPermission.delete !== 0 && (
-              <button
-              onClick={() => {
-                handleDeleteClient(
-                  clientData.clientId || clientData.client.clientId
-                )
-                // console.log("client Delete")
-              }}
-              className="w-full md:w-1/4 bg-red-500 text-white py-2 rounded-md transition duration-300"
-            >
-              Delete
-            </button>
-          )}
-  
+              {singleClientPermission &&
+                singleClientPermission.singleClientPermission.delete !== 0 && (
+                  <button
+                    onClick={() => {
+                      handleDeleteClient(
+                        clientData.clientId || clientData.client.clientId
+                      )
+                      // console.log("client Delete")
+                    }}
+                    className="w-full md:w-1/4 bg-red-500 text-white py-2 rounded-md transition duration-300"
+                  >
+                    Delete
+                  </button>
+                )}
             </div>
           </div>
 
           <div className="sm:grid sm:grid-cols-2 sm:gap-2">
             <div className="flex items-center mb-2 sm:flex-row sm:mb-0">
               <IdentificationIcon className="w-6 h-6 mr-2 text-black" />
-              <p className="text-lg">
+              <p className="text-lg text-black">
                 {(clientData && clientData.clientId) ||
                   (clientData && clientData.client.clientId)}
               </p>
             </div>
             <div className="flex items-center mb-2 sm:flex-row sm:mb-0">
               <MapIcon className="w-6 h-6 mr-2 text-black" />
-              <p className="text-lg">
+              <p className="text-lg text-black">
                 {(clientData && clientData.clientLocation) ||
                   (clientData && clientData.client.clientLocation)}
               </p>
@@ -165,7 +162,7 @@ const ImagePreview = ({ imageSrc }) => {
 const CarProductCard = ({ title, details }) => {
   return (
     <div className="bg-white rounded-md shadow-md p-4">
-      <h2 className="text-2xl font-semibold text-center mb-4 relative">
+      <h2 className="text-2xl font-semibold text-center mb-4 relative text-black">
         {title}
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2">
           <svg
@@ -185,8 +182,8 @@ const CarProductCard = ({ title, details }) => {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 items-start">
         {details.map((item, index) => (
           <div key={index}>
-            <p className="text-base font-semibold">{item.label}:</p>
-            <p className="text-lg">{item.value}</p>
+            <p className="text-base font-semibold text-black">{item.label}:</p>
+            <p className="text-lg text-black">{item.value}</p>
           </div>
         ))}
       </div>
@@ -195,7 +192,8 @@ const CarProductCard = ({ title, details }) => {
 }
 
 const ProductSection = ({ productInfo }) => {
-  const {singleProductPermission, singleServicePermission} = useContext(AccessControlData)
+  const { singleProductPermission, singleServicePermission } =
+    useContext(AccessControlData)
   const {
     serviceList,
     clientData,
@@ -319,18 +317,17 @@ const ProductSection = ({ productInfo }) => {
         <div className="w-full md:w-2/5 p-4">
           <CarProductCard title="Car Information" details={carDetails} />
           <div className="mt-4">
-          {singleServicePermission &&
-            singleServicePermission.singleServicePermission.create !== 0 && (
-              <button
-              onClick={() => {
-                addServiceRoute()
-              }}
-              className="w-full bg-green-500 text-white py-2 rounded-md transition duration-300"
-            >
-              Add Service
-            </button>
-      )}
-         
+            {singleServicePermission &&
+              singleServicePermission.singleServicePermission.create !== 0 && (
+                <button
+                  onClick={() => {
+                    addServiceRoute()
+                  }}
+                  className="w-full bg-green-500 text-white py-2 rounded-md transition duration-300"
+                >
+                  Add Service
+                </button>
+              )}
           </div>
         </div>
         <div className="w-full md:w-2/5 p-4">
@@ -354,9 +351,9 @@ const ProductSection = ({ productInfo }) => {
         </div>
       )}
       <div className="flex flex-row">
-      {singleProductPermission &&
-            singleProductPermission.singleProductPermission.update !== 0 && (
-              <button
+        {singleProductPermission &&
+          singleProductPermission.singleProductPermission.update !== 0 && (
+            <button
               onClick={() => {
                 goToEditProduct(productDetails[0].value)
               }}
@@ -366,8 +363,8 @@ const ProductSection = ({ productInfo }) => {
             </button>
           )}
 
-      {singleProductPermission &&
-            singleProductPermission.singleProductPermission.delete !== 0 && (
+        {singleProductPermission &&
+          singleProductPermission.singleProductPermission.delete !== 0 && (
             <button
               onClick={() => {
                 handleDeactivateProduct(productDetails[0].value)
@@ -376,11 +373,11 @@ const ProductSection = ({ productInfo }) => {
             >
               Deactivate
             </button>
-      )}
+          )}
 
-      {singleProductPermission &&
-            singleProductPermission.singleProductPermission.delete !== 0 && (
-              <button
+        {singleProductPermission &&
+          singleProductPermission.singleProductPermission.delete !== 0 && (
+            <button
               onClick={() => {
                 handleDeleteProduct(productDetails[0].value)
               }}
@@ -388,8 +385,7 @@ const ProductSection = ({ productInfo }) => {
             >
               Delete
             </button>
-      )}
-       
+          )}
       </div>
     </div>
   )

@@ -42,7 +42,7 @@ const ViewPackage = () => {
                     return (
                       <IdField
                         field={item.label}
-                        value={packageData[item.name]}
+                        value={packageData && packageData[item.name]}
                       />
                     )
                   })}

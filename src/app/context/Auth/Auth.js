@@ -17,6 +17,7 @@ export const login = async (data) => {
       return false
     }
   } catch (err) {
+    console.log(err)
     if (err.response && err.response.status === TOOMANYREQUEST) {
       setTimeout(login(data), 1000)
     } else if (err.response && err.response.status === 404) {
