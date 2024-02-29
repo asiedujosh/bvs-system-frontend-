@@ -35,6 +35,10 @@ const OtherApiDataProvider = (props) => {
   const [packageData, setPackageData] = useState(null)
   const [companyData, setCompanyData] = useState(null)
 
+  //Editing Staff
+  const [editPackage, setEditPackage] = useState({})
+  const [editCompany, setEditCompany] = useState({})
+
   const router = useRouter()
 
   const processAddPackage = async (data) => {
@@ -71,12 +75,15 @@ const OtherApiDataProvider = (props) => {
   }
 
   const processViewPackageProfile = async (id) => {
+    // let editPackageStaff = packageList.filter((item) = item.id == id)
     processGetPackageProfile(id)
     router.push(`/dashboard/others/package/viewProfile/${id}`)
   }
 
   const processViewPackageUpdateProfile = async (id) => {
-    processGetPackageProfile(id)
+    let editPackageStaff = packageList.filter((item) => item.id == id)
+    //processGetPackageProfile(id)
+    setEditPackage(editPackageStaff[0])
     router.push(`/dashboard/others/package/update/${id}`)
   }
 
@@ -159,6 +166,9 @@ const OtherApiDataProvider = (props) => {
 
   const processViewCompanyUpdateProfile = async (id) => {
     processGetCompanyProfile(id)
+    let editCompanyStaff = companyList.filter((item) => item.id == id)
+    //processGetPackageProfile(id)
+    setEditCompany(editCompanyStaff[0])
     router.push(`/dashboard/others/company/update/${id}`)
   }
 
@@ -205,6 +215,9 @@ const OtherApiDataProvider = (props) => {
         searchCompanyRecord,
         searchPackageRecord,
         packageData,
+        editPackage,
+        setEditPackage,
+        editCompany,
       }}
     >
       {props.children}

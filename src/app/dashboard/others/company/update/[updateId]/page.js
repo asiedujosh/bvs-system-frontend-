@@ -13,15 +13,15 @@ import SubmitBtn from "@/app/components/submitButton"
 import { useState, useContext } from "react"
 
 const UpdateCompany = () => {
-  const { processUpdateCompanyProfile, companyData } = useContext(OtherApiData)
+  const { processUpdateCompanyProfile, editCompany } = useContext(OtherApiData)
   const [formData, setFormData] = useState({
-    companyAddress: companyData.companyAddress,
-    companyEmail: companyData.companyEmail,
-    companyName: companyData.companyName,
-    companyTel: companyData.companyTel,
-    officerPosition: companyData.officerPosition,
-    officerTel: companyData.officerTel,
-    relationOfficer: companyData.relationOfficer,
+    companyAddress: editCompany && editCompany.companyAddress,
+    companyEmail: editCompany && editCompany.companyEmail,
+    companyName: editCompany && editCompany.companyName,
+    companyTel: editCompany && editCompany.companyTel,
+    officerPosition: editCompany && editCompany.officerPosition,
+    officerTel: editCompany && editCompany.officerTel,
+    relationOfficer: editCompany && editCompany.relationOfficer,
   })
 
   const handleInputChange = (data, field) => {
@@ -33,7 +33,7 @@ const UpdateCompany = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    processUpdateCompanyProfile(companyData.id, formData)
+    processUpdateCompanyProfile(editCompany.id, formData)
     setFormData({})
   }
 

@@ -10,15 +10,16 @@ import {
 } from "@/app/constant/packageConstants"
 import InputField from "@/app/components/inputField"
 import SubmitBtn from "@/app/components/submitButton"
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 
 const UpdatePackage = () => {
-  const { processUpdatePackageProfile, packageData } = useContext(OtherApiData)
+  const { processUpdatePackageProfile, editPackage } = useContext(OtherApiData)
+  const [loading, setLoading] = useState(true)
   const [formData, setFormData] = useState({
-    packageName: packageData.packageName,
-    packagePrice: packageData.packagePrice,
-    packageMonth: packageData.packageMonth,
-    packageDetails: packageData.packageDetails,
+    packageName: editPackage && editPackage.packageName,
+    packagePrice: editPackage && editPackage.packagePrice,
+    packageMonth: editPackage && editPackage.packageMonth,
+    packageDetails: editPackage && editPackage.packageDetails,
   })
 
   const handleInputChange = (data, field) => {
@@ -30,11 +31,11 @@ const UpdatePackage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    processUpdatePackageProfile(packageData.id, formData)
+    processUpdatePackageProfile(editPackage.id, formData)
     setFormData({})
   }
 
-  return (
+  let viewUpdateOutput = (
     <>
       <div className="checkPoint overflow-y-scroll">
         <div className="w-90 m-6 md:mt-4 p-4 bg-white rounded shadow-lg">
@@ -90,6 +91,22 @@ const UpdatePackage = () => {
       <ToastContainer />
     </>
   )
+
+  let loadingCard = (
+    <main className="flex min-h-screen flex-col items-center justify-between md:py-24">
+      <div className="flex items-center justify-center h-1/2 mt-32">
+        <div className="animate-pulse bg-gray-200 p-6 rounded-md shadow-md">
+          <div className="h-8 bg-gray-300 w-full mb-4">
+            <h6>Bvs System is Loading...</h6>
+          </div>
+        </div>
+      </div>
+    </main>
+  )
+
+  let toggleOutput = viewUpdateOutput
+
+  return <>{toggleOutput}</>
 }
 
 export default UpdatePackage

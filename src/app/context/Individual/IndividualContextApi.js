@@ -116,6 +116,7 @@ const IndividualApiDataProvider = (props) => {
   const processGetRecordingTable = async (data) => {
     let response = await getRecordingTable(data)
     if (response) {
+      console.log(response)
       let indiTable = []
       let compTable = []
       setRecordTable(response.data.dashTable)
